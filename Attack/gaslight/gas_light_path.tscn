@@ -1,0 +1,147 @@
+[gd_scene load_steps=11 format=3 uid="uid://cy0nw2knakaou"]
+
+[ext_resource type="Script" path="res://Attack/gaslight/gas_light_path.gd" id="1_vdy6x"]
+[ext_resource type="Texture2D" uid="uid://d2yqsyxnetip3" path="res://Art/attacks/gaslight/GasLight-Sheet.png" id="2_irch3"]
+[ext_resource type="AudioStream" uid="uid://cawedfwjgfsyt" path="res://Art/attacks/gaslight/gaslight_hit.wav" id="3_r0x1o"]
+
+[sub_resource type="Curve2D" id="Curve2D_uy2r0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, -53, 0, 0, 0, 0, 53, 0, 0, 0, 0, 0, 0, 53, 0, 0, 0, 0, -53, 0, 0, 0, 0, 0, 0, -53)
+}
+point_count = 5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x0sk5"]
+atlas = ExtResource("2_irch3")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opnx1"]
+atlas = ExtResource("2_irch3")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80dqh"]
+atlas = ExtResource("2_irch3")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7vfak"]
+atlas = ExtResource("2_irch3")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3330v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x0sk5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opnx1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80dqh")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7vfak")
+}],
+"loop": true,
+"name": &"passive",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mu2g3"]
+radius = 2.98997
+height = 9.99988
+
+[node name="GasLightPath" type="Path2D" groups=["attack"]]
+curve = SubResource("Curve2D_uy2r0")
+script = ExtResource("1_vdy6x")
+
+[node name="snd_attack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_r0x1o")
+volume_db = -10.0
+pitch_scale = 2.33
+autoplay = true
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="GasLightPathFollow" type="PathFollow2D" parent="."]
+position = Vector2(0, -53)
+rotation = 0.785398
+rotates = false
+
+[node name="GasLight" type="Area2D" parent="GasLightPathFollow"]
+scale = Vector2(1.5, 1.5)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GasLightPathFollow/GasLight"]
+visibility_layer = 4
+rotation = -0.785398
+sprite_frames = SubResource("SpriteFrames_3330v")
+animation = &"passive"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GasLightPathFollow/GasLight"]
+position = Vector2(-2.12132, -2.12132)
+rotation = -0.790395
+shape = SubResource("CapsuleShape2D_mu2g3")
+
+[node name="GasLightPathFollow2" type="PathFollow2D" parent="."]
+position = Vector2(53, -1.62125e-05)
+rotation = 0.785398
+progress = 74.9533
+rotates = false
+
+[node name="GasLight" type="Area2D" parent="GasLightPathFollow2"]
+scale = Vector2(1.5, 1.5)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GasLightPathFollow2/GasLight"]
+visibility_layer = 4
+rotation = -0.785398
+sprite_frames = SubResource("SpriteFrames_3330v")
+animation = &"passive"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GasLightPathFollow2/GasLight"]
+position = Vector2(-2.12132, -2.12132)
+rotation = -0.790395
+shape = SubResource("CapsuleShape2D_mu2g3")
+
+[node name="GasLightPathFollow3" type="PathFollow2D" parent="."]
+position = Vector2(-0.000248158, 53)
+rotation = 0.785398
+progress = 149.907
+rotates = false
+
+[node name="GasLight" type="Area2D" parent="GasLightPathFollow3"]
+scale = Vector2(1.5, 1.5)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GasLightPathFollow3/GasLight"]
+visibility_layer = 4
+rotation = -0.785398
+sprite_frames = SubResource("SpriteFrames_3330v")
+animation = &"passive"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GasLightPathFollow3/GasLight"]
+position = Vector2(-2.12132, -2.12132)
+rotation = -0.790395
+shape = SubResource("CapsuleShape2D_mu2g3")
+
+[node name="GasLightPathFollow4" type="PathFollow2D" parent="."]
+position = Vector2(-53, -1.07896e-05)
+rotation = 0.785398
+progress = 224.86
+rotates = false
+
+[node name="GasLight" type="Area2D" parent="GasLightPathFollow4"]
+scale = Vector2(1.5, 1.5)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GasLightPathFollow4/GasLight"]
+visibility_layer = 4
+rotation = -0.785398
+sprite_frames = SubResource("SpriteFrames_3330v")
+animation = &"passive"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GasLightPathFollow4/GasLight"]
+position = Vector2(-2.12132, -2.12132)
+rotation = -0.790395
+shape = SubResource("CapsuleShape2D_mu2g3")
