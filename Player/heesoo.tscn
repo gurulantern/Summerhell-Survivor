@@ -208,6 +208,7 @@ size = Vector2(12, 22)
 radius = 374.192
 
 [node name="Heesoo" type="CharacterBody2D" groups=["player"]]
+y_sort_enabled = true
 disable_mode = 2
 motion_mode = 1
 script = ExtResource("1_m0s4d")
@@ -264,6 +265,7 @@ position = Vector2(6, -42)
 shape = SubResource("CircleShape2D_fkl8t")
 
 [node name="GasLightPath" parent="." instance=ExtResource("4_8kh70")]
+y_sort_enabled = true
 
 [connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="timeout" from="Attack/EarPickTimer" to="." method="_on_ear_pick_timer_timeout"]

@@ -16,7 +16,7 @@ var gasLight = preload("res://Attack/gaslight/gas_light_path.tscn")
 @onready var fannyPackAttackTimer = get_node("%FannyPackAttackTimer")
 @onready var gasLightTimer = get_node("%GasLightTimer")
 @onready var gasLightAttackTimer = get_node("%GasLightAttackTimer")
-@onready var gasLightPath = get_node("%GasLightPath")
+@onready var gasLightPath = get_node("GasLightPath")
 
 #Ear Pick
 var earPick_ammo = 0

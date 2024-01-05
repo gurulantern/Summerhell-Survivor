@@ -11,7 +11,6 @@ var target = Vector2.ZERO
 var angle = Vector2.ZERO
 
 @onready var player = get_tree().get_first_node_in_group("player")
-@onready var timer = get_node("Timer")
 signal remove_from_array(object)
 
 func _ready():
