@@ -4,6 +4,11 @@ extends CharacterBody2D
 @export var hp = 80
 const speed = 80
 
+#Experience
+var exp = 0
+var exp_level = 1
+var collected_exp = 0
+
 #Attacks
 var earPick = preload("res://Attack/earPick/ear_pick.tscn")
 var fannyPack = preload("res://Attack/fannypack/fanny_pack.tscn")
@@ -153,3 +158,39 @@ func get_spawn_point(parent_global_position: Vector2, attack_size: Vector2, atta
 	var spawn_position = parent_global_position + offset
 	
 	return spawn_position
+
+
+func _on_grab_area_area_entered(area):
+	if area.is_in_group("loot"):
+		area.target = self
+
+func _on_collect_area_area_entered(area):
+	if area.is_in_group("loot"):
+		print("got loot")
+		var pentagram_exp = area.collect()
+		print(pentagram_exp)
+		calculate_exp(pentagram_exp)
+
+func calculate_exp(pentagram_exp):
+	var exp_required = calculate_exp_cap()
+	collected_exp += pentagram_exp
+	print(collected_exp)
+	if exp + collected_exp >= exp_required:
+		collected_exp -= exp_required-exp
+		exp_level += 1
+		print("Level:", exp_level)
+		exp = 0
+		exp_required = calculate_exp_cap()
+	else:
+		exp += collected_exp
+		collected_exp = 0
+
+func calculate_exp_cap():
+	var exp_cap = exp_level
+	if exp_level < 20:
+		exp_cap = exp_level * 5
+	elif exp_level < 40:
+		exp_cap + 95 * (exp_level-19)*8
+	else:
+		exp_cap = 255 + (exp_level-39)*12
+	return exp_cap

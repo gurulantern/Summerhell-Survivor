@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cobscoe13beka"]
+[gd_scene load_steps=35 format=3 uid="uid://cobscoe13beka"]
 
 [ext_resource type="Script" path="res://Player/Heesoo.gd" id="1_m0s4d"]
 [ext_resource type="Texture2D" uid="uid://dk7j6r0n22xsn" path="res://Art/characters/HeeSoo/HeeSoo-32-Sheet.png" id="2_45tl4"]
@@ -207,6 +207,11 @@ size = Vector2(12, 22)
 [sub_resource type="CircleShape2D" id="CircleShape2D_fkl8t"]
 radius = 374.192
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_yg1ww"]
+radius = 40.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sxmni"]
+
 [node name="Heesoo" type="CharacterBody2D" groups=["player"]]
 y_sort_enabled = true
 disable_mode = 2
@@ -219,10 +224,12 @@ sprite_frames = SubResource("SpriteFrames_k4i74")
 animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_5s15u")
 
 [node name="Hurtbox" parent="." instance=ExtResource("3_5mg1w")]
+visible = false
 collision_layer = 2
 collision_mask = 2
 HurtBoxType = 2
@@ -257,6 +264,7 @@ wait_time = 4.0
 unique_name_in_owner = true
 
 [node name="EnemyDetectionArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 collision_mask = 4
 monitorable = false
@@ -267,6 +275,20 @@ shape = SubResource("CircleShape2D_fkl8t")
 
 [node name="GasLightPath" parent="." instance=ExtResource("4_8kh70")]
 y_sort_enabled = true
+
+[node name="GrabArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea"]
+shape = SubResource("CircleShape2D_yg1ww")
+
+[node name="CollectArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea"]
+shape = SubResource("CircleShape2D_sxmni")
 
 [connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="timeout" from="Attack/EarPickTimer" to="." method="_on_ear_pick_timer_timeout"]
@@ -279,5 +301,7 @@ y_sort_enabled = true
 [connection signal="timeout" from="Attack/GasLightTimer/GasLightAttackTimer" to="GasLightPath" method="_on_gas_light_attack_timer_timeout"]
 [connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_entered"]
 [connection signal="body_exited" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_exited"]
+[connection signal="area_entered" from="GrabArea" to="." method="_on_grab_area_area_entered"]
+[connection signal="area_entered" from="CollectArea" to="." method="_on_collect_area_area_entered"]
 
 [editable path="Hurtbox"]
