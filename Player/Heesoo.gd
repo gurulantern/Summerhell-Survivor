@@ -76,7 +76,8 @@ func attack():
 	if gasLight_level > 0:
 		gasLightTimer.wait_time = gasLight_attackspeed
 		if gasLightTimer.is_stopped():
-			gasLightTimer.start
+			print("Gaslight timer starting...")
+			gasLightTimer.start()
 
 func _on_hurtbox_hurt(damage, _angle, _knockback):
 	hp -= damage
@@ -131,7 +132,13 @@ func _on_gas_light_timer_timeout():
 	gasLightAttackTimer.start()
 
 func _on_gas_light_attack_timer_timeout():
-	pass # Replace with function body.
+	print("GaslightAttackTimer timedout...")
+	gasLightPath.play_attack()
+	gasLight_ammo -= 1
+	if gasLight_ammo > 0:
+		gasLightAttackTimer.start()
+	else:
+		gasLightAttackTimer.stop()
 
 func get_random_target():
 	if enemy_close.size() > 0:

@@ -251,6 +251,7 @@ wait_time = 0.4
 
 [node name="GasLightTimer" type="Timer" parent="Attack"]
 unique_name_in_owner = true
+wait_time = 4.0
 
 [node name="GasLightAttackTimer" type="Timer" parent="Attack/GasLightTimer"]
 unique_name_in_owner = true
