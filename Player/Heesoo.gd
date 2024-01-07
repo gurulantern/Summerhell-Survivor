@@ -25,20 +25,20 @@ var gasLight = preload("res://Attack/gaslight/gas_light_path.tscn")
 
 #Ear Pick
 var earPick_ammo = 0
-var earPick_baseammo = 1
+var earPick_baseammo = 0
 var earPick_attackspeed = 1.8
 var earPick_level = 1
 
 #Fanny Pack
 var fannyPack_ammo = 0
-var fannyPack_baseammo = 2
+var fannyPack_baseammo = 0
 var fannyPack_attackspeed = 2
 var fannyPack_level = 1
 var flipped = false
 
 #Gas Light
 var gasLight_ammo = 0
-var gasLight_baseammo = 2
+var gasLight_baseammo = 0
 var gasLight_attackspeed = 2
 var gasLight_level = 1
 
@@ -48,6 +48,10 @@ var enemy_close = []
 #GUI
 @onready var exp_bar = get_node("%ExperienceBar")
 @onready var level_label = get_node("%LabelLevel")
+@onready var level_panel = get_node("%LevelUp")
+@onready var upgrade_options = get_node("%UpgradeOptions")
+@onready var snd_levelUp = get_node("%snd_levelUp")
+@onready var item_options = preload("res://Utility/item_option.tscn")
 
 func _ready():
 	anim.play("idle")
@@ -183,10 +187,9 @@ func calculate_exp(pentagram_exp):
 	if exp + collected_exp >= exp_required:
 		collected_exp -= exp_required-exp
 		exp_level += 1
-		level_label.text = str("Lvl ", exp_level)
 		exp = 0
 		exp_required = calculate_exp_cap()
-		calculate_exp(0) #Recursive call for remainder exp
+		level_up()
 	else:
 		exp += collected_exp
 		collected_exp = 0
@@ -206,3 +209,27 @@ func calculate_exp_cap():
 func set_exp_bar(set_value = 1, set_max_value = 100):
 	exp_bar.value = set_value
 	exp_bar.max_value = set_max_value
+
+func level_up():
+	snd_levelUp.play()
+	var tween = level_panel.create_tween()
+	tween.tween_property(level_panel, "position:y", 50, 0.2).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN)
+	tween.play()
+	level_panel.visible = true
+	var options = 0
+	var options_max = 3
+	while options < options_max:
+		var option_choice = item_options.instantiate()
+		upgrade_options.add_child(option_choice)
+		options += 1
+	get_tree().paused = true
+	level_label.text = str("Lvl ", exp_level)
+
+func upgrade_heesoo(upgrade):
+	var option_children = upgrade_options.get_children()
+	for i in option_children:
+		i.queue_free()
+	level_panel.visible = false
+	level_panel.position = Vector2(220, 400)
+	get_tree().paused = false
+	calculate_exp(0) #Recursive call for remainder exp

@@ -92,6 +92,7 @@ rotation = -0.790395
 shape = SubResource("CapsuleShape2D_mu2g3")
 
 [node name="GasLightPathFollow2" type="PathFollow2D" parent="."]
+visible = false
 position = Vector2(53, -1.62125e-05)
 rotation = 0.785398
 progress = 74.9533
@@ -115,6 +116,7 @@ rotation = -0.790395
 shape = SubResource("CapsuleShape2D_mu2g3")
 
 [node name="GasLightPathFollow3" type="PathFollow2D" parent="."]
+visible = false
 position = Vector2(-0.000248158, 53)
 rotation = 0.785398
 progress = 149.907
@@ -138,6 +140,7 @@ rotation = -0.790395
 shape = SubResource("CapsuleShape2D_mu2g3")
 
 [node name="GasLightPathFollow4" type="PathFollow2D" parent="."]
+visible = false
 position = Vector2(-53, -1.07896e-05)
 rotation = 0.785398
 progress = 224.86

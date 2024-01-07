@@ -23,6 +23,9 @@ func _physics_process(delta):
 	for i in gasLights.size():
 		gasLights[i].progress_ratio += delta * speed
 
+func activate():
+	gasLights[amount-1].visible = true
+
 func play_attack():
 	timer.start()
 	snd_attack.play()
