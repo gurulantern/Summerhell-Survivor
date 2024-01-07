@@ -45,9 +45,14 @@ var gasLight_level = 1
 #Enemy Related
 var enemy_close = []
 
+#GUI
+@onready var exp_bar = get_node("%ExperienceBar")
+@onready var level_label = get_node("%LabelLevel")
+
 func _ready():
 	anim.play("idle")
 	attack()
+	set_exp_bar(exp, calculate_exp_cap())
 
 func _physics_process(delta):
 	var direction : Vector2 = Input.get_vector("left", "right", "up", "down").normalized()
@@ -168,7 +173,7 @@ func _on_collect_area_area_entered(area):
 	if area.is_in_group("loot"):
 		print("got loot")
 		var pentagram_exp = area.collect()
-		print(pentagram_exp)
+		print("EXP gained: ", pentagram_exp)
 		calculate_exp(pentagram_exp)
 
 func calculate_exp(pentagram_exp):
@@ -178,19 +183,26 @@ func calculate_exp(pentagram_exp):
 	if exp + collected_exp >= exp_required:
 		collected_exp -= exp_required-exp
 		exp_level += 1
-		print("Level:", exp_level)
+		level_label.text = str("Lvl ", exp_level)
 		exp = 0
 		exp_required = calculate_exp_cap()
+		calculate_exp(0) #Recursive call for remainder exp
 	else:
 		exp += collected_exp
 		collected_exp = 0
+	
+	set_exp_bar(exp, exp_required)
 
 func calculate_exp_cap():
 	var exp_cap = exp_level
 	if exp_level < 20:
 		exp_cap = exp_level * 5
 	elif exp_level < 40:
-		exp_cap + 95 * (exp_level-19)*8
+		exp_cap = 95 * (exp_level-19)*8
 	else:
 		exp_cap = 255 + (exp_level-39)*12
 	return exp_cap
+
+func set_exp_bar(set_value = 1, set_max_value = 100):
+	exp_bar.value = set_value
+	exp_bar.max_value = set_max_value

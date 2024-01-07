@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var experience = 1
+@export var exp = 1
 
 var target = null
 var speed = -1
@@ -10,17 +10,17 @@ var speed = -1
 @onready var snd_collected = $snd_collected
 
 func _ready():
-	if experience < 5:
+	if exp < 5:
 		return
-	elif experience < 25:
+	elif exp < 25:
 		sprite.play("blue")
-	elif experience < 50:
+	elif exp < 50:
 		sprite.play("red")
-	elif experience < 75:
+	elif exp < 75:
 		sprite.play("green")
-	elif experience < 100:
+	elif exp < 100:
 		sprite.play("gold")
-	elif experience < 200:
+	elif exp < 200:
 		sprite.play("black")
 
 func _physics_process(delta):
@@ -32,7 +32,7 @@ func collect():
 	snd_collected.play()
 	collision.set_deferred("disabled", true)
 	sprite.visible = false
-	return experience
+	return exp
 
 func _on_snd_collected_finished():
 	queue_free()

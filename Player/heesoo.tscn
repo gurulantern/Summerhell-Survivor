@@ -1,9 +1,12 @@
-[gd_scene load_steps=35 format=3 uid="uid://cobscoe13beka"]
+[gd_scene load_steps=38 format=3 uid="uid://cobscoe13beka"]
 
 [ext_resource type="Script" path="res://Player/Heesoo.gd" id="1_m0s4d"]
 [ext_resource type="Texture2D" uid="uid://dk7j6r0n22xsn" path="res://Art/characters/HeeSoo/HeeSoo-32-Sheet.png" id="2_45tl4"]
 [ext_resource type="PackedScene" uid="uid://cw5tvrgclens4" path="res://Utility/hurtbox.tscn" id="3_5mg1w"]
 [ext_resource type="PackedScene" uid="uid://cy0nw2knakaou" path="res://Attack/gaslight/gas_light_path.tscn" id="4_8kh70"]
+[ext_resource type="Texture2D" uid="uid://bfdj48cmwnmxu" path="res://Art/GUI/exp_back.png" id="5_7p1ar"]
+[ext_resource type="Texture2D" uid="uid://idp84iekaqsm" path="res://Art/GUI/exp_bar.png" id="5_w2c23"]
+[ext_resource type="FontFile" uid="uid://b1ktx6ghrtqdk" path="res://Art/GUI/SummerPixel22Regular-jE0W7.ttf" id="7_y0cur"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n0r3d"]
 atlas = ExtResource("2_45tl4")
@@ -211,6 +214,7 @@ radius = 374.192
 radius = 40.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sxmni"]
+radius = 5.0
 
 [node name="Heesoo" type="CharacterBody2D" groups=["player"]]
 y_sort_enabled = true
@@ -289,6 +293,35 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea"]
 shape = SubResource("CircleShape2D_sxmni")
+
+[node name="GUILayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" type="Control" parent="GUILayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="ExperienceBar" type="TextureProgressBar" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+value = 2.0
+texture_over = ExtResource("5_7p1ar")
+texture_progress = ExtResource("5_w2c23")
+
+[node name="LabelLevel" type="Label" parent="GUILayer/GUI/ExperienceBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 540.0
+offset_right = 640.0
+offset_bottom = 20.0
+theme_override_fonts/font = ExtResource("7_y0cur")
+theme_override_font_sizes/font_size = 16
+text = "LVL 1"
+horizontal_alignment = 1
+vertical_alignment = 2
 
 [connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="timeout" from="Attack/EarPickTimer" to="." method="_on_ear_pick_timer_timeout"]
