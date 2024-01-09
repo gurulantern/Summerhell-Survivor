@@ -23,8 +23,10 @@ func _physics_process(delta):
 	for i in gasLights.size():
 		gasLights[i].progress_ratio += delta * speed
 
+# hopefully this turns it on
 func activate():
 	gasLights[amount-1].visible = true
+	gasLights[amount-1].process_mode = PROCESS_MODE_INHERIT
 
 func play_attack():
 	timer.start()

@@ -1,8 +1,9 @@
 extends CharacterBody2D
 
-@onready var anim : AnimatedSprite2D = $AnimatedSprite2D
+
 @export var hp = 80
-const speed = 80
+@export var maxhp = 80
+@onready var anim : AnimatedSprite2D = $AnimatedSprite2D
 
 #Experience
 var exp = 0
@@ -23,24 +24,33 @@ var gasLight = preload("res://Attack/gaslight/gas_light_path.tscn")
 @onready var gasLightAttackTimer = get_node("%GasLightAttackTimer")
 @onready var gasLightPath = get_node("GasLightPath")
 
+#Upgrades
+var collected_upgrades_array = []
+var upgrade_options_array = []
+var armor = 0
+var speed = 80
+var spell_cooldown = 0
+var spell_size = 0
+var additional_attacks = 0
+
 #Ear Pick
 var earPick_ammo = 0
 var earPick_baseammo = 0
 var earPick_attackspeed = 1.8
-var earPick_level = 1
+var earPick_level = 0
 
 #Fanny Pack
 var fannyPack_ammo = 0
 var fannyPack_baseammo = 0
 var fannyPack_attackspeed = 2
-var fannyPack_level = 1
+var fannyPack_level = 0
 var flipped = false
 
 #Gas Light
 var gasLight_ammo = 0
 var gasLight_baseammo = 0
 var gasLight_attackspeed = 2
-var gasLight_level = 1
+var gasLight_level = 0
 
 #Enemy Related
 var enemy_close = []
@@ -57,6 +67,7 @@ func _ready():
 	anim.play("idle")
 	attack()
 	set_exp_bar(exp, calculate_exp_cap())
+
 
 func _physics_process(delta):
 	var direction : Vector2 = Input.get_vector("left", "right", "up", "down").normalized()
@@ -80,17 +91,16 @@ func _physics_process(delta):
 
 func attack():
 	if earPick_level > 0:
-		earPickTimer.wait_time = earPick_attackspeed
+		earPickTimer.wait_time = earPick_attackspeed * (1 - spell_cooldown)
 		if earPickTimer.is_stopped():
 			earPickTimer.start()
 	if fannyPack_level > 0:
-		fannyPackTimer.wait_time = fannyPack_attackspeed
+		fannyPackTimer.wait_time = fannyPack_attackspeed * (1 - spell_cooldown)
 		if fannyPackTimer.is_stopped():
 			fannyPackTimer.start()
 	if gasLight_level > 0:
-		gasLightTimer.wait_time = gasLight_attackspeed
+		gasLightTimer.wait_time = gasLight_attackspeed * (1 - spell_cooldown)
 		if gasLightTimer.is_stopped():
-			print("Gaslight timer starting...")
 			gasLightTimer.start()
 
 func _on_hurtbox_hurt(damage, _angle, _knockback):
@@ -100,12 +110,13 @@ func _on_hurtbox_hurt(damage, _angle, _knockback):
 #Ear Pick Timers 
 #Loads ammunition
 func _on_ear_pick_timer_timeout():
-	earPick_ammo += earPick_baseammo
+	earPick_ammo += earPick_baseammo + additional_attacks
 	earPickAttackTimer.start()
 
 #Shoots
 func _on_ear_pick_attack_timer_timeout():
 	if earPick_ammo > 0:
+		print("Firing Earpick")
 		var earPick_attack = earPick.instantiate()
 		earPick_attack.position = global_position
 		earPick_attack.target = get_random_target()
@@ -119,7 +130,7 @@ func _on_ear_pick_attack_timer_timeout():
 
 #Fanny Pack timers
 func _on_fanny_pack_timer_timeout():
-	fannyPack_ammo += fannyPack_baseammo
+	fannyPack_ammo += fannyPack_baseammo + additional_attacks
 	fannyPackAttackTimer.start()
 
 func _on_fanny_pack_attack_timer_timeout():
@@ -142,14 +153,13 @@ func _on_fanny_pack_attack_timer_timeout():
 			fannyPackAttackTimer.stop()
 
 func _on_gas_light_timer_timeout():
-	gasLight_ammo += gasLight_baseammo
+	gasLight_ammo += gasLight_baseammo + additional_attacks
 	gasLightAttackTimer.start()
 
 func _on_gas_light_attack_timer_timeout():
-	print("GaslightAttackTimer timedout...")
-	gasLightPath.play_attack()
 	gasLight_ammo -= 1
 	if gasLight_ammo > 0:
+		gasLightPath.play_attack()
 		gasLightAttackTimer.start()
 	else:
 		gasLightAttackTimer.stop()
@@ -175,7 +185,6 @@ func _on_grab_area_area_entered(area):
 
 func _on_collect_area_area_entered(area):
 	if area.is_in_group("loot"):
-		print("got loot")
 		var pentagram_exp = area.collect()
 		print("EXP gained: ", pentagram_exp)
 		calculate_exp(pentagram_exp)
@@ -220,16 +229,93 @@ func level_up():
 	var options_max = 3
 	while options < options_max:
 		var option_choice = item_options.instantiate()
+		option_choice.item = get_random_item()
 		upgrade_options.add_child(option_choice)
 		options += 1
 	get_tree().paused = true
 	level_label.text = str("Lvl ", exp_level)
 
 func upgrade_heesoo(upgrade):
+	match upgrade:
+		"earpick1":
+			earPick_level = 1
+			earPick_baseammo += 1
+		"earpick2":
+			earPick_level = 2
+			earPick_baseammo += 1
+		"earpick3":
+			earPick_level = 3
+		"earpick4":
+			earPick_level = 4
+			earPick_baseammo += 2
+		"fannypack1":
+			fannyPack_level = 1
+			fannyPack_baseammo = 1
+		"fannypack2":
+			fannyPack_level = 2
+			fannyPack_attackspeed -= 0.5
+		"fannypack3":
+			fannyPack_level = 3
+			fannyPack_baseammo += 1
+		"fannypack4":
+			fannyPack_level = 4
+			fannyPack_baseammo += 1
+			fannyPack_attackspeed -= 0.5
+		"gaslight1":
+			gasLightPath.activate()
+		"gaslight2":
+			gasLightPath.amount += 1
+			gasLightPath.activate()
+		"gaslight3":
+			gasLightPath.amount += 1
+			gasLightPath.activate()
+		"gaslight4":
+			gasLightPath.amount += 1
+			gasLightPath.activate()
+		"clothes1", "clothes2", "clothes3", "clothes4":
+			armor += 
+		"coffee1", "coffee2", "coffee3", "coffee4":
+			speed += 20 
+		"book1", "book2", "book3", "book4":
+			spell_size += 0.10
+		"podcast1", "podcast2", "podcast3", "podcast4":
+			spell_cooldown += 0.05
+		"glasses1", "glasses2":
+			additional_attacks += 1
+		"sashimi":
+			hp += 20
+			hp = clamp(hp, 0, maxhp)
+	
 	var option_children = upgrade_options.get_children()
 	for i in option_children:
 		i.queue_free()
+	upgrade_options_array.clear()
+	collected_upgrades_array.append(upgrade)
 	level_panel.visible = false
 	level_panel.position = Vector2(220, 400)
 	get_tree().paused = false
 	calculate_exp(0) #Recursive call for remainder exp
+
+func get_random_item():
+	var db_list = []
+	for i in UpgradeDb.UPGRADES:
+		if i in collected_upgrades_array: 
+			pass
+		elif i in upgrade_options_array:
+			pass
+		elif UpgradeDb.UPGRADES[i]["type"] == "item":
+			pass
+		elif UpgradeDb.UPGRADES[i]["prerequisite"].size() > 0:
+			for n in UpgradeDb.UPGRADES[i]["prerequisite"]:
+				if not n in collected_upgrades_array:
+					pass
+				else: 
+					db_list.append(i) 
+		else:
+			db_list.append(i)
+	if db_list.size() > 0:
+		var random_item = db_list.pick_random()
+		upgrade_options_array.append(random_item)
+		return random_item
+	else:
+		return null

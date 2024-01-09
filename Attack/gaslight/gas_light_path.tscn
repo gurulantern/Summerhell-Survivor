@@ -64,12 +64,13 @@ script = ExtResource("1_vdy6x")
 stream = ExtResource("3_r0x1o")
 volume_db = -10.0
 pitch_scale = 2.33
-autoplay = true
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 
 [node name="GasLightPathFollow" type="PathFollow2D" parent="."]
+process_mode = 4
+visible = false
 position = Vector2(0, -53)
 rotation = 0.785398
 rotates = false
@@ -92,6 +93,7 @@ rotation = -0.790395
 shape = SubResource("CapsuleShape2D_mu2g3")
 
 [node name="GasLightPathFollow2" type="PathFollow2D" parent="."]
+process_mode = 4
 visible = false
 position = Vector2(53, -1.62125e-05)
 rotation = 0.785398
@@ -116,6 +118,7 @@ rotation = -0.790395
 shape = SubResource("CapsuleShape2D_mu2g3")
 
 [node name="GasLightPathFollow3" type="PathFollow2D" parent="."]
+process_mode = 4
 visible = false
 position = Vector2(-0.000248158, 53)
 rotation = 0.785398
@@ -140,6 +143,7 @@ rotation = -0.790395
 shape = SubResource("CapsuleShape2D_mu2g3")
 
 [node name="GasLightPathFollow4" type="PathFollow2D" parent="."]
+process_mode = 4
 visible = false
 position = Vector2(-53, -1.07896e-05)
 rotation = 0.785398
