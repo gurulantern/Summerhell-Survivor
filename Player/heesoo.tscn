@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cobscoe13beka"]
+[gd_scene load_steps=42 format=3 uid="uid://cobscoe13beka"]
 
 [ext_resource type="Script" path="res://Player/Heesoo.gd" id="1_m0s4d"]
 [ext_resource type="Texture2D" uid="uid://dk7j6r0n22xsn" path="res://Art/characters/HeeSoo/HeeSoo-32-Sheet.png" id="2_45tl4"]
@@ -6,7 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://cy0nw2knakaou" path="res://Attack/gaslight/gas_light_path.tscn" id="4_8kh70"]
 [ext_resource type="Texture2D" uid="uid://bfdj48cmwnmxu" path="res://Art/GUI/exp_back.png" id="5_7p1ar"]
 [ext_resource type="Texture2D" uid="uid://idp84iekaqsm" path="res://Art/GUI/exp_bar.png" id="5_w2c23"]
+[ext_resource type="FontFile" uid="uid://ctusnyh7c68qs" path="res://Art/GUI/Pixel ModeX.otf" id="7_tfjnm"]
 [ext_resource type="FontFile" uid="uid://b1ktx6ghrtqdk" path="res://Art/GUI/SummerPixel22Regular-jE0W7.ttf" id="7_y0cur"]
+[ext_resource type="Texture2D" uid="uid://but86grw7fs1a" path="res://Art/GUI/health_frame.png" id="8_bffhf"]
+[ext_resource type="Texture2D" uid="uid://c311ggg5qhgu7" path="res://Art/GUI/health_bar.png" id="9_b4bfa"]
+[ext_resource type="FontFile" uid="uid://dwwyjiqakfsrp" path="res://Art/GUI/Pixel NES.otf" id="11_obwfo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n0r3d"]
 atlas = ExtResource("2_45tl4")
@@ -319,16 +323,27 @@ layout_mode = 0
 offset_left = 540.0
 offset_right = 640.0
 offset_bottom = 20.0
-theme_override_fonts/font = ExtResource("7_y0cur")
-theme_override_font_sizes/font_size = 16
+theme_override_fonts/font = ExtResource("7_tfjnm")
+theme_override_font_sizes/font_size = 14
 text = "LVL 1"
 horizontal_alignment = 1
 vertical_alignment = 2
 
+[node name="HealthBar" type="TextureProgressBar" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0.784314)
+layout_mode = 0
+offset_left = 310.0
+offset_top = 190.0
+offset_right = 342.0
+offset_bottom = 222.0
+scale = Vector2(0.6, 0.6)
+texture_over = ExtResource("8_bffhf")
+texture_progress = ExtResource("9_b4bfa")
+
 [node name="LevelUp" type="Panel" parent="GUILayer/GUI"]
 unique_name_in_owner = true
 process_mode = 2
-visible = false
 layout_mode = 0
 offset_left = 220.0
 offset_top = 400.0
@@ -354,6 +369,36 @@ offset_bottom = 100.0
 
 [node name="snd_levelUp" type="AudioStreamPlayer2D" parent="GUILayer/GUI/LevelUp"]
 unique_name_in_owner = true
+
+[node name="CollectedWeapons" type="GridContainer" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 8.0
+offset_top = 24.0
+offset_right = 208.0
+offset_bottom = 40.0
+columns = 10
+
+[node name="CollectedUpgrades" type="GridContainer" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 8.0
+offset_top = 40.0
+offset_right = 208.0
+offset_bottom = 56.0
+columns = 10
+
+[node name="LabelTimer" type="Label" parent="GUILayer"]
+unique_name_in_owner = true
+offset_left = 280.0
+offset_top = 20.0
+offset_right = 378.0
+offset_bottom = 56.0
+theme_override_fonts/font = ExtResource("11_obwfo")
+theme_override_font_sizes/font_size = 30
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="timeout" from="Attack/EarPickTimer" to="." method="_on_ear_pick_timer_timeout"]

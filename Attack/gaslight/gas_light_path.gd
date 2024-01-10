@@ -1,6 +1,6 @@
 extends Path2D
 
-var speed = .20
+var speed = .10
 var amount = 0
 var attack_speed = 2
 
@@ -28,6 +28,7 @@ func activate():
 	gasLights[amount-1].process_mode = Node.PROCESS_MODE_INHERIT
 
 func play_attack():
+	print("Gas light is attacking")
 	timer.start()
 	snd_attack.play()
 	for i in gasLights.size():
@@ -42,6 +43,7 @@ func turn_off():
 func _on_timer_timeout():
 	for i in gasLights.size():
 		gasLights[i].get_node("GasLight").remove()
+	print("gas light is turning off")
 	turn_off()
 
 func update_gasLight(current_level: int):
@@ -50,18 +52,18 @@ func update_gasLight(current_level: int):
 		activate()
 	match current_level:
 		1:
-			speed = .20
+			speed = .10
 			for i in gasLights.size():
 				gasLights[i].get_node("GasLight").update(current_level)
 		2:
-			speed = .25
+			speed = .15
 			for i in gasLights.size():
 				gasLights[i].get_node("GasLight").update(current_level)
 		3:
-			speed = .25
+			speed = .20
 			for i in gasLights.size():
 				gasLights[i].get_node("GasLight").update(current_level)
 		4:
-			speed = .30
+			speed = .25
 			for i in gasLights.size():
 				gasLights[i].get_node("GasLight").update(current_level)

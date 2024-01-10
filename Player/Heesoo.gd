@@ -62,13 +62,19 @@ var enemy_close = []
 @onready var upgrade_options = get_node("%UpgradeOptions")
 @onready var snd_levelUp = get_node("%snd_levelUp")
 @onready var item_options = preload("res://Utility/item_option.tscn")
+@onready var health_bar = get_node("%HealthBar")
+@onready var timer_label = get_node("%LabelTimer")
+@onready var collected_weapons = get_node("%CollectedWeapons")
+@onready var collected_upgrades = get_node("%CollectedUpgrades")
+@onready var item_container = preload("res://Player/GUI/item_container.tscn")
+var time = 0
 
 func _ready():
-	upgrade_heesoo("gaslight1")
+	upgrade_heesoo("fannypack1")
 	anim.play("idle")
 	attack()
 	set_exp_bar(exp, calculate_exp_cap())
-
+	_on_hurtbox_hurt(0,0,0)
 
 func _physics_process(delta):
 	var direction : Vector2 = Input.get_vector("left", "right", "up", "down").normalized()
@@ -89,6 +95,9 @@ func _physics_process(delta):
 		anim.play("idle")
 	
 	move_and_slide()
+	
+	time += delta
+	change_time()
 
 func attack():
 	if earPick_level > 0:
@@ -106,7 +115,8 @@ func attack():
 
 func _on_hurtbox_hurt(damage, _angle, _knockback):
 	hp -= clamp(damage-armor, 1.0, 999.0)
-	print(hp)
+	health_bar.max_value = maxhp
+	health_bar.value = hp
 
 #Ear Pick Timers 
 #Loads ammunition
@@ -154,12 +164,14 @@ func _on_fanny_pack_attack_timer_timeout():
 			fannyPackAttackTimer.stop()
 
 func _on_gas_light_timer_timeout():
+	print("Gaslight timer timed out")
 	gasLight_ammo += gasLight_baseammo + additional_attacks
 	gasLightAttackTimer.start()
 
 func _on_gas_light_attack_timer_timeout():
-	gasLight_ammo -= 1
+	print("Gaslight attack timer timed out")
 	if gasLight_ammo > 0:
+		gasLight_ammo -= 1
 		gasLightPath.play_attack()
 		gasLightAttackTimer.start()
 	else:
@@ -178,7 +190,6 @@ func get_spawn_point(parent_global_position: Vector2, attack_size: Vector2, atta
 	var spawn_position = parent_global_position + offset
 	
 	return spawn_position
-
 
 func _on_grab_area_area_entered(area):
 	if area.is_in_group("loot"):
@@ -266,8 +277,10 @@ func upgrade_heesoo(upgrade):
 			gasLightPath.process_mode = Node.PROCESS_MODE_INHERIT
 			gasLightPath.visible = true
 			gasLight_level += 1
+			gasLight_baseammo += 1
 		"gaslight2", "gaslight3", "gaslight4":
 			gasLight_level += 1
+			gasLight_baseammo +=1
 		"clothes1", "clothes2", "clothes3", "clothes4":
 			armor += 1
 		"coffee1", "coffee2", "coffee3", "coffee4":
@@ -283,11 +296,13 @@ func upgrade_heesoo(upgrade):
 			hp = clamp(hp, 0, maxhp)
 	
 	gasLightPath.update_gasLight(gasLight_level)
+	adjust_gui_collection(upgrade)
 	attack()
 	var option_children = upgrade_options.get_children()
 	for i in option_children:
 		i.queue_free()
 	upgrade_options_array.clear()
+	print(upgrade)
 	collected_upgrades_array.append(upgrade)
 	level_panel.visible = false
 	level_panel.position = Vector2(220, 400)
@@ -304,11 +319,14 @@ func get_random_item():
 		elif UpgradeDb.UPGRADES[i]["type"] == "item":
 			pass
 		elif UpgradeDb.UPGRADES[i]["prerequisite"].size() > 0:
+			var to_add = true
 			for n in UpgradeDb.UPGRADES[i]["prerequisite"]:
 				if not n in collected_upgrades_array:
-					pass
+					to_add = false
 				else: 
-					db_list.append(i) 
+					db_list.append(i)
+			if to_add:
+				db_list.append(i) 
 		else:
 			db_list.append(i)
 	if db_list.size() > 0:
@@ -317,3 +335,31 @@ func get_random_item():
 		return random_item
 	else:
 		return null
+
+func change_time():
+	var pass_time = int(time)
+	var get_m = int(pass_time/60)
+	var get_s = pass_time % 60
+	if get_m < 10:
+		get_m = str(0, get_m)
+	if get_s < 10:
+		get_s = str(0, get_s)
+	timer_label.text = str(get_m, ":", get_s)
+
+func adjust_gui_collection(upgrade):
+	var get_upgraded_name = UpgradeDb.UPGRADES[upgrade]["displayname"]
+	var get_type = UpgradeDb.UPGRADES[upgrade]["type"]
+	if get_type != "item":
+		var get_collected_items = []
+		for i in collected_upgrades_array:
+			get_collected_items.append(UpgradeDb.UPGRADES[i]["displayname"])
+		if not get_upgraded_name in get_collected_items:
+			var new_item = item_container.instantiate()
+			new_item.upgrade = upgrade
+			match get_type:
+				"weapon":
+					print("Selected upgrade: ", upgrade)
+					collected_weapons.add_child(new_item)
+				"upgrade":
+					print("Selected upgrade: ", upgrade)
+					collected_upgrades.add_child(new_item)

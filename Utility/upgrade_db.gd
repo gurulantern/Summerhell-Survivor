@@ -101,7 +101,7 @@ const UPGRADES = {
 	},
 	"clothes1": {
 		"icon": UPGRADE_PATH + "popflex_icon.png",
-		"displayname": "Popflex Leggings",
+		"displayname": "Clothes",
 		"details": "Gain some protection.",
 		"level": "Lvl. 1",
 		"prerequisite":  [],
@@ -109,7 +109,7 @@ const UPGRADES = {
 	},
 	"clothes2": {
 		"icon": UPGRADE_PATH + "beanie_icon.png",
-		"displayname": "Beanie",
+		"displayname": "Clothes",
 		"details": "Gain some more protection.",
 		"level": "Lvl. 2",
 		"prerequisite":  ["clothes1"],
@@ -117,7 +117,7 @@ const UPGRADES = {
 	},
 	"clothes3": {
 		"icon": UPGRADE_PATH + "reisweater_icon.png",
-		"displayname": "REI Sweater",
+		"displayname": "Clothes",
 		"details": "Getting warmer.",
 		"level": "Lvl. 3",
 		"prerequisite":  ["clothes2"],
@@ -125,15 +125,15 @@ const UPGRADES = {
 	},
 	"clothes4": {
 		"icon": UPGRADE_PATH + "puffer_icon.png",
-		"displayname": "Jin Soo's Puffer",
-		"details": "She's not using it",
+		"displayname": "Clothes",
+		"details": "My sister's not using this.",
 		"level": "Lvl. 4",
 		"prerequisite":  ["clothes3"],
 		"type": "upgrade"
 	},
 	"coffee1": {
 		"icon": UPGRADE_PATH + "americano_icon.png",
-		"displayname": "Iced Americano",
+		"displayname": "Coffee",
 		"details": "I have a headache. I need coffee.",
 		"level": "Lvl. 1",
 		"prerequisite":  [],
@@ -141,7 +141,7 @@ const UPGRADES = {
 	},
 	"coffee2": {
 		"icon": UPGRADE_PATH + "americano_icon.png",
-		"displayname": "Iced Americano",
+		"displayname": "Coffee",
 		"details": "This is overextracted.",
 		"level": "Lvl. 2",
 		"prerequisite":  ["coffee1"],
@@ -149,7 +149,7 @@ const UPGRADES = {
 	},
 	"coffee3": {
 		"icon": UPGRADE_PATH + "coldbrew_icon.png",
-		"displayname": "Choco Cold Foam Cold Brew",
+		"displayname": "Coffee",
 		"details": "Mmmmm. This is overextracted.",
 		"level": "Lvl. 3",
 		"prerequisite":  ["coffee2"],
@@ -157,7 +157,7 @@ const UPGRADES = {
 	},
 	"coffee4": {
 		"icon": UPGRADE_PATH + "coldbrew_icon.png",
-		"displayname": "Choco Cold Foam Cold Brew",
+		"displayname": "Coffee",
 		"details": "It's like 4 in the afternoon.",
 		"level": "Lvl. 4",
 		"prerequisite":  ["coffee3"],
@@ -197,7 +197,7 @@ const UPGRADES = {
 	},
 	"podcast1": {
 		"icon": UPGRADE_PATH + "podcast_icon.png",
-		"displayname": "True Crime Podcast",
+		"displayname": "Podcast",
 		"details": "She was kind of an outcast...",
 		"level": "Lvl. 1",
 		"prerequisite":  [],
@@ -205,7 +205,7 @@ const UPGRADES = {
 	},
 	"podcast2": {
 		"icon": UPGRADE_PATH + "podcast_icon.png",
-		"displayname": "True Crime Podcast",
+		"displayname": "Podcast",
 		"details": "They bullied her until she snapped...",
 		"level": "Lvl. 2",
 		"prerequisite":  ["podcast1"],
@@ -213,7 +213,7 @@ const UPGRADES = {
 	},
 	"podcast3": {
 		"icon": UPGRADE_PATH + "podcast_icon.png",
-		"displayname": "True Crime Podcast",
+		"displayname": "Podcast",
 		"details": "The police found blood in her room...",
 		"level": "Lvl. 3",
 		"prerequisite":  ["podcast2"],
@@ -221,7 +221,7 @@ const UPGRADES = {
 	},
 	"podcast4": {
 		"icon": UPGRADE_PATH + "podcast_icon.png",
-		"displayname": "True Crime Podcast",
+		"displayname": "Podcast",
 		"details": "Then they found her bully's body in a suitcase.",
 		"level": "Lvl. 4",
 		"prerequisite":  ["podcast3"],
