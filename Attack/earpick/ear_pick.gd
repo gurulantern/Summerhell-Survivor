@@ -5,7 +5,7 @@ var hp = 1
 var speed = 100
 var damage = 5
 var knockback_amount = 100
-var attack_size = 1.0
+var scale_multiplier = Vector2(1.0, 1.0)
 
 var target = Vector2.ZERO
 var angle = Vector2.ZERO
@@ -22,8 +22,27 @@ func _ready():
 			speed = 100
 			damage = 5
 			knockback_amount = 100
-			attack_size = 1.0
-
+			scale_multiplier = scale_multiplier * (1 + player.spell_size)
+		2:
+			hp = 1
+			speed = 100
+			damage = 5
+			knockback_amount = 100
+			scale_multiplier = scale_multiplier * (1 + player.spell_size)
+		3:
+			hp = 2
+			speed = 100
+			damage = 8
+			knockback_amount = 120
+			scale_multiplier = scale_multiplier * (1 + player.spell_size)
+		4:
+			hp = 2
+			speed = 100
+			damage = 8
+			knockback_amount = 120
+			scale_multiplier = scale_multiplier * (1 + player.spell_size)
+			
+	self.set_scale(scale_multiplier)
 
 func _physics_process(delta):
 	position += angle*speed*delta

@@ -13,7 +13,6 @@ var hp = 9999 #So it won't despawn after hitting other enemies
 var speed = 100.0
 var damage = 5
 var knockback_amount = 100
-var attack_size = 1.0
 var scale_multiplier = Vector2(.5, .5)
 var shrink_speed = .5
 
@@ -31,8 +30,25 @@ func _ready():
 			speed = 100.0
 			damage = 5
 			knockback_amount = 180
-			attack_size = 1.0
-			scale_multiplier = Vector2(0.8,0.8)
+			scale_multiplier = scale_multiplier * (1 + player.spell_size)
+		2:
+			hp = 9999
+			speed = 100.0
+			damage = 7
+			knockback_amount = 190
+			scale_multiplier = scale_multiplier * (1 + player.spell_size)
+		3:
+			hp = 9999
+			speed = 100.0
+			damage = 9
+			knockback_amount = 200
+			scale_multiplier = scale_multiplier * (1 + player.spell_size)
+		4:
+			hp = 9999
+			speed = 100.0
+			damage = 11
+			knockback_amount = 210
+			scale_multiplier = scale_multiplier * (1 + player.spell_size)
 			
 	self.set_scale(scale_multiplier)
 	timer.start()

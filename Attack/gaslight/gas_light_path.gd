@@ -1,9 +1,8 @@
 extends Path2D
 
-var speed = .1
-var amount = 1
-var radius : float = 10.0
-var velocity = Vector2.ZERO
+var speed = .20
+var amount = 0
+var attack_speed = 2
 
 @onready var player = get_tree().get_first_node_in_group("player")
 @onready var snd_attack : AudioStreamPlayer = $snd_attack
@@ -26,7 +25,7 @@ func _physics_process(delta):
 # hopefully this turns it on
 func activate():
 	gasLights[amount-1].visible = true
-	gasLights[amount-1].process_mode = PROCESS_MODE_INHERIT
+	gasLights[amount-1].process_mode = Node.PROCESS_MODE_INHERIT
 
 func play_attack():
 	timer.start()
@@ -41,7 +40,28 @@ func turn_off():
 		gasLights[i].get_node("GasLight").get_node("CollisionShape2D").set_deferred("disabled", true)
 
 func _on_timer_timeout():
-	print("Gaslight timer timedout...")
 	for i in gasLights.size():
 		gasLights[i].get_node("GasLight").remove()
 	turn_off()
+
+func update_gasLight(current_level: int):
+	if amount != current_level:
+		amount = current_level
+		activate()
+	match current_level:
+		1:
+			speed = .20
+			for i in gasLights.size():
+				gasLights[i].get_node("GasLight").update(current_level)
+		2:
+			speed = .25
+			for i in gasLights.size():
+				gasLights[i].get_node("GasLight").update(current_level)
+		3:
+			speed = .25
+			for i in gasLights.size():
+				gasLights[i].get_node("GasLight").update(current_level)
+		4:
+			speed = .30
+			for i in gasLights.size():
+				gasLights[i].get_node("GasLight").update(current_level)

@@ -100,8 +100,8 @@ const UPGRADES = {
 		"type": "weapon"
 	},
 	"clothes1": {
-		"icon": UPGRADE_PATH + "fabletics_icon.png",
-		"displayname": "Fabletics Leggings",
+		"icon": UPGRADE_PATH + "popflex_icon.png",
+		"displayname": "Popflex Leggings",
 		"details": "Gain some protection.",
 		"level": "Lvl. 1",
 		"prerequisite":  [],
@@ -134,7 +134,7 @@ const UPGRADES = {
 	"coffee1": {
 		"icon": UPGRADE_PATH + "americano_icon.png",
 		"displayname": "Iced Americano",
-		"details": "I have a headache. I need coffee",
+		"details": "I have a headache. I need coffee.",
 		"level": "Lvl. 1",
 		"prerequisite":  [],
 		"type": "upgrade"
@@ -150,7 +150,7 @@ const UPGRADES = {
 	"coffee3": {
 		"icon": UPGRADE_PATH + "coldbrew_icon.png",
 		"displayname": "Choco Cold Foam Cold Brew",
-		"details": "Mmmmm. This is overextracted",
+		"details": "Mmmmm. This is overextracted.",
 		"level": "Lvl. 3",
 		"prerequisite":  ["coffee2"],
 		"type": "upgrade"
@@ -158,7 +158,7 @@ const UPGRADES = {
 	"coffee4": {
 		"icon": UPGRADE_PATH + "coldbrew_icon.png",
 		"displayname": "Choco Cold Foam Cold Brew",
-		"details": "It's like 4 in afternoon.",
+		"details": "It's like 4 in the afternoon.",
 		"level": "Lvl. 4",
 		"prerequisite":  ["coffee3"],
 		"type": "upgrade"

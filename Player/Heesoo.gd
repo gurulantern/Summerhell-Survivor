@@ -64,6 +64,7 @@ var enemy_close = []
 @onready var item_options = preload("res://Utility/item_option.tscn")
 
 func _ready():
+	upgrade_heesoo("gaslight1")
 	anim.play("idle")
 	attack()
 	set_exp_bar(exp, calculate_exp_cap())
@@ -104,7 +105,7 @@ func attack():
 			gasLightTimer.start()
 
 func _on_hurtbox_hurt(damage, _angle, _knockback):
-	hp -= damage
+	hp -= clamp(damage-armor, 1.0, 999.0)
 	print(hp)
 
 #Ear Pick Timers 
@@ -262,18 +263,13 @@ func upgrade_heesoo(upgrade):
 			fannyPack_baseammo += 1
 			fannyPack_attackspeed -= 0.5
 		"gaslight1":
-			gasLightPath.activate()
-		"gaslight2":
-			gasLightPath.amount += 1
-			gasLightPath.activate()
-		"gaslight3":
-			gasLightPath.amount += 1
-			gasLightPath.activate()
-		"gaslight4":
-			gasLightPath.amount += 1
-			gasLightPath.activate()
+			gasLightPath.process_mode = Node.PROCESS_MODE_INHERIT
+			gasLightPath.visible = true
+			gasLight_level += 1
+		"gaslight2", "gaslight3", "gaslight4":
+			gasLight_level += 1
 		"clothes1", "clothes2", "clothes3", "clothes4":
-			armor += 
+			armor += 1
 		"coffee1", "coffee2", "coffee3", "coffee4":
 			speed += 20 
 		"book1", "book2", "book3", "book4":
@@ -286,6 +282,8 @@ func upgrade_heesoo(upgrade):
 			hp += 20
 			hp = clamp(hp, 0, maxhp)
 	
+	gasLightPath.update_gasLight(gasLight_level)
+	attack()
 	var option_children = upgrade_options.get_children()
 	for i in option_children:
 		i.queue_free()
