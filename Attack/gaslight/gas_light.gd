@@ -19,29 +19,27 @@ func _ready():
 			scale_multiplier = Vector2(1.0, 1.0)
 
 func update(current_level: int):
+	var size
 	if level != current_level:
 		level = current_level
 	match current_level:
 		1:
 			hp = 1
-			damage = 3
+			damage = 5
 			knockback_amount = 120
-			scale_multiplier = scale_multiplier * (1 + player.spell_size)
 		2:
 			hp = 1
-			damage = 3
+			damage = 5
 			knockback_amount = 120
-			scale_multiplier = scale_multiplier * (1 + player.spell_size)
 		3:
 			hp = 1
 			damage = 5
 			knockback_amount = 130
-			scale_multiplier = scale_multiplier * (1 + player.spell_size)
 		4:
 			hp = 1
-			damage = 5
+			damage = 8
 			knockback_amount = 135
-			scale_multiplier = scale_multiplier * (1 + player.spell_size)
+	size = scale_multiplier * (1 + player.spell_size)
 	self.set_scale(scale_multiplier)
 
 func remove():

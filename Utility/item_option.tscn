@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://drq3lwg0roub2"]
+[gd_scene load_steps=7 format=3 uid="uid://drq3lwg0roub2"]
 
 [ext_resource type="Script" path="res://Utility/item_option.gd" id="1_a7o3p"]
 [ext_resource type="Texture2D" uid="uid://dilhvpa0bwydq" path="res://Art/attacks/icons/gaslight_icon.png" id="2_htkll"]
 [ext_resource type="FontFile" uid="uid://b1ktx6ghrtqdk" path="res://Art/GUI/SummerPixel22Regular-jE0W7.ttf" id="3_dl6bp"]
 [ext_resource type="FontFile" uid="uid://dwwyjiqakfsrp" path="res://Art/GUI/Pixel NES.otf" id="3_lt2rs"]
 [ext_resource type="FontFile" uid="uid://ctusnyh7c68qs" path="res://Art/GUI/Pixel ModeX.otf" id="5_8soq6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3a4q0"]
+line_spacing = 0.0
+font_size = 10
 
 [node name="ItemOption" type="ColorRect"]
 custom_minimum_size = Vector2(180, 50)
@@ -51,6 +55,7 @@ offset_bottom = 59.0
 theme_override_fonts/font = ExtResource("3_dl6bp")
 theme_override_font_sizes/font_size = 12
 text = "Description"
+label_settings = SubResource("LabelSettings_3a4q0")
 autowrap_mode = 3
 
 [node name="LabelLevel" type="Label" parent="."]

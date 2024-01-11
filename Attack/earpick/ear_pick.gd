@@ -20,13 +20,13 @@ func _ready():
 		1:
 			hp = 1
 			speed = 100
-			damage = 5
+			damage = 8
 			knockback_amount = 100
 			scale_multiplier = scale_multiplier * (1 + player.spell_size)
 		2:
 			hp = 1
 			speed = 100
-			damage = 5
+			damage = 8
 			knockback_amount = 100
 			scale_multiplier = scale_multiplier * (1 + player.spell_size)
 		3:
@@ -38,7 +38,7 @@ func _ready():
 		4:
 			hp = 2
 			speed = 100
-			damage = 8
+			damage = 10
 			knockback_amount = 120
 			scale_multiplier = scale_multiplier * (1 + player.spell_size)
 			

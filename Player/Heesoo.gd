@@ -70,7 +70,7 @@ var enemy_close = []
 var time = 0
 
 func _ready():
-	upgrade_heesoo("fannypack1")
+	upgrade_heesoo("earpick1")
 	anim.play("idle")
 	attack()
 	set_exp_bar(exp, calculate_exp_cap())
@@ -200,6 +200,14 @@ func _on_collect_area_area_entered(area):
 		var pentagram_exp = area.collect()
 		print("EXP gained: ", pentagram_exp)
 		calculate_exp(pentagram_exp)
+
+func _on_enemy_detection_area_body_entered(body):
+	if not enemy_close.has(body):
+		enemy_close.append(body)
+
+func _on_enemy_detection_area_body_exited(body):
+	if enemy_close.has(body):
+		enemy_close.erase(body)
 
 func calculate_exp(pentagram_exp):
 	var exp_required = calculate_exp_cap()
@@ -356,6 +364,7 @@ func adjust_gui_collection(upgrade):
 		if not get_upgraded_name in get_collected_items:
 			var new_item = item_container.instantiate()
 			new_item.upgrade = upgrade
+			new_item.upgrade_type = get_upgraded_name
 			match get_type:
 				"weapon":
 					print("Selected upgrade: ", upgrade)
@@ -363,3 +372,15 @@ func adjust_gui_collection(upgrade):
 				"upgrade":
 					print("Selected upgrade: ", upgrade)
 					collected_upgrades.add_child(new_item)
+		else:
+			match get_type:
+				"weapon":
+					var collection = collected_weapons.get_children()
+					for n in collection:
+						if n.upgrade_type == get_upgraded_name:
+							n.update_upgrade(upgrade)
+				"upgrade":
+					var collection = collected_upgrades.get_children()
+					for n in collection:
+						if n.upgrade_type == get_upgraded_name:
+							n.update_upgrade(upgrade)
