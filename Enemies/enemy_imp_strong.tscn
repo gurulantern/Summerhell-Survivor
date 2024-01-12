@@ -97,11 +97,16 @@ shape = SubResource("CircleShape2D_1gj4g")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="EnemyBase" parent="." instance=ExtResource("4_q21qf")]
-visible = false
 material = SubResource("ShaderMaterial_v330m")
+
+[node name="VisibleOnScreenNotifier2D" parent="EnemyBase" index="4"]
+position = Vector2(3.0303, 1.51515)
+scale = Vector2(1.61616, 1.66667)
 
 [connection signal="hurt" from="EnemyBase/Hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="finished" from="EnemyBase/snd_death" to="." method="_on_snd_death_finished"]
+[connection signal="screen_entered" from="EnemyBase/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="EnemyBase/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 
 [editable path="EnemyBase"]
 [editable path="EnemyBase/Hurtbox"]

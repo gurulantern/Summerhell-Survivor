@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-
 @export var hp = 80
 @export var maxhp = 80
 @onready var anim : AnimatedSprite2D = $AnimatedSprite2D
@@ -9,6 +8,9 @@ extends CharacterBody2D
 var exp = 0
 var exp_level = 1
 var collected_exp = 0
+var total_exp = 0
+var collected_gold = 0
+var total_gold = 0
 
 #Attacks
 var earPick = preload("res://Attack/earPick/ear_pick.tscn")
@@ -61,7 +63,7 @@ var enemy_close = []
 @onready var level_panel = get_node("%LevelUp")
 @onready var upgrade_options = get_node("%UpgradeOptions")
 @onready var snd_levelUp = get_node("%snd_levelUp")
-@onready var item_options = preload("res://Utility/item_option.tscn")
+@onready var item_options = preload("res://Utility/UI/item_option.tscn")
 @onready var health_bar = get_node("%HealthBar")
 @onready var timer_label = get_node("%LabelTimer")
 @onready var collected_weapons = get_node("%CollectedWeapons")
@@ -70,6 +72,8 @@ var enemy_close = []
 var time = 0
 
 @onready var death_panel = get_node("%DeathPanel")
+@onready var exp_label = get_node("%ExpTotal")
+@onready var gold_label = get_node("%GoldTotal")
 @onready var result_label = get_node("%LabelResult")
 @onready var snd_victory = get_node("%snd_victory")
 @onready var snd_lose = get_node("%snd_lose")
@@ -136,7 +140,6 @@ func _on_ear_pick_timer_timeout():
 #Shoots
 func _on_ear_pick_attack_timer_timeout():
 	if earPick_ammo > 0:
-		print("Firing Earpick")
 		var earPick_attack = earPick.instantiate()
 		earPick_attack.position = global_position
 		earPick_attack.target = get_random_target()
@@ -173,12 +176,10 @@ func _on_fanny_pack_attack_timer_timeout():
 			fannyPackAttackTimer.stop()
 
 func _on_gas_light_timer_timeout():
-	print("Gaslight timer timed out")
 	gasLight_ammo += gasLight_baseammo + additional_attacks
 	gasLightAttackTimer.start()
 
 func _on_gas_light_attack_timer_timeout():
-	print("Gaslight attack timer timed out")
 	if gasLight_ammo > 0:
 		gasLight_ammo -= 1
 		gasLightPath.play_attack()
@@ -211,7 +212,7 @@ func _on_collect_area_area_entered(area):
 		calculate_exp(pentagram_exp)
 
 func _on_enemy_detection_area_body_entered(body):
-	if not enemy_close.has(body):
+	if not enemy_close.has(body) && not body.is_in_group("player") :
 		enemy_close.append(body)
 
 func _on_enemy_detection_area_body_exited(body):
@@ -221,6 +222,7 @@ func _on_enemy_detection_area_body_exited(body):
 func calculate_exp(pentagram_exp):
 	var exp_required = calculate_exp_cap()
 	collected_exp += pentagram_exp
+	total_exp += pentagram_exp
 	print(collected_exp)
 	if exp + collected_exp >= exp_required:
 		collected_exp -= exp_required-exp
@@ -326,6 +328,10 @@ func upgrade_heesoo(upgrade):
 	get_tree().paused = false
 	calculate_exp(0) #Recursive call for remainder exp
 
+func calculate_gold():
+	var gold_from_exp = total_exp/4
+	total_gold = gold_from_exp + collected_gold
+
 func get_random_item():
 	var db_list = []
 	for i in UpgradeDb.UPGRADES:
@@ -396,18 +402,25 @@ func adjust_gui_collection(upgrade):
 
 func death():
 	death_panel.visible = true
+	exp_label.text = str(total_exp)
+	calculate_gold()
+	gold_label.text = str(total_gold)
+	Save.SAVE_DICT["gold"] += total_gold
 	emit_signal("player_death")
 	get_tree().paused = true
 	var tween = death_panel.create_tween()
 	tween.tween_property(death_panel, "position", Vector2(220,50), 3.0).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	tween.play()
 	if time >= 300:
+		Save.SAVE_DICT["wins"] += 1
 		result_label.text = "You survived!"
 		snd_victory.play()
 	else:
+		Save.SAVE_DICT["losses"] += 1
 		result_label.text = "You died!"
 		snd_lose.play()
 
 func _on_menu_button_click_end():
+	SaverLoader.save_game()
 	get_tree().paused = false
 	var _level = get_tree().change_scene_to_file("res://Title Screen/menu.tscn")

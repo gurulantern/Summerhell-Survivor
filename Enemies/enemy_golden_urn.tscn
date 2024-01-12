@@ -102,8 +102,14 @@ shape = SubResource("CircleShape2D_5xftf")
 material = SubResource("ShaderMaterial_sg84c")
 position = Vector2(0, 1.81818)
 
+[node name="VisibleOnScreenNotifier2D" parent="EnemyBase" index="4"]
+position = Vector2(-1.66667, 0.202023)
+scale = Vector2(2.31481, 2)
+
 [connection signal="hurt" from="EnemyBase/Hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="finished" from="EnemyBase/snd_death" to="." method="_on_snd_death_finished"]
+[connection signal="screen_entered" from="EnemyBase/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="EnemyBase/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 
 [editable path="EnemyBase"]
 [editable path="EnemyBase/Hurtbox"]

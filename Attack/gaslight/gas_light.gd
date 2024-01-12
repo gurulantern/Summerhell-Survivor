@@ -40,7 +40,7 @@ func update(current_level: int):
 			damage = 8
 			knockback_amount = 135
 	size = scale_multiplier * (1 + player.spell_size)
-	self.set_scale(scale_multiplier)
+	self.set_scale(size)
 
 func remove():
 	emit_signal("remove_from_array", self)

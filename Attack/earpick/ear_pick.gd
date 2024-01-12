@@ -7,7 +7,7 @@ var damage = 5
 var knockback_amount = 100
 var scale_multiplier = Vector2(1.0, 1.0)
 
-var target = Vector2.ZERO
+var target
 var angle = Vector2.ZERO
 
 @onready var player = get_tree().get_first_node_in_group("player")
@@ -49,7 +49,6 @@ func _physics_process(delta):
 	
 
 func enemy_hit(charge = 1):
-	print("hit something!")
 	hp -= charge
 	if hp <= 0:
 		emit_signal("remove_from_array", self)

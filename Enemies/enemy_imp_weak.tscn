@@ -78,6 +78,7 @@ collision_layer = 5
 collision_mask = 5
 motion_mode = 1
 script = ExtResource("2_novbt")
+enemy_name = "imp_weak"
 exp = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -95,8 +96,14 @@ shape = SubResource("CircleShape2D_adlyg")
 [node name="EnemyBase" parent="." instance=ExtResource("4_gxrpk")]
 material = SubResource("ShaderMaterial_1koe5")
 
+[node name="VisibleOnScreenNotifier2D" parent="EnemyBase" index="4"]
+position = Vector2(0.617283, 7.15256e-07)
+scale = Vector2(1.54321, 1.60494)
+
 [connection signal="hurt" from="EnemyBase/Hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="finished" from="EnemyBase/snd_death" to="." method="_on_snd_death_finished"]
+[connection signal="screen_entered" from="EnemyBase/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="EnemyBase/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 
 [editable path="EnemyBase"]
 [editable path="EnemyBase/Hurtbox"]

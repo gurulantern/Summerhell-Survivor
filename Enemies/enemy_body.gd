@@ -43,6 +43,7 @@ func _physics_process(_delta):
 
 func death():
 	emit_signal("remove_from_array", self)
+	Save.SAVE_DICT[enemy_name] += 1
 	collision.set_deferred("disabled", true)
 	hurtbox_collision.set_deferred("disabled", true)
 	snd_death.play()

@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://qqb8njgng0lu"]
+
+[ext_resource type="Theme" uid="uid://bx5jky8u87si" path="res://Player/GUI/main_panel.tres" id="1_mbmb7"]
+[ext_resource type="FontFile" uid="uid://dwwyjiqakfsrp" path="res://Art/GUI/fonts/Pixel NES.otf" id="2_2fx5s"]
+[ext_resource type="Script" path="res://Utility/UI/basic_button.gd" id="3_ydaye"]
+[ext_resource type="AudioStream" uid="uid://c0k760srok4rr" path="res://Art/GUI/audio/snd_hover.wav" id="4_i1rbw"]
+[ext_resource type="AudioStream" uid="uid://daqhmho7tbqhf" path="res://Art/GUI/audio/snd_click.wav" id="5_pcty6"]
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(80, 30)
+offset_right = 8.0
+offset_bottom = 8.0
+theme = ExtResource("1_mbmb7")
+theme_override_fonts/font = ExtResource("2_2fx5s")
+text = "Example"
+script = ExtResource("3_ydaye")
+
+[node name="snd_hover" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_i1rbw")
+
+[node name="snd_click" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_pcty6")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="finished" from="snd_click" to="." method="_on_snd_click_finished"]

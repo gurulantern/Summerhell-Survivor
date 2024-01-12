@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Player/Heesoo.gd" id="1_m0s4d"]
 [ext_resource type="Texture2D" uid="uid://dk7j6r0n22xsn" path="res://Art/characters/HeeSoo/HeeSoo-32-Sheet.png" id="2_45tl4"]
-[ext_resource type="PackedScene" uid="uid://cw5tvrgclens4" path="res://Utility/hurtbox.tscn" id="3_5mg1w"]
+[ext_resource type="PackedScene" uid="uid://cw5tvrgclens4" path="res://Utility/Characters/hurtbox.tscn" id="3_5mg1w"]
 [ext_resource type="PackedScene" uid="uid://cy0nw2knakaou" path="res://Attack/gaslight/gas_light_path.tscn" id="4_8kh70"]
 [ext_resource type="Texture2D" uid="uid://bfdj48cmwnmxu" path="res://Art/GUI/exp_back.png" id="5_7p1ar"]
 [ext_resource type="Texture2D" uid="uid://idp84iekaqsm" path="res://Art/GUI/exp_bar.png" id="5_w2c23"]
@@ -13,7 +13,7 @@
 [ext_resource type="Theme" uid="uid://bx5jky8u87si" path="res://Player/GUI/main_panel.tres" id="10_vnc4g"]
 [ext_resource type="FontFile" uid="uid://dwwyjiqakfsrp" path="res://Art/GUI/fonts/Pixel NES.otf" id="11_obwfo"]
 [ext_resource type="AudioStream" uid="uid://chsvopggpgvy3" path="res://Art/GUI/audio/positive_trill.wav" id="11_p6yr1"]
-[ext_resource type="PackedScene" uid="uid://qqb8njgng0lu" path="res://Utility/basic_button.tscn" id="11_sf14r"]
+[ext_resource type="PackedScene" uid="uid://qqb8njgng0lu" path="res://Utility/UI/basic_button.tscn" id="11_sf14r"]
 [ext_resource type="AudioStream" uid="uid://cat5rqpo3oh05" path="res://Art/GUI/audio/snd_victory.wav" id="12_8tm8b"]
 [ext_resource type="Texture2D" uid="uid://buky8ogdsypj2" path="res://Player/GUI/results.png" id="13_38gdb"]
 [ext_resource type="AudioStream" uid="uid://npiqncv2ntju" path="res://Art/GUI/audio/snd_lose.wav" id="13_ywges"]
@@ -403,6 +403,54 @@ theme_override_fonts/font = ExtResource("7_o7y0j")
 text = "Result"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUILayer/GUI/DeathPanel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 50.0
+offset_right = 190.0
+offset_bottom = 90.0
+
+[node name="Results" type="GridContainer" parent="GUILayer/GUI/DeathPanel/VBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="Experience" type="Label" parent="GUILayer/GUI/DeathPanel/VBoxContainer/Results"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_obwfo")
+theme_override_font_sizes/font_size = 12
+text = "Exp"
+
+[node name="ExpTotal" type="Label" parent="GUILayer/GUI/DeathPanel/VBoxContainer/Results"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_obwfo")
+theme_override_font_sizes/font_size = 12
+text = "0
+"
+
+[node name="Gold" type="Label" parent="GUILayer/GUI/DeathPanel/VBoxContainer/Results"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_obwfo")
+theme_override_font_sizes/font_size = 12
+text = "Gold"
+
+[node name="GoldTotal" type="Label" parent="GUILayer/GUI/DeathPanel/VBoxContainer/Results"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_obwfo")
+theme_override_font_sizes/font_size = 12
+text = "0"
+
+[node name="Unlocks" type="Label" parent="GUILayer/GUI/DeathPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_o7y0j")
+theme_override_font_sizes/font_size = 15
+text = "Unlocks"
+horizontal_alignment = 1
 
 [node name="snd_victory" type="AudioStreamPlayer2D" parent="GUILayer/GUI/DeathPanel"]
 unique_name_in_owner = true
