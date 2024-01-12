@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://qqb8njgng0lu"]
+[gd_scene load_steps=6 format=3 uid="uid://qqb8njgng0lu"]
 
 [ext_resource type="FontFile" uid="uid://dwwyjiqakfsrp" path="res://Art/GUI/fonts/Pixel NES.otf" id="1_bobvx"]
+[ext_resource type="Theme" uid="uid://bx5jky8u87si" path="res://Player/GUI/main_panel.tres" id="1_pqoj0"]
 [ext_resource type="Script" path="res://Utility/basic_button.gd" id="2_rxijq"]
 [ext_resource type="AudioStream" uid="uid://c0k760srok4rr" path="res://Art/GUI/audio/snd_hover.wav" id="3_gfdbl"]
 [ext_resource type="AudioStream" uid="uid://daqhmho7tbqhf" path="res://Art/GUI/audio/snd_click.wav" id="4_tq1ly"]
@@ -9,6 +10,7 @@
 custom_minimum_size = Vector2(80, 30)
 offset_right = 8.0
 offset_bottom = 8.0
+theme = ExtResource("1_pqoj0")
 theme_override_fonts/font = ExtResource("1_bobvx")
 text = "Example"
 script = ExtResource("2_rxijq")

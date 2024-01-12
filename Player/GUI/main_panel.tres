@@ -1,0 +1,24 @@
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://bx5jky8u87si"]
+
+[ext_resource type="Texture2D" uid="uid://cx6khy5tiwkl7" path="res://Player/GUI/hover_button.png" id="1_hh1wv"]
+[ext_resource type="Texture2D" uid="uid://c0ny8h5bodf06" path="res://Player/GUI/normal_button.png" id="2_n7tkt"]
+[ext_resource type="Texture2D" uid="uid://b1c2tv4mvgxn" path="res://Player/GUI/pressed_button.png" id="3_rp6i0"]
+[ext_resource type="Texture2D" uid="uid://chj6n4dv2dv2m" path="res://Player/GUI/level_up.png" id="4_yv4v3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4aj86"]
+texture = ExtResource("1_hh1wv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fljys"]
+texture = ExtResource("2_n7tkt")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6wv0n"]
+texture = ExtResource("3_rp6i0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fmupc"]
+texture = ExtResource("4_yv4v3")
+
+[resource]
+Button/styles/hover = SubResource("StyleBoxTexture_4aj86")
+Button/styles/normal = SubResource("StyleBoxTexture_fljys")
+Button/styles/pressed = SubResource("StyleBoxTexture_6wv0n")
+Panel/styles/panel = SubResource("StyleBoxTexture_fmupc")
