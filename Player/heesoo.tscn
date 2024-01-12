@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cobscoe13beka"]
+[gd_scene load_steps=46 format=3 uid="uid://cobscoe13beka"]
 
 [ext_resource type="Script" path="res://Player/Heesoo.gd" id="1_m0s4d"]
 [ext_resource type="Texture2D" uid="uid://dk7j6r0n22xsn" path="res://Art/characters/HeeSoo/HeeSoo-32-Sheet.png" id="2_45tl4"]
@@ -6,11 +6,15 @@
 [ext_resource type="PackedScene" uid="uid://cy0nw2knakaou" path="res://Attack/gaslight/gas_light_path.tscn" id="4_8kh70"]
 [ext_resource type="Texture2D" uid="uid://bfdj48cmwnmxu" path="res://Art/GUI/exp_back.png" id="5_7p1ar"]
 [ext_resource type="Texture2D" uid="uid://idp84iekaqsm" path="res://Art/GUI/exp_bar.png" id="5_w2c23"]
-[ext_resource type="FontFile" uid="uid://bssw2l3ey0h80" path="res://Art/GUI/Pixel Coleco.otf" id="7_o7y0j"]
-[ext_resource type="FontFile" uid="uid://ctusnyh7c68qs" path="res://Art/GUI/Pixel ModeX.otf" id="7_tfjnm"]
+[ext_resource type="FontFile" uid="uid://bssw2l3ey0h80" path="res://Art/GUI/fonts/Pixel Coleco.otf" id="7_o7y0j"]
+[ext_resource type="FontFile" uid="uid://ctusnyh7c68qs" path="res://Art/GUI/fonts/Pixel ModeX.otf" id="7_tfjnm"]
 [ext_resource type="Texture2D" uid="uid://but86grw7fs1a" path="res://Art/GUI/health_frame.png" id="8_bffhf"]
 [ext_resource type="Texture2D" uid="uid://c311ggg5qhgu7" path="res://Art/GUI/health_bar.png" id="9_b4bfa"]
-[ext_resource type="FontFile" uid="uid://dwwyjiqakfsrp" path="res://Art/GUI/Pixel NES.otf" id="11_obwfo"]
+[ext_resource type="FontFile" uid="uid://dwwyjiqakfsrp" path="res://Art/GUI/fonts/Pixel NES.otf" id="11_obwfo"]
+[ext_resource type="AudioStream" uid="uid://chsvopggpgvy3" path="res://Art/GUI/audio/positive_trill.wav" id="11_p6yr1"]
+[ext_resource type="PackedScene" uid="uid://qqb8njgng0lu" path="res://Utility/basic_button.tscn" id="11_sf14r"]
+[ext_resource type="AudioStream" uid="uid://cat5rqpo3oh05" path="res://Art/GUI/audio/snd_victory.wav" id="12_8tm8b"]
+[ext_resource type="AudioStream" uid="uid://npiqncv2ntju" path="res://Art/GUI/audio/snd_lose.wav" id="13_ywges"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n0r3d"]
 atlas = ExtResource("2_45tl4")
@@ -367,6 +371,46 @@ offset_bottom = 100.0
 
 [node name="snd_levelUp" type="AudioStreamPlayer2D" parent="GUILayer/GUI/LevelUp"]
 unique_name_in_owner = true
+stream = ExtResource("11_p6yr1")
+volume_db = -5.0
+
+[node name="DeathPanel" type="Panel" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+layout_mode = 0
+offset_left = 553.0
+offset_top = -97.0
+offset_right = 753.0
+offset_bottom = 153.0
+
+[node name="LabelResult" type="Label" parent="GUILayer/GUI/DeathPanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 50.0
+theme_override_fonts/font = ExtResource("7_o7y0j")
+text = "Result"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="snd_victory" type="AudioStreamPlayer2D" parent="GUILayer/GUI/DeathPanel"]
+unique_name_in_owner = true
+stream = ExtResource("12_8tm8b")
+volume_db = 3.0
+
+[node name="snd_lose" type="AudioStreamPlayer2D" parent="GUILayer/GUI/DeathPanel"]
+unique_name_in_owner = true
+stream = ExtResource("13_ywges")
+volume_db = -15.0
+
+[node name="MenuButton" parent="GUILayer/GUI/DeathPanel" instance=ExtResource("11_sf14r")]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 200.0
+offset_right = 151.0
+offset_bottom = 230.0
+text = "Menu"
 
 [node name="CollectedWeapons" type="GridContainer" parent="GUILayer/GUI"]
 unique_name_in_owner = true
@@ -411,5 +455,6 @@ vertical_alignment = 1
 [connection signal="body_exited" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_exited"]
 [connection signal="area_entered" from="GrabArea" to="." method="_on_grab_area_area_entered"]
 [connection signal="area_entered" from="CollectArea" to="." method="_on_collect_area_area_entered"]
+[connection signal="click_end" from="GUILayer/GUI/DeathPanel/MenuButton" to="." method="_on_menu_button_click_end"]
 
 [editable path="Hurtbox"]

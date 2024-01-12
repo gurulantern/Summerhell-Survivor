@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cfv3ak1k25pbq"]
 
 [ext_resource type="Script" path="res://Utility/enemy_spawner.gd" id="1_vg52u"]
-[ext_resource type="PackedScene" uid="uid://c51e0fk6gnlts" path="res://Enemies/imp/enemy_imp_weak.tscn" id="2_1hw0t"]
+[ext_resource type="PackedScene" uid="uid://c51e0fk6gnlts" path="res://Enemies/enemy_imp_weak.tscn" id="2_1hw0t"]
 [ext_resource type="Script" path="res://Utility/spawn_info.gd" id="3_ltiia"]
 
 [sub_resource type="Resource" id="Resource_kin1s"]

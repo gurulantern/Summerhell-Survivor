@@ -20,25 +20,25 @@ func _ready():
 		1:
 			hp = 1
 			speed = 100
-			damage = 8
+			damage = 10
 			knockback_amount = 100
 			scale_multiplier = scale_multiplier * (1 + player.spell_size)
 		2:
 			hp = 1
 			speed = 100
-			damage = 8
+			damage = 10
 			knockback_amount = 100
 			scale_multiplier = scale_multiplier * (1 + player.spell_size)
 		3:
 			hp = 2
 			speed = 100
-			damage = 8
+			damage = 14
 			knockback_amount = 120
 			scale_multiplier = scale_multiplier * (1 + player.spell_size)
 		4:
 			hp = 2
 			speed = 100
-			damage = 10
+			damage = 14
 			knockback_amount = 120
 			scale_multiplier = scale_multiplier * (1 + player.spell_size)
 			
@@ -49,6 +49,7 @@ func _physics_process(delta):
 	
 
 func enemy_hit(charge = 1):
+	print("hit something!")
 	hp -= charge
 	if hp <= 0:
 		emit_signal("remove_from_array", self)

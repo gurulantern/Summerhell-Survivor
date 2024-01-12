@@ -1,0 +1,107 @@
+[gd_scene load_steps=15 format=3 uid="uid://dh2vadd47lsx2"]
+
+[ext_resource type="Material" uid="uid://d3okkoi7wgit0" path="res://Shader/explosion.tres" id="1_ehxnk"]
+[ext_resource type="Script" path="res://Enemies/enemy.gd" id="2_pghxb"]
+[ext_resource type="Texture2D" uid="uid://b0fh5xqv5njf0" path="res://Art/characters/enemy/kiwi/kiwi-demon-Sheet.png" id="3_iichm"]
+[ext_resource type="PackedScene" uid="uid://b2k4df7sl7uqe" path="res://Enemies/enemy_base.tscn" id="4_ilcfr"]
+[ext_resource type="Shader" path="res://Shader/explosion.gdshader" id="5_ijeie"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psp3h"]
+atlas = ExtResource("3_iichm")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vsupt"]
+atlas = ExtResource("3_iichm")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1h265"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_psp3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vsupt")
+}],
+"loop": true,
+"name": &"move",
+"speed": 4.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_toy4m"]
+height = 25.4545
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_h4mry"]
+noise_type = 0
+seed = 16
+frequency = 0.9675
+fractal_octaves = 9
+fractal_lacunarity = 100.0
+fractal_gain = 0.1
+fractal_weighted_strength = 0.7
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uplmk"]
+width = 32
+height = 32
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_h4mry")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_g4wvc"]
+noise_type = 0
+seed = 115
+frequency = 1.0
+fractal_octaves = 10
+fractal_lacunarity = 100.0
+fractal_gain = 10.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d3lc0"]
+width = 32
+height = 32
+generate_mipmaps = false
+as_normal_map = true
+bump_strength = 32.0
+noise = SubResource("FastNoiseLite_g4wvc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_scoej"]
+resource_local_to_scene = true
+shader = ExtResource("5_ijeie")
+shader_parameter/progress = 0.0
+shader_parameter/strength = 10.0
+shader_parameter/noise_tex_normal = SubResource("NoiseTexture2D_d3lc0")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_uplmk")
+
+[node name="enemy_kiwi_demon" type="CharacterBody2D"]
+y_sort_enabled = true
+material = ExtResource("1_ehxnk")
+scale = Vector2(1.4, 1.4)
+collision_layer = 5
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("2_pghxb")
+enemy_name = "kiwi_demon"
+movement_speed = 15.0
+hp = 100
+knockback_recovery = 10.0
+enemy_damage = 5
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 16
+visibility_layer = 16
+y_sort_enabled = true
+material = ExtResource("1_ehxnk")
+sprite_frames = SubResource("SpriteFrames_1h265")
+animation = &"move"
+frame_progress = 0.200203
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_toy4m")
+
+[node name="EnemyBase" parent="." instance=ExtResource("4_ilcfr")]
+material = SubResource("ShaderMaterial_scoej")
+
+[connection signal="hurt" from="EnemyBase/Hurtbox" to="." method="_on_hurtbox_hurt"]
+[connection signal="finished" from="EnemyBase/snd_death" to="." method="_on_snd_death_finished"]
+
+[editable path="EnemyBase"]
+[editable path="EnemyBase/Hurtbox"]
+[editable path="EnemyBase/Hitbox"]

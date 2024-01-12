@@ -69,6 +69,13 @@ var enemy_close = []
 @onready var item_container = preload("res://Player/GUI/item_container.tscn")
 var time = 0
 
+@onready var death_panel = get_node("%DeathPanel")
+@onready var result_label = get_node("%LabelResult")
+@onready var snd_victory = get_node("%snd_victory")
+@onready var snd_lose = get_node("%snd_lose")
+
+signal player_death
+
 func _ready():
 	upgrade_heesoo("earpick1")
 	anim.play("idle")
@@ -117,6 +124,8 @@ func _on_hurtbox_hurt(damage, _angle, _knockback):
 	hp -= clamp(damage-armor, 1.0, 999.0)
 	health_bar.max_value = maxhp
 	health_bar.value = hp
+	if hp <= 0:
+		death()
 
 #Ear Pick Timers 
 #Loads ammunition
@@ -384,3 +393,21 @@ func adjust_gui_collection(upgrade):
 					for n in collection:
 						if n.upgrade_type == get_upgraded_name:
 							n.update_upgrade(upgrade)
+
+func death():
+	death_panel.visible = true
+	emit_signal("player_death")
+	get_tree().paused = true
+	var tween = death_panel.create_tween()
+	tween.tween_property(death_panel, "position", Vector2(220,50), 3.0).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.play()
+	if time >= 300:
+		result_label.text = "You survived!"
+		snd_victory.play()
+	else:
+		result_label.text = "You died!"
+		snd_lose.play()
+
+func _on_menu_button_click_end():
+	get_tree().paused = false
+	var _level = get_tree().change_scene_to_file("res://Title Screen/menu.tscn")

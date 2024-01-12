@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2k4df7sl7uqe"]
+
+[ext_resource type="Material" uid="uid://d3okkoi7wgit0" path="res://Shader/explosion.tres" id="1_f44um"]
+[ext_resource type="PackedScene" uid="uid://cw5tvrgclens4" path="res://Utility/hurtbox.tscn" id="4_wuamm"]
+[ext_resource type="PackedScene" uid="uid://8vjlu2yy3kr5" path="res://Utility/hitbox.tscn" id="5_w2mhq"]
+[ext_resource type="AudioStream" uid="uid://cdvp26dpcigcc" path="res://Art/characters/enemy/imp/imp_hit.wav" id="6_4uqsd"]
+[ext_resource type="AudioStream" uid="uid://vj4w1ag6srxk" path="res://Art/characters/enemy/imp/imp_death.wav" id="7_kfis5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4eccb"]
+size = Vector2(18.8889, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uerua"]
+size = Vector2(27, 26.5)
+
+[node name="EnemyBase" type="Node2D"]
+y_sort_enabled = true
+material = ExtResource("1_f44um")
+scale = Vector2(0.9, 0.9)
+
+[node name="Hurtbox" parent="." instance=ExtResource("4_wuamm")]
+collision_layer = 4
+collision_mask = 4
+HurtBoxType = 1
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(-0.555555, 0)
+shape = SubResource("RectangleShape2D_4eccb")
+
+[node name="Hitbox" parent="." instance=ExtResource("5_w2mhq")]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(-1, 0.25)
+shape = SubResource("RectangleShape2D_uerua")
+
+[node name="snd_hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_4uqsd")
+volume_db = -2.0
+
+[node name="snd_death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_kfis5")
+volume_db = -2.0
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]
