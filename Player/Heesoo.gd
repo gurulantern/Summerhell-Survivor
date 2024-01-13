@@ -69,14 +69,15 @@ var enemy_close = []
 @onready var collected_weapons = get_node("%CollectedWeapons")
 @onready var collected_upgrades = get_node("%CollectedUpgrades")
 @onready var item_container = preload("res://Player/GUI/item_container.tscn")
-var time = 0
-
 @onready var death_panel = get_node("%DeathPanel")
 @onready var exp_label = get_node("%ExpTotal")
 @onready var gold_label = get_node("%GoldTotal")
 @onready var result_label = get_node("%LabelResult")
 @onready var snd_victory = get_node("%snd_victory")
 @onready var snd_lose = get_node("%snd_lose")
+@onready var pause_panel = get_node("%PausePanel")
+var time = 0
+var game_over = false
 
 signal player_death
 
@@ -86,6 +87,7 @@ func _ready():
 	attack()
 	set_exp_bar(exp, calculate_exp_cap())
 	_on_hurtbox_hurt(0,0,0)
+	
 
 func _physics_process(delta):
 	var direction : Vector2 = Input.get_vector("left", "right", "up", "down").normalized()
@@ -253,7 +255,9 @@ func set_exp_bar(set_value = 1, set_max_value = 100):
 func level_up():
 	snd_levelUp.play()
 	var tween = level_panel.create_tween()
-	tween.tween_property(level_panel, "position:y", 50, 0.2).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN)
+	tween.tween_property(
+		level_panel, "position:y", 50, 0.2
+		).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN)
 	tween.play()
 	level_panel.visible = true
 	var options = 0
@@ -401,6 +405,7 @@ func adjust_gui_collection(upgrade):
 							n.update_upgrade(upgrade)
 
 func death():
+	game_over = true
 	death_panel.visible = true
 	exp_label.text = str(total_exp)
 	calculate_gold()
@@ -409,7 +414,9 @@ func death():
 	emit_signal("player_death")
 	get_tree().paused = true
 	var tween = death_panel.create_tween()
-	tween.tween_property(death_panel, "position", Vector2(220,50), 3.0).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.tween_property(
+		death_panel, "position", Vector2(220,50), 3.0
+		).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	tween.play()
 	if time >= 300:
 		Save.SAVE_DICT["wins"] += 1
@@ -424,3 +431,29 @@ func _on_menu_button_click_end():
 	SaverLoader.save_game()
 	get_tree().paused = false
 	var _level = get_tree().change_scene_to_file("res://Title Screen/menu.tscn")
+
+func open_pause_menu():
+	if game_over == false:
+		get_tree().paused = true
+		var tween = pause_panel.create_tween()
+		tween.tween_property(
+			pause_panel, "position", Vector2(130,60), 1.0
+			).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+		tween.play()
+
+func close_pause_menu():
+	get_tree().paused = false
+	var tween = pause_panel.create_tween()
+	tween.tween_property(
+		pause_panel, "position", Vector2(-450,250), 1.0
+		).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.play()
+	await tween.finished
+
+
+
+func _on_pause_panel_pause_game():
+	open_pause_menu()
+
+func _on_pause_panel_unpause_game():
+	close_pause_menu()

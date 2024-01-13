@@ -79,6 +79,7 @@ collision_mask = 5
 motion_mode = 1
 script = ExtResource("2_novbt")
 enemy_name = "imp_weak"
+hp = 8
 exp = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

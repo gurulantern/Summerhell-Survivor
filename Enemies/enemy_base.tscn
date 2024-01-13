@@ -44,5 +44,7 @@ volume_db = -2.0
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
+[node name="DamageNumOrigin" type="Node2D" parent="."]
+
 [editable path="Hurtbox"]
 [editable path="Hitbox"]

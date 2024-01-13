@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://cobscoe13beka"]
+[gd_scene load_steps=53 format=3 uid="uid://cobscoe13beka"]
 
 [ext_resource type="Script" path="res://Player/Heesoo.gd" id="1_m0s4d"]
 [ext_resource type="Texture2D" uid="uid://dk7j6r0n22xsn" path="res://Art/characters/HeeSoo/HeeSoo-32-Sheet.png" id="2_45tl4"]
@@ -17,6 +17,8 @@
 [ext_resource type="AudioStream" uid="uid://cat5rqpo3oh05" path="res://Art/GUI/audio/snd_victory.wav" id="12_8tm8b"]
 [ext_resource type="Texture2D" uid="uid://buky8ogdsypj2" path="res://Player/GUI/results.png" id="13_38gdb"]
 [ext_resource type="AudioStream" uid="uid://npiqncv2ntju" path="res://Art/GUI/audio/snd_lose.wav" id="13_ywges"]
+[ext_resource type="Texture2D" uid="uid://wygnwuwsnsmu" path="res://Player/GUI/pause.png" id="18_gm265"]
+[ext_resource type="Script" path="res://Player/pause_panel.gd" id="19_4587o"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n0r3d"]
 atlas = ExtResource("2_45tl4")
@@ -232,6 +234,9 @@ texture = ExtResource("13_38gdb")
 [sub_resource type="Theme" id="Theme_7k2ac"]
 Panel/styles/panel = SubResource("StyleBoxTexture_pxc17")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kut06"]
+texture = ExtResource("18_gm265")
+
 [node name="Heesoo" type="CharacterBody2D" groups=["player"]]
 y_sort_enabled = true
 disable_mode = 2
@@ -426,6 +431,7 @@ text = "Exp"
 
 [node name="ExpTotal" type="Label" parent="GUILayer/GUI/DeathPanel/VBoxContainer/Results"]
 unique_name_in_owner = true
+process_mode = 2
 layout_mode = 2
 theme_override_fonts/font = ExtResource("11_obwfo")
 theme_override_font_sizes/font_size = 12
@@ -468,6 +474,36 @@ offset_left = 50.0
 offset_top = 200.0
 offset_right = 150.0
 offset_bottom = 230.0
+text = "Menu"
+
+[node name="PausePanel" type="Panel" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+process_mode = 3
+layout_mode = 0
+offset_left = -450.0
+offset_top = 60.0
+offset_right = -50.0
+offset_bottom = 310.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_kut06")
+script = ExtResource("19_4587o")
+
+[node name="Label" type="Label" parent="GUILayer/GUI/PausePanel"]
+layout_mode = 0
+offset_left = 175.0
+offset_top = 15.0
+offset_right = 222.0
+offset_bottom = 38.0
+theme_override_fonts/font = ExtResource("7_o7y0j")
+text = "Pause"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuButton2" parent="GUILayer/GUI/PausePanel" instance=ExtResource("11_sf14r")]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 196.545
+offset_right = 250.0
+offset_bottom = 226.545
 text = "Menu"
 
 [node name="CollectedWeapons" type="GridContainer" parent="GUILayer/GUI"]
@@ -514,5 +550,8 @@ vertical_alignment = 1
 [connection signal="area_entered" from="GrabArea" to="." method="_on_grab_area_area_entered"]
 [connection signal="area_entered" from="CollectArea" to="." method="_on_collect_area_area_entered"]
 [connection signal="click_end" from="GUILayer/GUI/DeathPanel/MenuButton" to="." method="_on_menu_button_click_end"]
+[connection signal="pause_game" from="GUILayer/GUI/PausePanel" to="." method="_on_pause_panel_pause_game"]
+[connection signal="unpause_game" from="GUILayer/GUI/PausePanel" to="." method="_on_pause_panel_unpause_game"]
+[connection signal="click_end" from="GUILayer/GUI/PausePanel/MenuButton2" to="." method="_on_menu_button_click_end"]
 
 [editable path="Hurtbox"]

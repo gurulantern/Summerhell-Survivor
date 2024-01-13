@@ -80,9 +80,9 @@ motion_mode = 1
 script = ExtResource("2_i5q4m")
 enemy_name = "golden_urn"
 movement_speed = 10.0
-hp = 200
+hp = 300
 knockback_recovery = 2.0
-exp = 25
+exp = 35
 enemy_damage = 8
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

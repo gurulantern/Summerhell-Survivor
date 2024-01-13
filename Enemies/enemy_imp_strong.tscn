@@ -81,6 +81,7 @@ script = ExtResource("2_ocgy1")
 enemy_name = "imp_strong"
 movement_speed = 28.0
 hp = 20
+exp = 4
 enemy_damage = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

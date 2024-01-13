@@ -12,6 +12,8 @@ var knockback = Vector2.ZERO
 
 @onready var player = get_tree().get_first_node_in_group("player")
 @onready var loot_base = get_tree().get_first_node_in_group("loot")
+@onready var damage_label = preload("res://Enemies/damage_number.tscn")
+@onready var damage_num_origin = $EnemyBase/DamageNumOrigin
 @onready var anim : AnimatedSprite2D = $AnimatedSprite2D
 @onready var snd_hit = $EnemyBase/snd_hit
 @onready var snd_death = $EnemyBase/snd_death
@@ -54,6 +56,7 @@ func death():
 	queue_free()
 
 func _on_hurtbox_hurt(damage, angle, knockback_amount):
+	display_number(damage, damage_num_origin.position, false)
 	hp -= damage
 	knockback = angle * knockback_amount
 	if hp <= 0:
@@ -66,3 +69,27 @@ func _on_snd_death_finished():
 	new_pentagram.global_position = global_position
 	new_pentagram.exp = exp
 	loot_base.call_deferred("add_child", new_pentagram)
+
+func display_number(value:int, position: Vector2, is_critical:bool = false):
+	var number = damage_label.instantiate()
+	number.global_position = position
+	number.text = str(value)
+	
+	call_deferred("add_child", number)
+	
+	await number.resized
+	number.pivot_offset = Vector2(number.size/2)
+	var tween = number.create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(
+		number, "position:y", number.position.y -24, 0.2
+	).set_ease(Tween.EASE_OUT)
+	tween.tween_property(
+		number, "position:y", number.position.y, 0.5
+	).set_ease(Tween.EASE_IN).set_delay(0.2)
+	tween.tween_property(
+		number, "scale", Vector2.ZERO, 0.2
+	).set_ease(Tween.EASE_IN).set_delay(0.2)
+	
+	await tween.finished
+	number.queue_free()
