@@ -1,6 +1,6 @@
-extends Button
+class_name DialogueButton extends Button
 
-@onready var choice_index = 0
+var choice_index: int
 
 signal choice_selected(choice_index)
 

@@ -22,7 +22,7 @@ var knockback = Vector2.ZERO
 @onready var hurtbox_collision = $EnemyBase/Hurtbox/CollisionShape2D
 @onready var hitbox = $EnemyBase/Hitbox
 
-var exp_pentagram = preload("res://Objects/experience_pentagram.tscn")
+var exp_pentagram = preload("res://Player/Objects/experience_pentagram.tscn")
 signal remove_from_array(object)
 
 func _ready():

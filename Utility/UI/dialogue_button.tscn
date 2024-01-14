@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://c0k760srok4rr" path="res://Art/GUI/audio/snd_hover.wav" id="4_k72hd"]
 [ext_resource type="AudioStream" uid="uid://daqhmho7tbqhf" path="res://Art/GUI/audio/snd_click.wav" id="5_muets"]
 
-[node name="Button" type="Button"]
+[node name="DialogueButton" type="Button"]
 custom_minimum_size = Vector2(80, 30)
 offset_right = 8.0
 offset_bottom = 8.0

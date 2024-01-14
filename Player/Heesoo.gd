@@ -17,7 +17,7 @@ var earPick = preload("res://Attack/earPick/ear_pick.tscn")
 var fannyPack = preload("res://Attack/fannypack/fanny_pack.tscn")
 var gasLight = preload("res://Attack/gaslight/gas_light_path.tscn")
 
-#AttackNodes
+#region Attack Nodes
 @onready var earPickTimer = get_node("%EarPickTimer")
 @onready var earPickAttackTimer = get_node("%EarPickAttackTimer")
 @onready var fannyPackTimer = get_node("%FannyPackTimer")
@@ -25,8 +25,9 @@ var gasLight = preload("res://Attack/gaslight/gas_light_path.tscn")
 @onready var gasLightTimer = get_node("%GasLightTimer")
 @onready var gasLightAttackTimer = get_node("%GasLightAttackTimer")
 @onready var gasLightPath = get_node("GasLightPath")
+#endregion
 
-#Upgrades
+#region Upgrade variables
 var collected_upgrades_array = []
 var upgrade_options_array = []
 var armor = 0
@@ -34,29 +35,34 @@ var speed = 80
 var spell_cooldown = 0
 var spell_size = 0
 var additional_attacks = 0
+#endregion
 
-#Ear Pick
+#region Ear pick Variables
 var earPick_ammo = 0
 var earPick_baseammo = 0
 var earPick_attackspeed = 1.8
 var earPick_level = 0
+#endregion
 
-#Fanny Pack
+#region Fanny pack Variables
 var fannyPack_ammo = 0
 var fannyPack_baseammo = 0
 var fannyPack_attackspeed = 2
 var fannyPack_level = 0
 var flipped = false
+#endregion
 
-#Gas Light
+#region Gas light Variables
 var gasLight_ammo = 0
 var gasLight_baseammo = 0
 var gasLight_attackspeed = 2
 var gasLight_level = 0
+#endregion
 
 #Enemy Related
 var enemy_close = []
 
+#region GUI Variables
 #GUI
 @onready var exp_bar = get_node("%ExperienceBar")
 @onready var level_label = get_node("%LabelLevel")
@@ -78,6 +84,7 @@ var enemy_close = []
 @onready var pause_panel = get_node("%PausePanel")
 var time = 0
 var game_over = false
+#endregion
 
 signal player_death
 
@@ -133,6 +140,7 @@ func _on_hurtbox_hurt(damage, _angle, _knockback):
 	if hp <= 0:
 		death()
 
+#region Ear Pick
 #Ear Pick Timers 
 #Loads ammunition
 func _on_ear_pick_timer_timeout():
@@ -153,6 +161,14 @@ func _on_ear_pick_attack_timer_timeout():
 		else:
 			earPickAttackTimer.stop()
 
+func get_random_target():
+	if enemy_close.size() > 0:
+		return enemy_close.pick_random().global_position
+	else:
+		return Vector2.UP
+#endregion
+
+#region Fanny Pack
 #Fanny Pack timers
 func _on_fanny_pack_timer_timeout():
 	fannyPack_ammo += fannyPack_baseammo + additional_attacks
@@ -177,6 +193,16 @@ func _on_fanny_pack_attack_timer_timeout():
 			flipped = !flipped
 			fannyPackAttackTimer.stop()
 
+func get_spawn_point(parent_global_position: Vector2, attack_size: Vector2, attack_scale: Vector2) -> Vector2:
+	# Calculate the offset to position the weapon's bottom right corner at the center of the parent
+	var offset = Vector2(attack_size.x * 1.0 * attack_scale.x, attack_size.y * 0.5 * attack_scale.y)
+	# Calculate the spawn position by adding the offset to the parent's global position
+	var spawn_position = parent_global_position + offset
+	
+	return spawn_position
+#endregion
+
+#region Gas Light
 func _on_gas_light_timer_timeout():
 	gasLight_ammo += gasLight_baseammo + additional_attacks
 	gasLightAttackTimer.start()
@@ -188,31 +214,29 @@ func _on_gas_light_attack_timer_timeout():
 		gasLightAttackTimer.start()
 	else:
 		gasLightAttackTimer.stop()
+#endregion
 
-func get_random_target():
-	if enemy_close.size() > 0:
-		return enemy_close.pick_random().global_position
-	else:
-		return Vector2.UP
-
-func get_spawn_point(parent_global_position: Vector2, attack_size: Vector2, attack_scale: Vector2) -> Vector2:
-	# Calculate the offset to position the weapon's bottom right corner at the center of the parent
-	var offset = Vector2(attack_size.x * 1.0 * attack_scale.x, attack_size.y * 0.5 * attack_scale.y)
-	# Calculate the spawn position by adding the offset to the parent's global position
-	var spawn_position = parent_global_position + offset
-	
-	return spawn_position
-
+#region Grab/Collect
 func _on_grab_area_area_entered(area):
-	if area.is_in_group("loot"):
+	if area.is_in_group("pentagram"):
 		area.target = self
 
 func _on_collect_area_area_entered(area):
-	if area.is_in_group("loot"):
+	if area.is_in_group("pentagram"):
 		var pentagram_exp = area.collect()
-		print("EXP gained: ", pentagram_exp)
 		calculate_exp(pentagram_exp)
+	elif area.is_in_group("gold"):
+		var gold_pickup = area.collect()
+		collected_gold += gold_pickup
+	elif area.is_in_group("anime"):
+		area.collect()
+		anime_rage()
+	elif area.is_in_group("chest"):
+		area.collect()
+		open_chest()
+#endregion
 
+#region Enemy Detection
 func _on_enemy_detection_area_body_entered(body):
 	if not enemy_close.has(body) && not body.is_in_group("player") :
 		enemy_close.append(body)
@@ -220,7 +244,9 @@ func _on_enemy_detection_area_body_entered(body):
 func _on_enemy_detection_area_body_exited(body):
 	if enemy_close.has(body):
 		enemy_close.erase(body)
+#endregion
 
+#region Leveling Up
 func calculate_exp(pentagram_exp):
 	var exp_required = calculate_exp_cap()
 	collected_exp += pentagram_exp
@@ -362,6 +388,7 @@ func get_random_item():
 		return random_item
 	else:
 		return null
+#endregion
 
 func change_time():
 	var pass_time = int(time)
@@ -430,8 +457,9 @@ func death():
 func _on_menu_button_click_end():
 	SaverLoader.save_game()
 	get_tree().paused = false
-	var _level = get_tree().change_scene_to_file("res://Title Screen/menu.tscn")
+	var _level = get_tree().change_scene_to_file("res://Scenes/Title Screen/menu.tscn")
 
+#region Pause Menu
 func open_pause_menu():
 	if game_over == false:
 		get_tree().paused = true
@@ -450,10 +478,17 @@ func close_pause_menu():
 	tween.play()
 	await tween.finished
 
-
-
 func _on_pause_panel_pause_game():
 	open_pause_menu()
 
 func _on_pause_panel_unpause_game():
 	close_pause_menu()
+#endregion
+
+#region Loot Functions
+func anime_rage():
+	pass
+
+func open_chest():
+	pass
+#endregion

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Summerhell Survivor"
-run/main_scene="res://Title Screen/menu.tscn"
+run/main_scene="res://Scenes/Title Screen/menu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -42,6 +42,19 @@ project/assembly_name="Hike"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/ez_dialogue/plugin.cfg", "res://addons/nklbdev.aseprite_importers/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://Art/": "green",
+"res://Attack/": "red",
+"res://Enemies/": "orange",
+"res://Music/": "teal",
+"res://Player/": "yellow",
+"res://Scenes/": "blue",
+"res://Shader/": "pink",
+"res://Utility/": "purple"
+}
 
 [input]
 
