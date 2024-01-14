@@ -234,6 +234,10 @@ func _on_collect_area_area_entered(area):
 	elif area.is_in_group("chest"):
 		area.collect()
 		open_chest()
+	elif area.is_in_group("food"):
+		area.collect()
+		hp += 20
+		hp = clamp(hp, 0, maxhp)
 #endregion
 
 #region Enemy Detection
