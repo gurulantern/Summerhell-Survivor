@@ -3,6 +3,8 @@ extends CharacterBody2D
 @export var hp = 80
 @export var maxhp = 80
 @onready var anim : AnimatedSprite2D = $AnimatedSprite2D
+@onready var modulate_origin = anim.modulate
+@onready var berserk = false
 
 #Experience
 var exp = 0
@@ -16,6 +18,8 @@ var total_gold = 0
 var earPick = preload("res://Attack/earPick/ear_pick.tscn")
 var fannyPack = preload("res://Attack/fannypack/fanny_pack.tscn")
 var gasLight = preload("res://Attack/gaslight/gas_light_path.tscn")
+@onready var hurtbox = get_node("Hurtbox")
+@onready var bash = get_node("Bash")
 
 #region Attack Nodes
 @onready var earPickTimer = get_node("%EarPickTimer")
@@ -25,6 +29,8 @@ var gasLight = preload("res://Attack/gaslight/gas_light_path.tscn")
 @onready var gasLightTimer = get_node("%GasLightTimer")
 @onready var gasLightAttackTimer = get_node("%GasLightAttackTimer")
 @onready var gasLightPath = get_node("GasLightPath")
+@onready var animeTimer = get_node("%AnimeTimer")
+@onready var animeAttackTimer = get_node("%AnimeAttackTimer")
 #endregion
 
 #region Upgrade variables
@@ -59,6 +65,11 @@ var gasLight_attackspeed = 2
 var gasLight_level = 0
 #endregion
 
+#region Anime Variables
+var anime_ammo = 0
+var anime_baseammo = 8
+#endregion
+
 #Enemy Related
 var enemy_close = []
 
@@ -89,6 +100,8 @@ var game_over = false
 signal player_death
 
 func _ready():
+	
+	print(modulate_origin)
 	upgrade_heesoo("earpick1")
 	anim.play("idle")
 	attack()
@@ -108,11 +121,13 @@ func _physics_process(delta):
 		anim.flip_h = true
 	elif velocity.x < 0:
 		anim.flip_h = false
-		
+	
 	if velocity.y != 0 or velocity.x != 0:
-		anim.play("walk")	
+		if berserk != true:
+			anim.play("walk")
 	else:
-		anim.play("idle")
+		if game_over != true && berserk != true:
+			anim.play("idle")
 	
 	move_and_slide()
 	
@@ -133,12 +148,53 @@ func attack():
 		if gasLightTimer.is_stopped():
 			gasLightTimer.start()
 
+#region Hurtbox and Death
+func hurt_tint():
+	var tween = create_tween()
+	tween.tween_property(self, "modulate", Color.CRIMSON, .1)
+	await tween.finished
+	tween = create_tween()
+	tween.tween_property(self, "modulate", modulate_origin, .1)
+
 func _on_hurtbox_hurt(damage, _angle, _knockback):
+	hurt_tint()
 	hp -= clamp(damage-armor, 1.0, 999.0)
 	health_bar.max_value = maxhp
 	health_bar.value = hp
 	if hp <= 0:
+		game_over = true
+		speed = 0
+		anim.play("die")
+		await anim.animation_finished
 		death()
+
+func death():
+	death_panel.visible = true
+	exp_label.text = str(total_exp)
+	calculate_gold()
+	gold_label.text = str(total_gold)
+	Save.SAVE_DICT["gold"] += total_gold
+	emit_signal("player_death")
+	get_tree().paused = true
+	var tween = death_panel.create_tween()
+	tween.tween_property(
+		death_panel, "position", Vector2(220,50), 3.0
+		).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.play()
+	if time >= 300:
+		Save.SAVE_DICT["wins"] += 1
+		result_label.text = "You survived!"
+		snd_victory.play()
+	else:
+		Save.SAVE_DICT["losses"] += 1
+		result_label.text = "You died!"
+		snd_lose.play()
+
+func _on_menu_button_click_end():
+	SaverLoader.save_game()
+	get_tree().paused = false
+	var _level = get_tree().change_scene_to_file("res://Scenes/Title Screen/menu.tscn")
+#endregion
 
 #region Ear Pick
 #Ear Pick Timers 
@@ -230,7 +286,7 @@ func _on_collect_area_area_entered(area):
 		collected_gold += gold_pickup
 	elif area.is_in_group("anime"):
 		area.collect()
-		anime_rage()
+		anime_transform()
 	elif area.is_in_group("chest"):
 		area.collect()
 		open_chest()
@@ -435,34 +491,6 @@ func adjust_gui_collection(upgrade):
 						if n.upgrade_type == get_upgraded_name:
 							n.update_upgrade(upgrade)
 
-func death():
-	game_over = true
-	death_panel.visible = true
-	exp_label.text = str(total_exp)
-	calculate_gold()
-	gold_label.text = str(total_gold)
-	Save.SAVE_DICT["gold"] += total_gold
-	emit_signal("player_death")
-	get_tree().paused = true
-	var tween = death_panel.create_tween()
-	tween.tween_property(
-		death_panel, "position", Vector2(220,50), 3.0
-		).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-	tween.play()
-	if time >= 300:
-		Save.SAVE_DICT["wins"] += 1
-		result_label.text = "You survived!"
-		snd_victory.play()
-	else:
-		Save.SAVE_DICT["losses"] += 1
-		result_label.text = "You died!"
-		snd_lose.play()
-
-func _on_menu_button_click_end():
-	SaverLoader.save_game()
-	get_tree().paused = false
-	var _level = get_tree().change_scene_to_file("res://Scenes/Title Screen/menu.tscn")
-
 #region Pause Menu
 func open_pause_menu():
 	if game_over == false:
@@ -490,9 +518,49 @@ func _on_pause_panel_unpause_game():
 #endregion
 
 #region Loot Functions
-func anime_rage():
-	pass
+func anime_transform():
+	berserk = true
+	hurtbox.process_mode = Node.PROCESS_MODE_DISABLED
+	speed = 0
+	anim.play("anime_transform")
+	await anim.animation_finished
+	print("Going berserk")
+	animeTimer.start()
+	anime_bash()
+	anime_ammo += anime_baseammo
+	animeAttackTimer.start()
+	speed = 80
+	
+
+func anime_bash():
+	var tween = create_tween()
+	tween.interpolate_value(self.position, -10.0, -20.0,.3,Tween.TRANS_QUINT,Tween.EASE_IN)
+	tween.play()
+	if anime_ammo % 2 == 1:
+		anim.play("anime_smash1")
+	else:
+		anim.play("anime_smash2")
+	bash.attack()
+
+func _on_anime_timer_timeout():
+	hurtbox.process_mode = Node.PROCESS_MODE_INHERIT
+	berserk = false
+
+func _on_anime_attack_timer_timeout():
+	if anime_ammo > 0:
+		anime_bash()
+		anime_ammo -= 1
+		if anime_ammo > 0:
+			animeAttackTimer.start()
+		else:
+			animeAttackTimer.stop()
 
 func open_chest():
 	pass
 #endregion
+
+func _on_dog_timer_timeout():
+	pass # Replace with function body.
+
+func _on_dog_attack_timer_timeout():
+	pass # Replace with function body.

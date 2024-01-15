@@ -5,6 +5,7 @@ var hp = 1
 var speed = 100
 var damage = 5
 var knockback_amount = 100
+var is_critical = false
 var scale_multiplier = Vector2(1.0, 1.0)
 
 var target
@@ -40,6 +41,7 @@ func _ready():
 			speed = 100
 			damage = 10
 			knockback_amount = 120
+			is_critical = true
 			scale_multiplier = scale_multiplier * (1 + player.spell_size)
 			
 	self.set_scale(scale_multiplier)

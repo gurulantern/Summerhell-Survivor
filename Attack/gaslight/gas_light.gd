@@ -4,6 +4,7 @@ var level = 1
 var hp = 9999
 var damage = 4
 var knockback_amount = 120
+var is_critical = false
 var scale_multiplier: Vector2 = Vector2(1.0, 1.0)
 
 @onready var player = get_tree().get_first_node_in_group("player")
@@ -39,6 +40,7 @@ func update(current_level: int):
 			hp = 1
 			damage = 8
 			knockback_amount = 135
+			is_critical = true
 	size = scale_multiplier * (1 + player.spell_size)
 	self.set_scale(size)
 

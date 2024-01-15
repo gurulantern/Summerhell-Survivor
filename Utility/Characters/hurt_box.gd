@@ -6,7 +6,7 @@ extends Area2D
 @onready var collision = $CollisionShape2D
 @onready var disableTimer = $DisableTimer
 
-signal hurt(damage, angle, knockback)
+signal hurt(damage, angle, knockback, is_critical)
 
 var hit_once_array = []
 
@@ -31,13 +31,16 @@ func _on_area_entered(area):
 			var damage = area.damage
 			var angle = Vector2.ZERO
 			var knockback = 1
+			var is_critical = false
 			if not area.get("angle") == null:
 				angle = area.angle
 			else:
 				angle = player.global_position.direction_to(self.global_position)
 			if not area.get("knockback_amount") == null:
 				knockback = area.knockback_amount
-			emit_signal("hurt", damage, angle, knockback)
+			if not area.get("is_critical") == null:
+				is_critical = area.is_critical 
+			emit_signal("hurt", damage, angle, knockback, is_critical)
 			if area.has_method("enemy_hit"):
 				area.enemy_hit(1)
 

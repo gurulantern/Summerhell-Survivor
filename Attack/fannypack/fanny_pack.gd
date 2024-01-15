@@ -13,6 +13,7 @@ var hp = 9999 #So it won't despawn after hitting other enemies
 var speed = 100.0
 var damage = 7
 var knockback_amount = 100
+var is_critical = false
 var scale_multiplier = Vector2(.5, .5)
 var shrink_speed = .5
 
@@ -48,6 +49,7 @@ func _ready():
 			speed = 100.0
 			damage = 16
 			knockback_amount = 210
+			is_critical = true
 			scale_multiplier = scale_multiplier * (1 + player.spell_size)
 			
 	self.set_scale(scale_multiplier)
@@ -71,13 +73,9 @@ func shrink():
 	tween.tween_property(self, "scale:y", 0.6, 0.6).from(scale_multiplier.y).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN)
 	tween.play()
 
-func enemy_hit(_charge):
-	pass
-
 func _on_timer_timeout():
 	emit_signal("remove_from_array", self)
 	queue_free()
-
 
 func _on_collision_timer_timeout():
 	collision.set_deferred("disabled", true)

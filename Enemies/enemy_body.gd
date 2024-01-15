@@ -22,7 +22,17 @@ var knockback = Vector2.ZERO
 @onready var hurtbox_collision = $EnemyBase/Hurtbox/CollisionShape2D
 @onready var hitbox = $EnemyBase/Hitbox
 
+@export var chest_chance = .001
+@export var anime_chance = .03
+@export var food_chance = .05
+@export var gold_chance = .1
+
 var exp_pentagram = preload("res://Player/Objects/experience_pentagram.tscn")
+var chest = preload("res://Player/Objects/chest.tscn")
+var anime = preload("res://Player/Objects/anime_boy.tscn")
+var food = preload("res://Player/Objects/food.tscn")
+var gold = preload("res://Player/Objects/gold.tscn")
+
 signal remove_from_array(object)
 
 func _ready():
@@ -55,8 +65,8 @@ func death():
 	await tween.finished
 	queue_free()
 
-func _on_hurtbox_hurt(damage, angle, knockback_amount):
-	display_number(damage, damage_num_origin.position, false)
+func _on_hurtbox_hurt(damage, angle, knockback_amount, is_critical):
+	display_number(damage, damage_num_origin.position, is_critical)
 	hp -= damage
 	knockback = angle * knockback_amount
 	if hp <= 0:
@@ -69,11 +79,35 @@ func _on_snd_death_finished():
 	new_pentagram.global_position = global_position
 	new_pentagram.exp = exp
 	loot_base.call_deferred("add_child", new_pentagram)
+	random_drop()
 
-func display_number(value:int, position: Vector2, is_critical:bool = false):
+func spawn_drop(scn_preload):
+	var new_drop = scn_preload.instantiate()
+	new_drop.global_position = global_position
+	loot_base.call_deferred("add_child", new_drop)
+
+func random_drop():
+	var random_value = randf()
+	if random_value < chest_chance:
+		spawn_drop(chest)
+	elif random_value < anime_chance:
+		spawn_drop(anime)
+	elif random_value < food_chance:
+		spawn_drop(food)
+	elif random_value < gold_chance:
+		spawn_drop(gold)
+
+func display_number(value:int, position: Vector2, is_critical:bool):
 	var number = damage_label.instantiate()
 	number.global_position = position
 	number.text = str(value)
+	
+	if is_critical:
+		number.label_settings = LabelSettings.new()
+		number.label_settings.font_color = Color.CRIMSON
+		number.label_settings.font_size = 12
+		number.label_settings.outline_color = Color.BLACK
+		number.label_settings.outline_size = 5
 	
 	call_deferred("add_child", number)
 	
