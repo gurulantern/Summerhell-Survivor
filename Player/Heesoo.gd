@@ -29,7 +29,6 @@ var gasLight = preload("res://Attack/gaslight/gas_light_path.tscn")
 @onready var gasLightTimer = get_node("%GasLightTimer")
 @onready var gasLightAttackTimer = get_node("%GasLightAttackTimer")
 @onready var gasLightPath = get_node("GasLightPath")
-@onready var animeTimer = get_node("%AnimeTimer")
 @onready var animeAttackTimer = get_node("%AnimeAttackTimer")
 #endregion
 
@@ -98,6 +97,8 @@ var game_over = false
 #endregion
 
 signal player_death
+signal shake(time, amount)
+signal quake(start, end, duration)
 
 func _ready():
 	
@@ -525,21 +526,30 @@ func anime_transform():
 	anim.play("anime_transform")
 	await anim.animation_finished
 	print("Going berserk")
-	animeTimer.start()
 	anime_bash()
 	anime_ammo += anime_baseammo
 	animeAttackTimer.start()
 	speed = 80
 	
-
+	
 func anime_bash():
-	var tween = create_tween()
-	tween.interpolate_value(self.position, -10.0, -20.0,.3,Tween.TRANS_QUINT,Tween.EASE_IN)
+	var tween = anim.create_tween()
+	tween.tween_property(
+		anim, "offset:y", -10,.05).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN_OUT)
 	tween.play()
+	await tween.finished
+	tween = create_tween()
+	tween.tween_property(
+		anim, "offset:y", 0, .05).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN_OUT)
+	tween.play()
+	
 	if anime_ammo % 2 == 1:
 		anim.play("anime_smash1")
 	else:
 		anim.play("anime_smash2")
+	
+	emit_signal("shake", 0.2, 3)
+	#emit_signal("quake", -0.035, 0.32, 0.2)
 	bash.attack()
 
 func _on_anime_timer_timeout():
@@ -554,6 +564,8 @@ func _on_anime_attack_timer_timeout():
 			animeAttackTimer.start()
 		else:
 			animeAttackTimer.stop()
+			hurtbox.process_mode = Node.PROCESS_MODE_INHERIT
+			berserk = false
 
 func open_chest():
 	pass

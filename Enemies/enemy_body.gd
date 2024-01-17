@@ -98,17 +98,17 @@ func random_drop():
 		spawn_drop(gold)
 
 func display_number(value:int, position: Vector2, is_critical:bool):
-	var number = damage_label.instantiate()
+	var number = damage_label.instantiate() as Label
 	number.global_position = position
 	number.text = str(value)
 	
+	var color: Color
 	if is_critical:
-		number.label_settings = LabelSettings.new()
-		number.label_settings.font_color = Color.CRIMSON
-		number.label_settings.font_size = 12
-		number.label_settings.outline_color = Color.BLACK
-		number.label_settings.outline_size = 5
+		color = Color.CRIMSON
+	else:
+		color = Color.WHITE
 	
+	number.add_theme_color_override("font_color", color)
 	call_deferred("add_child", number)
 	
 	await number.resized

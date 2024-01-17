@@ -529,12 +529,7 @@ wait_time = 4.0
 [node name="GasLightAttackTimer" type="Timer" parent="Attack/GasLightTimer"]
 unique_name_in_owner = true
 
-[node name="AnimeTimer" type="Timer" parent="Attack"]
-unique_name_in_owner = true
-wait_time = 8.0
-one_shot = true
-
-[node name="AnimeAttackTimer" type="Timer" parent="Attack/AnimeTimer"]
+[node name="AnimeAttackTimer" type="Timer" parent="Attack"]
 unique_name_in_owner = true
 wait_time = 0.5
 
@@ -805,8 +800,7 @@ vertical_alignment = 1
 [connection signal="timeout" from="Attack/GasLightTimer" to="GasLightPath" method="_on_gas_light_timer_timeout"]
 [connection signal="timeout" from="Attack/GasLightTimer/GasLightAttackTimer" to="." method="_on_gas_light_attack_timer_timeout"]
 [connection signal="timeout" from="Attack/GasLightTimer/GasLightAttackTimer" to="GasLightPath" method="_on_gas_light_attack_timer_timeout"]
-[connection signal="timeout" from="Attack/AnimeTimer" to="." method="_on_anime_timer_timeout"]
-[connection signal="timeout" from="Attack/AnimeTimer/AnimeAttackTimer" to="." method="_on_anime_attack_timer_timeout"]
+[connection signal="timeout" from="Attack/AnimeAttackTimer" to="." method="_on_anime_attack_timer_timeout"]
 [connection signal="timeout" from="Attack/DogTimer" to="." method="_on_dog_timer_timeout"]
 [connection signal="timeout" from="Attack/DogTimer/DogAttackTimer" to="." method="_on_dog_attack_timer_timeout"]
 [connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_entered"]
