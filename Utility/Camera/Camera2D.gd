@@ -43,7 +43,6 @@ func _on_timer_timeout():
 	tween.interpolate_value(self, "offset", 1, 1, tween.TRANS_LINEAR, tween.EASE_IN)
 
 func _on_heesoo_shake(time, amount):
-	print("shaking!!!")
 	timer.wait_time = time
 	shake_amount = amount
 	set_process(true)

@@ -101,14 +101,12 @@ signal shake(time, amount)
 signal quake(start, end, duration)
 
 func _ready():
-	
-	print(modulate_origin)
 	upgrade_heesoo("earpick1")
 	anim.play("idle")
 	attack()
 	set_exp_bar(exp, calculate_exp_cap())
-	_on_hurtbox_hurt(0,0,0)
-	
+	health_bar.max_value = maxhp
+	health_bar.value = hp
 
 func _physics_process(delta):
 	var direction : Vector2 = Input.get_vector("left", "right", "up", "down").normalized()
@@ -151,13 +149,14 @@ func attack():
 
 #region Hurtbox and Death
 func hurt_tint():
+	print("Hurt tint called")
 	var tween = create_tween()
 	tween.tween_property(self, "modulate", Color.CRIMSON, .1)
 	await tween.finished
 	tween = create_tween()
 	tween.tween_property(self, "modulate", modulate_origin, .1)
 
-func _on_hurtbox_hurt(damage, _angle, _knockback):
+func _on_hurtbox_hurt(damage, _angle, _knockback, _is_critical):
 	hurt_tint()
 	hp -= clamp(damage-armor, 1.0, 999.0)
 	health_bar.max_value = maxhp
@@ -525,7 +524,6 @@ func anime_transform():
 	speed = 0
 	anim.play("anime_transform")
 	await anim.animation_finished
-	print("Going berserk")
 	anime_bash()
 	anime_ammo += anime_baseammo
 	animeAttackTimer.start()
