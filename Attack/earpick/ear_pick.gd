@@ -8,6 +8,8 @@ var knockback_amount = 100
 var is_critical = false
 var scale_multiplier = Vector2(1.0, 1.0)
 
+@export var snd_attack : AudioStreamWAV
+
 var target
 var angle = Vector2.ZERO
 

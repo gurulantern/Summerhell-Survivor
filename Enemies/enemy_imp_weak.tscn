@@ -1,8 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://c51e0fk6gnlts"]
+[gd_scene load_steps=17 format=3 uid="uid://c51e0fk6gnlts"]
 
 [ext_resource type="Material" uid="uid://d3okkoi7wgit0" path="res://Shader/explosion.tres" id="1_addbu"]
 [ext_resource type="Script" path="res://Enemies/enemy.gd" id="2_novbt"]
+[ext_resource type="AudioStream" uid="uid://cdvp26dpcigcc" path="res://Audio/SFX/WAV/imp_hit.wav" id="3_gu562"]
 [ext_resource type="Texture2D" uid="uid://cq2kqtir3xgpy" path="res://Art/characters/enemy/imp/Imp-Sheet-64.png" id="3_j73i3"]
+[ext_resource type="AudioStream" uid="uid://vj4w1ag6srxk" path="res://Audio/SFX/WAV/imp_death.wav" id="4_8wfxi"]
 [ext_resource type="PackedScene" uid="uid://b2k4df7sl7uqe" path="res://Enemies/enemy_base.tscn" id="4_gxrpk"]
 [ext_resource type="Shader" path="res://Shader/explosion.gdshader" id="5_8kcx2"]
 
@@ -81,6 +83,8 @@ script = ExtResource("2_novbt")
 enemy_name = "imp_weak"
 hp = 8
 exp = 1
+snd_hit = ExtResource("3_gu562")
+snd_death = ExtResource("4_8wfxi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 16
@@ -97,12 +101,11 @@ shape = SubResource("CircleShape2D_adlyg")
 [node name="EnemyBase" parent="." instance=ExtResource("4_gxrpk")]
 material = SubResource("ShaderMaterial_1koe5")
 
-[node name="VisibleOnScreenNotifier2D" parent="EnemyBase" index="4"]
+[node name="VisibleOnScreenNotifier2D" parent="EnemyBase" index="2"]
 position = Vector2(0.617283, 7.15256e-07)
 scale = Vector2(1.54321, 1.60494)
 
 [connection signal="hurt" from="EnemyBase/Hurtbox" to="." method="_on_hurtbox_hurt"]
-[connection signal="finished" from="EnemyBase/snd_death" to="." method="_on_snd_death_finished"]
 [connection signal="screen_entered" from="EnemyBase/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="EnemyBase/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://bcnyuoyrwykwu"]
 
-[ext_resource type="Script" path="res://Player/Objects/gold.gd" id="1_hfl4j"]
+[ext_resource type="Script" path="res://Player/Objects/collectible.gd" id="1_8cwv3"]
 [ext_resource type="Texture2D" uid="uid://douclto1mnuji" path="res://Art/upgrades/icons/sashimi.png" id="2_diflr"]
-[ext_resource type="AudioStream" uid="uid://cin26umkdi0au" path="res://Art/SFX/food_pickup.wav" id="3_i6h7l"]
+[ext_resource type="AudioStream" uid="uid://cin26umkdi0au" path="res://Audio/SFX/WAV/food_pickup.wav" id="3_s3lgc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tnons"]
 radius = 13.7773
@@ -11,7 +11,10 @@ radius = 13.7773
 scale = Vector2(0.8, 0.8)
 collision_layer = 8
 collision_mask = 0
-script = ExtResource("1_hfl4j")
+script = ExtResource("1_8cwv3")
+value = 15
+snd_collected = ExtResource("3_s3lgc")
+snd_volume = -20.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.8, 0.8)
@@ -19,7 +22,3 @@ texture = ExtResource("2_diflr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_tnons")
-
-[node name="snd_collected" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_i6h7l")
-volume_db = -20.0

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Attack/earpick/ear_pick.gd" id="1_hwxma"]
 [ext_resource type="Texture2D" uid="uid://bywy5pu6jpm7o" path="res://Art/attacks/earpick/earpick.png" id="2_2aqtc"]
-[ext_resource type="AudioStream" uid="uid://dhxrwvfskluev" path="res://Art/SFX/earpick_hit.wav" id="3_f6ij4"]
+[ext_resource type="AudioStream" uid="uid://dhxrwvfskluev" path="res://Audio/SFX/WAV/earpick_hit.wav" id="3_f6ij4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2wur2"]
 size = Vector2(4.24264, 13.435)

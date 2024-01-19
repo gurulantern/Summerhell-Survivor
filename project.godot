@@ -25,7 +25,7 @@ UpgradeDb="*res://Utility/UI/upgrade_db.tscn"
 SceneChanger="*res://Utility/scene_changer.gd"
 SaverLoader="*res://Utility/Saves/saver_loader.gd"
 Save="*res://Utility/Saves/save.gd"
-AudioManager="*res://Music/audio_manager.tscn"
+SoundManager="*res://addons/sound_manager/sound_manager.gd"
 
 [display]
 
@@ -42,15 +42,15 @@ project/assembly_name="Hike"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ez_dialogue/plugin.cfg", "res://addons/nklbdev.aseprite_importers/plugin.cfg")
+enabled=PackedStringArray("res://addons/ez_dialogue/plugin.cfg", "res://addons/nklbdev.aseprite_importers/plugin.cfg", "res://addons/sound_manager/plugin.cfg")
 
 [file_customization]
 
 folder_colors={
 "res://Art/": "green",
 "res://Attack/": "red",
+"res://Audio/": "teal",
 "res://Enemies/": "orange",
-"res://Music/": "teal",
 "res://Player/": "yellow",
 "res://Scenes/": "blue",
 "res://Shader/": "pink",

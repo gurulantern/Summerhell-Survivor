@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://umhmp6jd87ex"]
 
-[ext_resource type="Script" path="res://Player/Objects/gold.gd" id="1_pyyk0"]
+[ext_resource type="Script" path="res://Player/Objects/collectible.gd" id="1_gn4d0"]
 [ext_resource type="Texture2D" uid="uid://2pe77xhc2j6w" path="res://Art/objects/gold.png" id="2_b5ma3"]
-[ext_resource type="AudioStream" uid="uid://dhpadu7k8tqtt" path="res://Art/SFX/gold_pickup.wav" id="3_rckd7"]
+[ext_resource type="AudioStream" uid="uid://dhpadu7k8tqtt" path="res://Audio/SFX/WAV/gold_pickup.wav" id="3_07ba6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tnons"]
 radius = 13.7773
@@ -11,14 +11,11 @@ radius = 13.7773
 scale = Vector2(0.4, 0.4)
 collision_layer = 8
 collision_mask = 0
-script = ExtResource("1_pyyk0")
+script = ExtResource("1_gn4d0")
+snd_collected = ExtResource("3_07ba6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_b5ma3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_tnons")
-
-[node name="snd_collected" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_rckd7")
-volume_db = -5.0

@@ -1,8 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://40mu0o4eesl2"]
+[gd_scene load_steps=17 format=3 uid="uid://40mu0o4eesl2"]
 
 [ext_resource type="Material" uid="uid://d3okkoi7wgit0" path="res://Shader/explosion.tres" id="1_4uxo8"]
 [ext_resource type="Script" path="res://Enemies/enemy.gd" id="2_ocgy1"]
+[ext_resource type="AudioStream" uid="uid://cdvp26dpcigcc" path="res://Audio/SFX/WAV/imp_hit.wav" id="3_p3lu2"]
 [ext_resource type="Texture2D" uid="uid://btq7nawghun6e" path="res://Art/characters/enemy/imp/Strong-Imp-Sheet.png" id="3_u6d23"]
+[ext_resource type="AudioStream" uid="uid://vj4w1ag6srxk" path="res://Audio/SFX/WAV/imp_death.wav" id="4_ft1k0"]
 [ext_resource type="PackedScene" uid="uid://b2k4df7sl7uqe" path="res://Enemies/enemy_base.tscn" id="4_q21qf"]
 [ext_resource type="Shader" path="res://Shader/explosion.gdshader" id="5_rkygv"]
 
@@ -83,6 +85,8 @@ movement_speed = 28.0
 hp = 20
 exp = 4
 enemy_damage = 2
+snd_hit = ExtResource("3_p3lu2")
+snd_death = ExtResource("4_ft1k0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 16
@@ -100,12 +104,11 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 [node name="EnemyBase" parent="." instance=ExtResource("4_q21qf")]
 material = SubResource("ShaderMaterial_v330m")
 
-[node name="VisibleOnScreenNotifier2D" parent="EnemyBase" index="4"]
+[node name="VisibleOnScreenNotifier2D" parent="EnemyBase" index="2"]
 position = Vector2(3.0303, 1.51515)
 scale = Vector2(1.61616, 1.66667)
 
 [connection signal="hurt" from="EnemyBase/Hurtbox" to="." method="_on_hurtbox_hurt"]
-[connection signal="finished" from="EnemyBase/snd_death" to="." method="_on_snd_death_finished"]
 [connection signal="screen_entered" from="EnemyBase/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="EnemyBase/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 

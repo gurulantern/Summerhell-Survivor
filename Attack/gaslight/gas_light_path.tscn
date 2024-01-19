@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://cy0nw2knakaou"]
 
 [ext_resource type="Script" path="res://Attack/gaslight/gas_light_path.gd" id="1_vdy6x"]
+[ext_resource type="AudioStream" uid="uid://cawedfwjgfsyt" path="res://Audio/SFX/WAV/gaslight_hit.wav" id="2_6mcpa"]
 [ext_resource type="Texture2D" uid="uid://d2yqsyxnetip3" path="res://Art/attacks/gaslight/GasLight-Sheet.png" id="2_irch3"]
-[ext_resource type="AudioStream" uid="uid://cawedfwjgfsyt" path="res://Art/SFX/gaslight_hit.wav" id="2_uphrk"]
 [ext_resource type="Script" path="res://Attack/gaslight/gas_light.gd" id="3_xf5em"]
 
 [sub_resource type="Curve2D" id="Curve2D_uy2r0"]
@@ -59,11 +59,7 @@ height = 9.99988
 [node name="GasLightPath" type="Path2D" groups=["attack"]]
 curve = SubResource("Curve2D_uy2r0")
 script = ExtResource("1_vdy6x")
-
-[node name="snd_attack" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_uphrk")
-volume_db = -10.0
-pitch_scale = 2.33
+snd_attack = ExtResource("2_6mcpa")
 
 [node name="Timer" type="Timer" parent="."]
 

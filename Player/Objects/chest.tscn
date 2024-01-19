@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://ceh216fwv6q83"]
+[gd_scene load_steps=11 format=3 uid="uid://ceh216fwv6q83"]
 
-[ext_resource type="Script" path="res://Player/Objects/chest.gd" id="1_qgdnw"]
+[ext_resource type="Script" path="res://Player/Objects/collectible.gd" id="1_we58e"]
 [ext_resource type="Texture2D" uid="uid://khqdn11hb6hj" path="res://Art/objects/chest-Sheet.png" id="2_4v0yi"]
+[ext_resource type="AudioStream" uid="uid://dhpadu7k8tqtt" path="res://Audio/SFX/WAV/gold_pickup.wav" id="2_a8iuq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gmqhh"]
 atlas = ExtResource("2_4v0yi")
@@ -53,16 +54,16 @@ size = Vector2(31.7605, 25.1744)
 scale = Vector2(0.6, 0.6)
 collision_layer = 8
 collision_mask = 0
-script = ExtResource("1_qgdnw")
+script = ExtResource("1_we58e")
+value = 0
+snd_collected = ExtResource("2_a8iuq")
+snd_volume = -20.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ond82")
 animation = &"open"
-frame = 3
-frame_progress = 0.537302
+frame_progress = 0.996937
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.563361, 2.58718)
 shape = SubResource("RectangleShape2D_dqd4a")
-
-[node name="snd_collected" type="AudioStreamPlayer" parent="."]

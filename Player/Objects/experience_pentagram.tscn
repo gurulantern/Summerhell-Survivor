@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://cjctloc52u10v"]
+[gd_scene load_steps=11 format=3 uid="uid://cjctloc52u10v"]
 
 [ext_resource type="Texture2D" uid="uid://caukuhmf45gnc" path="res://Art/objects/pentagrams-Sheet.png" id="1_dae2v"]
 [ext_resource type="Script" path="res://Player/Objects/experience_pentagram.gd" id="1_wq842"]
-[ext_resource type="AudioStream" uid="uid://dusliuvlm6fqd" path="res://Art/objects/pentagram_pickup.wav" id="3_norbo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_touhe"]
 atlas = ExtResource("1_dae2v")
@@ -94,9 +93,3 @@ animation = &"white"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_n034w")
-
-[node name="snd_collected" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_norbo")
-volume_db = -10.0
-
-[connection signal="finished" from="snd_collected" to="." method="_on_snd_collected_finished"]

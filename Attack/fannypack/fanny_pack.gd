@@ -17,6 +17,9 @@ var is_critical = false
 var scale_multiplier = Vector2(.5, .5)
 var shrink_speed = .5
 
+@export var snd_attack1 : AudioStreamWAV
+@export var snd_attack2 : AudioStreamWAV
+
 signal remove_from_array(object) #Needed for the hurtbox
 
 @onready var player = get_tree().get_first_node_in_group("player")

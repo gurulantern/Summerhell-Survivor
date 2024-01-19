@@ -1,8 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dh2vadd47lsx2"]
+[gd_scene load_steps=17 format=3 uid="uid://dh2vadd47lsx2"]
 
 [ext_resource type="Material" uid="uid://d3okkoi7wgit0" path="res://Shader/explosion.tres" id="1_ehxnk"]
 [ext_resource type="Script" path="res://Enemies/enemy.gd" id="2_pghxb"]
 [ext_resource type="Texture2D" uid="uid://b0fh5xqv5njf0" path="res://Art/characters/enemy/kiwi/kiwi-demon-Sheet.png" id="3_iichm"]
+[ext_resource type="AudioStream" uid="uid://cdvp26dpcigcc" path="res://Audio/SFX/WAV/imp_hit.wav" id="3_o7bf0"]
+[ext_resource type="AudioStream" uid="uid://vj4w1ag6srxk" path="res://Audio/SFX/WAV/imp_death.wav" id="4_5ihm6"]
 [ext_resource type="PackedScene" uid="uid://b2k4df7sl7uqe" path="res://Enemies/enemy_base.tscn" id="4_ilcfr"]
 [ext_resource type="Shader" path="res://Shader/explosion.gdshader" id="5_ijeie"]
 
@@ -84,6 +86,8 @@ hp = 150
 knockback_recovery = 10.0
 exp = 10
 enemy_damage = 5
+snd_hit = ExtResource("3_o7bf0")
+snd_death = ExtResource("4_5ihm6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 16
@@ -100,12 +104,11 @@ shape = SubResource("CapsuleShape2D_toy4m")
 [node name="EnemyBase" parent="." instance=ExtResource("4_ilcfr")]
 material = SubResource("ShaderMaterial_scoej")
 
-[node name="VisibleOnScreenNotifier2D" parent="EnemyBase" index="4"]
+[node name="VisibleOnScreenNotifier2D" parent="EnemyBase" index="2"]
 position = Vector2(0.396826, 4.76837e-07)
 scale = Vector2(1.78571, 1.8254)
 
 [connection signal="hurt" from="EnemyBase/Hurtbox" to="." method="_on_hurtbox_hurt"]
-[connection signal="finished" from="EnemyBase/snd_death" to="." method="_on_snd_death_finished"]
 [connection signal="screen_entered" from="EnemyBase/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="EnemyBase/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 

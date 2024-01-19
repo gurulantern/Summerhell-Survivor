@@ -4,8 +4,9 @@ var speed = .10
 var amount = 0
 var attack_speed = 2
 
+@export var snd_attack : AudioStreamWAV
+
 @onready var player = get_tree().get_first_node_in_group("player")
-@onready var snd_attack : AudioStreamPlayer = $snd_attack
 @onready var timer = get_node("Timer")
 
 #GasLights
@@ -30,7 +31,7 @@ func activate():
 func play_attack():
 	print("Gas light is attacking")
 	timer.start()
-	snd_attack.play()
+	SoundManager.play_sound(snd_attack)
 	for i in gasLights.size():
 		gasLights[i].get_node("GasLight").get_node("AnimatedSprite2D").play("attack")
 		gasLights[i].get_node("GasLight").get_node("CollisionShape2D").set_deferred("disabled", false)

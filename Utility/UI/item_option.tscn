@@ -1,12 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://drq3lwg0roub2"]
+[gd_scene load_steps=7 format=3 uid="uid://drq3lwg0roub2"]
 
 [ext_resource type="Script" path="res://Utility/UI/item_option.gd" id="1_6fpsc"]
 [ext_resource type="Texture2D" uid="uid://dilhvpa0bwydq" path="res://Art/attacks/icons/gaslight_icon.png" id="2_34pig"]
 [ext_resource type="FontFile" uid="uid://dwwyjiqakfsrp" path="res://Art/GUI/fonts/Pixel NES.otf" id="3_6tdcp"]
 [ext_resource type="FontFile" uid="uid://b1ktx6ghrtqdk" path="res://Art/GUI/fonts/SummerPixel22Regular-jE0W7.ttf" id="4_tx13v"]
 [ext_resource type="FontFile" uid="uid://ctusnyh7c68qs" path="res://Art/GUI/fonts/Pixel ModeX.otf" id="5_fwew5"]
-[ext_resource type="AudioStream" uid="uid://c0k760srok4rr" path="res://Art/GUI/audio/snd_hover.wav" id="6_a2fl5"]
-[ext_resource type="AudioStream" uid="uid://daqhmho7tbqhf" path="res://Art/GUI/audio/snd_click.wav" id="7_wnqfq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_3a4q0"]
 line_spacing = 0.0
@@ -72,12 +70,6 @@ theme_override_fonts/font = ExtResource("5_fwew5")
 theme_override_font_sizes/font_size = 9
 text = "Lvl. 1"
 horizontal_alignment = 1
-
-[node name="snd_hover" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_a2fl5")
-
-[node name="snd_pressed" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_wnqfq")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -7,7 +7,7 @@ var speed = -1
 
 @onready var sprite = $AnimatedSprite2D
 @onready var collision = $CollisionShape2D
-@onready var snd_collected = $snd_collected
+@onready var snd_collected = preload("res://Audio/SFX/WAV/pentagram_pickup.wav")
 
 func _ready():
 	if exp < 5:
@@ -29,7 +29,7 @@ func _physics_process(delta):
 		speed += 2*delta
 
 func collect():
-	snd_collected.play()
+	SoundManager.play_sound(snd_collected)
 	collision.set_deferred("disabled", true)
 	sprite.visible = false
 	return exp

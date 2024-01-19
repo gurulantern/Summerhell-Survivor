@@ -11,4 +11,3 @@ func _on_play_button_click_end():
 
 func _on_exit_button_click_end():
 	get_tree().quit()
-

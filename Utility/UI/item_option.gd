@@ -8,8 +8,9 @@ var item = null
 @onready var label_description = $LabelDescription
 @onready var label_level = $LabelLevel
 @onready var item_icon = $ColorRect/ItemIcon
-@onready var snd_hover = $snd_hover
-@onready var snd_pressed = $snd_pressed
+
+@export var snd_hover : AudioStreamWAV
+@export var snd_pressed : AudioStreamWAV
 
 signal selected_upgrade(upgrade)
 
@@ -27,13 +28,12 @@ func _ready():
 func _input(event):
 	if event.is_action("click"):
 		if mouse_over:
-			snd_pressed.play()
+			SoundManager.play_ui_sound(snd_pressed)
 			emit_signal("selected_upgrade", item)
 
 func _on_mouse_entered():
-	snd_hover.play()
+	SoundManager.play_ui_sound(snd_hover)
 	mouse_over = true
-
 
 func _on_mouse_exited():
 	mouse_over = false

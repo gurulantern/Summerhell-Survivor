@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dkb6if7fhgmxv"]
 
-[ext_resource type="Script" path="res://Player/Objects/anime_boy.gd" id="1_mxyvw"]
+[ext_resource type="Script" path="res://Player/Objects/collectible.gd" id="1_g44gm"]
 [ext_resource type="Texture2D" uid="uid://cd6gry3ftk5to" path="res://Art/objects/anime.png" id="2_onrfi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqavu"]
@@ -10,7 +10,7 @@ size = Vector2(25.2707, 28.9869)
 scale = Vector2(0.6, 0.6)
 collision_layer = 8
 collision_mask = 0
-script = ExtResource("1_mxyvw")
+script = ExtResource("1_g44gm")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_onrfi")
@@ -18,5 +18,3 @@ texture = ExtResource("2_onrfi")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.337274, -0.270866)
 shape = SubResource("RectangleShape2D_aqavu")
-
-[node name="snd_collected" type="AudioStreamPlayer" parent="."]

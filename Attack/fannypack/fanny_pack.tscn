@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ld7axj2yxn8a"]
+[gd_scene load_steps=6 format=3 uid="uid://ld7axj2yxn8a"]
 
 [ext_resource type="Script" path="res://Attack/fannypack/fanny_pack.gd" id="1_fawiq"]
 [ext_resource type="Texture2D" uid="uid://3nq3bwe465xv" path="res://Art/attacks/fannypack/fannyP.png" id="2_n2o78"]
-[ext_resource type="AudioStream" uid="uid://cb5rasag1kg7w" path="res://Art/SFX/fannyP_hit1.wav" id="3_mf6yg"]
+[ext_resource type="AudioStream" uid="uid://cb5rasag1kg7w" path="res://Audio/SFX/WAV/fannyP_hit1.wav" id="3_4185q"]
+[ext_resource type="AudioStream" uid="uid://qdstkuasrhgp" path="res://Audio/SFX/WAV/fannyP_hit2.wav" id="3_yra6c"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l1ck0"]
 radius = 11.794
@@ -13,6 +14,8 @@ top_level = true
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_fawiq")
+snd_attack1 = ExtResource("3_4185q")
+snd_attack2 = ExtResource("3_yra6c")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-0.5, 0)
@@ -29,10 +32,6 @@ wait_time = 0.6
 [node name="CollisionTimer" type="Timer" parent="."]
 wait_time = 0.3
 autostart = true
-
-[node name="snd_attack" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_mf6yg")
-autoplay = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="CollisionTimer" to="." method="_on_collision_timer_timeout"]

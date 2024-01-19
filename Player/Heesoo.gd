@@ -6,20 +6,30 @@ extends CharacterBody2D
 @onready var modulate_origin = anim.modulate
 @onready var berserk = false
 
-#Experience
+#region Experience
 var exp = 0
 var exp_level = 1
 var collected_exp = 0
 var total_exp = 0
 var collected_gold = 0
 var total_gold = 0
+#endregion
 
-#Attacks
+#region Attacks
 var earPick = preload("res://Attack/earPick/ear_pick.tscn")
 var fannyPack = preload("res://Attack/fannypack/fanny_pack.tscn")
 var gasLight = preload("res://Attack/gaslight/gas_light_path.tscn")
 @onready var hurtbox = get_node("Hurtbox")
 @onready var bash = get_node("Bash")
+#endregion
+
+#region SFX
+@onready var snd_anime_transform = preload("res://Audio/SFX/WAV/anime_transform.wav")
+@onready var snd_anime_bash = preload("res://Audio/SFX/WAV/anime_bash.wav")
+@onready var snd_victory = preload("res://Audio/UI/snd_victory.wav")
+@onready var snd_lose = preload("res://Audio/UI/snd_lose.wav")
+@onready var snd_levelUp = preload("res://Audio/UI/positive_trill.wav")
+#endregion
 
 #region Attack Nodes
 @onready var earPickTimer = get_node("%EarPickTimer")
@@ -78,7 +88,6 @@ var enemy_close = []
 @onready var level_label = get_node("%LabelLevel")
 @onready var level_panel = get_node("%LevelUp")
 @onready var upgrade_options = get_node("%UpgradeOptions")
-@onready var snd_levelUp = get_node("%snd_levelUp")
 @onready var item_options = preload("res://Utility/UI/item_option.tscn")
 @onready var health_bar = get_node("%HealthBar")
 @onready var timer_label = get_node("%LabelTimer")
@@ -89,8 +98,6 @@ var enemy_close = []
 @onready var exp_label = get_node("%ExpTotal")
 @onready var gold_label = get_node("%GoldTotal")
 @onready var result_label = get_node("%LabelResult")
-@onready var snd_victory = get_node("%snd_victory")
-@onready var snd_lose = get_node("%snd_lose")
 @onready var pause_panel = get_node("%PausePanel")
 var time = 0
 var game_over = false
@@ -184,13 +191,14 @@ func death():
 	if time >= 300:
 		Save.SAVE_DICT["wins"] += 1
 		result_label.text = "You survived!"
-		snd_victory.play()
+		SoundManager.play_music(snd_victory)
 	else:
 		Save.SAVE_DICT["losses"] += 1
 		result_label.text = "You died!"
-		snd_lose.play()
+		SoundManager.play_music_at_volume(snd_lose, -20.0)
 
 func _on_menu_button_click_end():
+	print("Saving and leaving")
 	SaverLoader.save_game()
 	get_tree().paused = false
 	var _level = get_tree().change_scene_to_file("res://Scenes/Title Screen/menu.tscn")
@@ -236,9 +244,11 @@ func _on_fanny_pack_attack_timer_timeout():
 		var texture_size = fannyPack_attack.get_node("Sprite2D").texture.get_size()
 		fannyPack_attack.level = fannyPack_level
 		if flipped:
+			SoundManager.play_sound(fannyPack_attack.snd_attack1)
 			fannyPack_attack.flip_sprite()
 			fannyPack_attack.position = get_spawn_point(global_position, texture_size, fannyPack_attack.scale_multiplier)
 		else:
+			SoundManager.play_sound(fannyPack_attack.snd_attack2)
 			fannyPack_attack.position = get_spawn_point(global_position, -texture_size, fannyPack_attack.scale_multiplier)
 		add_child(fannyPack_attack)
 		fannyPack_ammo -= 1
@@ -339,7 +349,7 @@ func set_exp_bar(set_value = 1, set_max_value = 100):
 	exp_bar.max_value = set_max_value
 
 func level_up():
-	snd_levelUp.play()
+	SoundManager.play_ui_sound(snd_levelUp)
 	var tween = level_panel.create_tween()
 	tween.tween_property(
 		level_panel, "position:y", 50, 0.2
@@ -526,7 +536,7 @@ func anime_transform():
 		hurtbox.process_mode = Node.PROCESS_MODE_DISABLED
 		speed = 0
 		anim.play("anime_transform")
-		AudioManager.play_fx("AnimeTransform")
+		SoundManager.play_sound(snd_anime_transform)
 		await anim.animation_finished
 		anime_bash()
 		anime_ammo += anime_baseammo
@@ -550,7 +560,7 @@ func anime_bash():
 	else:
 		anim.play("anime_smash2")
 	
-	AudioManager.play_fx("AnimeBash")
+	SoundManager.play_sound(snd_anime_bash)
 	emit_signal("shake", 0.2, 3)
 	#emit_signal("quake", -0.035, 0.32, 0.2)
 	bash.attack()

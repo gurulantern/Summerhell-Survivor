@@ -8,6 +8,8 @@ class_name EnemyBody
 @export var knockback_recovery = 3.5
 @export var exp = 5
 @export var enemy_damage = 1
+@export var snd_hit : AudioStreamWAV
+@export var snd_death : AudioStreamWAV
 var knockback = Vector2.ZERO
 
 @onready var player = get_tree().get_first_node_in_group("player")
@@ -15,8 +17,6 @@ var knockback = Vector2.ZERO
 @onready var damage_label = preload("res://Enemies/damage_number.tscn")
 @onready var damage_num_origin = $EnemyBase/DamageNumOrigin
 @onready var anim : AnimatedSprite2D = $AnimatedSprite2D
-@onready var snd_hit = $EnemyBase/snd_hit
-@onready var snd_death = $EnemyBase/snd_death
 @onready var collision = $CollisionShape2D
 @onready var hurtbox = $EnemyBase/Hurtbox
 @onready var hurtbox_collision = $EnemyBase/Hurtbox/CollisionShape2D
@@ -58,10 +58,11 @@ func death():
 	Save.SAVE_DICT[enemy_name] += 1
 	collision.set_deferred("disabled", true)
 	hurtbox_collision.set_deferred("disabled", true)
-	snd_death.play()
+	SoundManager.play_sound(snd_death)
 	var tween = create_tween()
 	tween.tween_property(self.material, "shader_parameter/progress", 1.0, 0.8).from(0.0).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN_OUT)
 	tween.play()
+	drop_exp()
 	await tween.finished
 	queue_free()
 
@@ -72,10 +73,10 @@ func _on_hurtbox_hurt(damage, angle, knockback_amount, is_critical):
 	if hp <= 0:
 		death()
 	else:
-		snd_hit.play()
+		SoundManager.play_sound(snd_hit)
 
 
-func _on_snd_death_finished():
+func drop_exp():
 	var new_pentagram = exp_pentagram.instantiate()
 	new_pentagram.global_position = global_position
 	new_pentagram.exp = exp
