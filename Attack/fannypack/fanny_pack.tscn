@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Attack/fannypack/fanny_pack.gd" id="1_fawiq"]
 [ext_resource type="Texture2D" uid="uid://3nq3bwe465xv" path="res://Art/attacks/fannypack/fannyP.png" id="2_n2o78"]
-[ext_resource type="AudioStream" uid="uid://cb5rasag1kg7w" path="res://Art/attacks/fannypack/fannyP_hit1.wav" id="3_d0glp"]
+[ext_resource type="AudioStream" uid="uid://cb5rasag1kg7w" path="res://Art/SFX/fannyP_hit1.wav" id="3_mf6yg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l1ck0"]
 radius = 11.794
@@ -31,7 +31,7 @@ wait_time = 0.3
 autostart = true
 
 [node name="snd_attack" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_d0glp")
+stream = ExtResource("3_mf6yg")
 autoplay = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

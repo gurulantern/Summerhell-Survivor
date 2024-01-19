@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Attack/gaslight/gas_light_path.gd" id="1_vdy6x"]
 [ext_resource type="Texture2D" uid="uid://d2yqsyxnetip3" path="res://Art/attacks/gaslight/GasLight-Sheet.png" id="2_irch3"]
-[ext_resource type="AudioStream" uid="uid://cawedfwjgfsyt" path="res://Art/attacks/gaslight/gaslight_hit.wav" id="3_r0x1o"]
+[ext_resource type="AudioStream" uid="uid://cawedfwjgfsyt" path="res://Art/SFX/gaslight_hit.wav" id="2_uphrk"]
 [ext_resource type="Script" path="res://Attack/gaslight/gas_light.gd" id="3_xf5em"]
 
 [sub_resource type="Curve2D" id="Curve2D_uy2r0"]
@@ -61,7 +61,7 @@ curve = SubResource("Curve2D_uy2r0")
 script = ExtResource("1_vdy6x")
 
 [node name="snd_attack" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_r0x1o")
+stream = ExtResource("2_uphrk")
 volume_db = -10.0
 pitch_scale = 2.33
 

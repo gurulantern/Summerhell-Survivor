@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bcnyuoyrwykwu"]
+[gd_scene load_steps=5 format=3 uid="uid://bcnyuoyrwykwu"]
 
 [ext_resource type="Script" path="res://Player/Objects/gold.gd" id="1_hfl4j"]
 [ext_resource type="Texture2D" uid="uid://douclto1mnuji" path="res://Art/upgrades/icons/sashimi.png" id="2_diflr"]
+[ext_resource type="AudioStream" uid="uid://cin26umkdi0au" path="res://Art/SFX/food_pickup.wav" id="3_i6h7l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tnons"]
 radius = 13.7773
@@ -20,3 +21,5 @@ texture = ExtResource("2_diflr")
 shape = SubResource("CircleShape2D_tnons")
 
 [node name="snd_collected" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_i6h7l")
+volume_db = -20.0

@@ -519,15 +519,19 @@ func _on_pause_panel_unpause_game():
 
 #region Loot Functions
 func anime_transform():
-	berserk = true
-	hurtbox.process_mode = Node.PROCESS_MODE_DISABLED
-	speed = 0
-	anim.play("anime_transform")
-	await anim.animation_finished
-	anime_bash()
-	anime_ammo += anime_baseammo
-	animeAttackTimer.start()
-	speed = 80
+	if berserk:
+		anime_ammo += anime_baseammo
+	else:
+		berserk = true
+		hurtbox.process_mode = Node.PROCESS_MODE_DISABLED
+		speed = 0
+		anim.play("anime_transform")
+		AudioManager.play_fx("AnimeTransform")
+		await anim.animation_finished
+		anime_bash()
+		anime_ammo += anime_baseammo
+		animeAttackTimer.start()
+		speed = 80
 	
 	
 func anime_bash():
@@ -546,6 +550,7 @@ func anime_bash():
 	else:
 		anim.play("anime_smash2")
 	
+	AudioManager.play_fx("AnimeBash")
 	emit_signal("shake", 0.2, 3)
 	#emit_signal("quake", -0.035, 0.32, 0.2)
 	bash.attack()

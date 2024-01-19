@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bf07oflewejd2"]
+
+[ext_resource type="Script" path="res://Music/audio_manager.gd" id="1_1ojxx"]
+[ext_resource type="AudioStream" uid="uid://185dr2eghdeb" path="res://Art/music/battleMusic1.wav" id="2_ajqbu"]
+[ext_resource type="AudioStream" uid="uid://cyrdix24o0msn" path="res://Art/SFX/anime_transform.wav" id="3_7o0ib"]
+[ext_resource type="AudioStream" uid="uid://b2a4fgixnvly2" path="res://Art/SFX/anime_bash.wav" id="4_mnrrm"]
+
+[node name="AudioManager" type="Node"]
+script = ExtResource("1_1ojxx")
+
+[node name="Music" type="Node" parent="."]
+
+[node name="Score" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("2_ajqbu")
+
+[node name="Effects" type="Node" parent="."]
+
+[node name="AnimeTransform" type="AudioStreamPlayer" parent="Effects"]
+stream = ExtResource("3_7o0ib")
+
+[node name="AnimeBash" type="AudioStreamPlayer" parent="Effects"]
+stream = ExtResource("4_mnrrm")
+volume_db = -5.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Effects"]

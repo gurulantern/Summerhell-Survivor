@@ -74,6 +74,7 @@ func _on_hurtbox_hurt(damage, angle, knockback_amount, is_critical):
 	else:
 		snd_hit.play()
 
+
 func _on_snd_death_finished():
 	var new_pentagram = exp_pentagram.instantiate()
 	new_pentagram.global_position = global_position

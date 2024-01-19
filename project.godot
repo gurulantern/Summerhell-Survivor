@@ -25,6 +25,7 @@ UpgradeDb="*res://Utility/UI/upgrade_db.tscn"
 SceneChanger="*res://Utility/scene_changer.gd"
 SaverLoader="*res://Utility/Saves/saver_loader.gd"
 Save="*res://Utility/Saves/save.gd"
+AudioManager="*res://Music/audio_manager.tscn"
 
 [display]
 

@@ -343,7 +343,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"anime_transform",
-"speed": 9.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -477,6 +477,8 @@ script = ExtResource("1_m0s4d")
 y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_k4i74")
 animation = &"anime_transform"
+frame = 27
+frame_progress = 0.60067
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
