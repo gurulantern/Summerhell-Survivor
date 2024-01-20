@@ -536,7 +536,8 @@ func anime_transform():
 		hurtbox.process_mode = Node.PROCESS_MODE_DISABLED
 		speed = 0
 		anim.play("anime_transform")
-		SoundManager.play_sound(snd_anime_transform)
+		var streamer = SoundManager.play_sound(snd_anime_transform)
+		streamer.volume_db = 5.0
 		await anim.animation_finished
 		anime_bash()
 		anime_ammo += anime_baseammo

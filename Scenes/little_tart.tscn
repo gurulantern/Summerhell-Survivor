@@ -1,9 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://da7g4b2myv26e"]
-
-[ext_resource type="Script" path="res://Scenes/LittleTart.gd" id="2_5b8jt"]
+[gd_scene load_steps=6 format=3 uid="uid://c1lsidi8me4t8"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vg5n5"]
 load_path = "res://.godot/imported/littleTart.png-284e4190be699eaf1918dff0f39d4e9c.ctex"
+
+[sub_resource type="GDScript" id="GDScript_41whe"]
+script/source = "extends Area2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y5w7c"]
 size = Vector2(32, 24)
@@ -23,7 +35,7 @@ texture = SubResource("CompressedTexture2D_vg5n5")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(92, 60)
-script = ExtResource("2_5b8jt")
+script = SubResource("GDScript_41whe")
 
 [node name="Tart_Door" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(80, 121)

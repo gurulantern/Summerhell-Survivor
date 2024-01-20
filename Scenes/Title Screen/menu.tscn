@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bx8kxuchvcsoa"]
+[gd_scene load_steps=5 format=3 uid="uid://bx8kxuchvcsoa"]
 
 [ext_resource type="FontFile" uid="uid://c72218gd8omtp" path="res://Art/GUI/fonts/Swamp Witch.ttf" id="1_r06jk"]
 [ext_resource type="Script" path="res://Scenes/Title Screen/menu.gd" id="1_rampw"]
+[ext_resource type="Texture2D" uid="uid://bhkb7ytktj1hl" path="res://Art/GUI/title_screen.png" id="2_du5a0"]
 [ext_resource type="PackedScene" uid="uid://qqb8njgng0lu" path="res://Utility/UI/basic_button.tscn" id="3_yo45n"]
 
 [node name="Menu" type="Control"]
@@ -15,8 +16,9 @@ script = ExtResource("1_rampw")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 642.0
-offset_bottom = 359.0
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("2_du5a0")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
