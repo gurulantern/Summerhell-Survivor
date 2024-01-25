@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhcrkbrgtxh3k"
-path="res://.godot/imported/TartInteriors-Sheet.png-d97f4e526a5c2ac817fd0436243fccda.ctex"
+uid="uid://cnfmcxydr74qi"
+path="res://.godot/imported/Wall-floor.png-d6b17c6930dc408bbab2d918c640b4ec.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/tilemaps/TartInteriors-Sheet.png"
-dest_files=["res://.godot/imported/TartInteriors-Sheet.png-d97f4e526a5c2ac817fd0436243fccda.ctex"]
+source_file="res://Art/tilemaps/Wall-floor.png"
+dest_files=["res://.godot/imported/Wall-floor.png-d6b17c6930dc408bbab2d918c640b4ec.ctex"]
 
 [params]
 
