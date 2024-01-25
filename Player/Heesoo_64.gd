@@ -4,7 +4,7 @@ extends CharacterBody2D
 const speed = 80
 @onready var anim = $AnimatedSprite2D
 @onready var collision = $CollisionShape2D
-
+@onready var sensor = $Sensor
 
 func _physics_process(delta):
 	var direction : Vector2 = Input.get_vector("left", "right", "up", "down").normalized()
@@ -20,7 +20,7 @@ func _physics_process(delta):
 		anim.flip_h = false
 	
 	if velocity.y != 0 or velocity.x != 0:
-		anim.play("walk")
+		anim.play("walking")
 	else:
 		anim.play("idle")
 	
