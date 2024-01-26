@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://baou6yusmdocn"]
+[gd_scene load_steps=24 format=3 uid="uid://baou6yusmdocn"]
 
 [ext_resource type="Script" path="res://Player/Heesoo_64.gd" id="1_r4g5w"]
 [ext_resource type="Texture2D" uid="uid://835bsbiigfwr" path="res://Art/characters/HeeSoo/HeeSoo-64-anim-Sheet.png" id="2_0ncdq"]
@@ -150,24 +150,21 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6vb26"]
-size = Vector2(20, 14)
+size = Vector2(29, 26)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_f7gbc"]
-radius = 35.0571
-
-[node name="heesoo64" type="CharacterBody2D"]
+[node name="heesoo64" type="CharacterBody2D" groups=["player"]]
+y_sort_enabled = true
 script = ExtResource("1_r4g5w")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_mxwma")
 animation = &"idle"
 frame = 7
 frame_progress = 0.73894
+offset = Vector2(0, -20)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 14)
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_6vb26")
-
-[node name="Sensor" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8)
-shape = SubResource("CircleShape2D_f7gbc")

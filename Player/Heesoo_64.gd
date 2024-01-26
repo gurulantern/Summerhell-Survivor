@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const speed = 80
+const speed = 90
 @onready var anim = $AnimatedSprite2D
 @onready var collision = $CollisionShape2D
 @onready var sensor = $Sensor
@@ -25,3 +25,19 @@ func _physics_process(delta):
 		anim.play("idle")
 	
 	move_and_slide()
+
+
+func _on_large_tart_exit_area_entered(area):
+	pass # Replace with function body.
+
+
+func _on_large_tart_exit_area_exited(area):
+	pass # Replace with function body.
+
+
+func _on_lil_softie_exit_area_entered(area):
+	pass # Replace with function body.
+
+
+func _on_lil_softie_exit_area_exited(area):
+	pass # Replace with function body.
