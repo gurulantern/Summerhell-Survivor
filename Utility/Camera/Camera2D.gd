@@ -6,6 +6,7 @@ extends Camera2D
 @export_category("Camera Smoothing")
 @export var smoothing_enabled : bool
 @export_range(1,10) var smoothing_distance : int = 8
+var camera_position: Vector2
 
 @export_category("Shake")
 var shake_amount : float = 0
@@ -27,7 +28,6 @@ func _process(delta):
 
 func _physics_process(delta):
 	if player != null:
-		var camera_position : Vector2
 		
 		if smoothing_enabled:
 			# 11 is the max smoothing distance plus 1. 
@@ -35,7 +35,7 @@ func _physics_process(delta):
 		else:
 			camera_position = player.global_position
 			
-		global_position = camera_position.floor()
+		global_position = round(camera_position)
 
 
 func _on_timer_timeout():

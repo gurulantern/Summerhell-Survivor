@@ -51,6 +51,7 @@ animations = [{
 size = Vector2(31.7605, 25.1744)
 
 [node name="Chest" type="Area2D" groups=["chest"]]
+y_sort_enabled = true
 scale = Vector2(0.6, 0.6)
 collision_layer = 8
 collision_mask = 0
@@ -60,6 +61,7 @@ snd_collected = ExtResource("2_a8iuq")
 snd_volume = -20.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_ond82")
 animation = &"open"
 frame_progress = 0.996937

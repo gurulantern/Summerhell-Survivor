@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const speed = 90
+@export var speed = 90
 @onready var anim = $AnimatedSprite2D
 @onready var collision = $CollisionShape2D
 @onready var sensor = $Sensor

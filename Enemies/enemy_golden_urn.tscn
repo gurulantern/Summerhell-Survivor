@@ -94,9 +94,11 @@ light_mask = 16
 visibility_layer = 16
 y_sort_enabled = true
 material = ExtResource("1_ppm0m")
+position = Vector2(0.333333, 15)
 sprite_frames = SubResource("SpriteFrames_1h265")
 animation = &"move"
 frame_progress = 0.406844
+offset = Vector2(0, -15)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1.81818)
