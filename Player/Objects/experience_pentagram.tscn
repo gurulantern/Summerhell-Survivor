@@ -1,29 +1,29 @@
 [gd_scene load_steps=11 format=3 uid="uid://cjctloc52u10v"]
 
-[ext_resource type="Texture2D" uid="uid://caukuhmf45gnc" path="res://Art/objects/pentagrams-Sheet.png" id="1_dae2v"]
+[ext_resource type="Texture2D" uid="uid://05gn3hfkttsw" path="res://Art/objects/pentagrams-Sheet.png" id="1_dae2v"]
 [ext_resource type="Script" path="res://Player/Objects/experience_pentagram.gd" id="1_wq842"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_touhe"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mv7au"]
 atlas = ExtResource("1_dae2v")
 region = Rect2(160, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rejcw"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctlam"]
 atlas = ExtResource("1_dae2v")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5l6pg"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6blae"]
 atlas = ExtResource("1_dae2v")
 region = Rect2(128, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kl8i6"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_m30d6"]
 atlas = ExtResource("1_dae2v")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ws0iv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_006km"]
 atlas = ExtResource("1_dae2v")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_plnuk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1d27"]
 atlas = ExtResource("1_dae2v")
 region = Rect2(0, 0, 32, 32)
 
@@ -31,7 +31,7 @@ region = Rect2(0, 0, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_touhe")
+"texture": SubResource("AtlasTexture_mv7au")
 }],
 "loop": true,
 "name": &"black",
@@ -39,7 +39,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rejcw")
+"texture": SubResource("AtlasTexture_ctlam")
 }],
 "loop": true,
 "name": &"blue",
@@ -47,7 +47,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5l6pg")
+"texture": SubResource("AtlasTexture_6blae")
 }],
 "loop": true,
 "name": &"gold",
@@ -55,7 +55,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kl8i6")
+"texture": SubResource("AtlasTexture_m30d6")
 }],
 "loop": true,
 "name": &"green",
@@ -63,7 +63,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ws0iv")
+"texture": SubResource("AtlasTexture_006km")
 }],
 "loop": true,
 "name": &"red",
@@ -71,7 +71,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_plnuk")
+"texture": SubResource("AtlasTexture_d1d27")
 }],
 "loop": true,
 "name": &"white",
@@ -90,7 +90,7 @@ script = ExtResource("1_wq842")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_t3sr2")
-animation = &"white"
+animation = &"black"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_n034w")

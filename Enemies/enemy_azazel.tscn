@@ -8,51 +8,51 @@
 [ext_resource type="PackedScene" uid="uid://b2k4df7sl7uqe" path="res://Enemies/enemy_base.tscn" id="4_30y18"]
 [ext_resource type="Shader" path="res://Shader/explosion.gdshader" id="5_rlm6t"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wuq3e"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnwb6"]
 atlas = ExtResource("3_iwrhi")
-region = Rect2(0, 0, 64, 64)
+region = Rect2(0, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hbb5j"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gb2yf"]
 atlas = ExtResource("3_iwrhi")
-region = Rect2(64, 0, 64, 64)
+region = Rect2(192, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_57e67"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_s282r"]
 atlas = ExtResource("3_iwrhi")
-region = Rect2(128, 0, 64, 64)
+region = Rect2(384, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bkrlu"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_y53lk"]
 atlas = ExtResource("3_iwrhi")
-region = Rect2(192, 0, 64, 64)
+region = Rect2(576, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x5llh"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_04elp"]
 atlas = ExtResource("3_iwrhi")
-region = Rect2(256, 0, 64, 64)
+region = Rect2(768, 0, 192, 192)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1h265"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wuq3e")
+"texture": SubResource("AtlasTexture_gnwb6")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hbb5j")
+"texture": SubResource("AtlasTexture_gb2yf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_57e67")
+"texture": SubResource("AtlasTexture_s282r")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bkrlu")
+"texture": SubResource("AtlasTexture_y53lk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_x5llh")
+"texture": SubResource("AtlasTexture_04elp")
 }],
 "loop": true,
 "name": &"move",
-"speed": 6.0
+"speed": 8.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t533y"]
-radius = 9.65012
+radius = 80.6914
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_h4mry"]
 noise_type = 0
@@ -96,7 +96,6 @@ shader_parameter/noise_tex = SubResource("NoiseTexture2D_uplmk")
 [node name="enemy_azazel" type="CharacterBody2D"]
 y_sort_enabled = true
 material = ExtResource("1_o0s8n")
-scale = Vector2(3, 3)
 collision_layer = 5
 collision_mask = 5
 motion_mode = 1
@@ -117,8 +116,7 @@ y_sort_enabled = true
 material = ExtResource("1_o0s8n")
 sprite_frames = SubResource("SpriteFrames_1h265")
 animation = &"move"
-frame = 3
-frame_progress = 0.550926
+frame_progress = 0.592741
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1.81818)
@@ -126,8 +124,14 @@ shape = SubResource("CircleShape2D_t533y")
 disabled = true
 
 [node name="EnemyBase" parent="." instance=ExtResource("4_30y18")]
-visible = false
 material = SubResource("ShaderMaterial_ux1pb")
+scale = Vector2(3, 3)
+
+[node name="CollisionShape2D" parent="EnemyBase/Hurtbox" index="0"]
+position = Vector2(-2.5, 2.0437)
+
+[node name="CollisionShape2D" parent="EnemyBase/Hitbox" index="0"]
+position = Vector2(-1.34959, 2.5131)
 
 [connection signal="hurt" from="EnemyBase/Hurtbox" to="." method="_on_hurtbox_hurt"]
 

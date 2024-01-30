@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://05gn3hfkttsw"
-path="res://.godot/imported/pentagrams-Sheet.png-3a7ac017ef833384b73e94a1b199a9cd.ctex"
+uid="uid://caukuhmf45gnc"
+path="res://.godot/imported/pentagrams-Sheet1.png-a3a5100797079fd7b03daa02b8726610.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/objects/pentagrams-Sheet.png"
-dest_files=["res://.godot/imported/pentagrams-Sheet.png-3a7ac017ef833384b73e94a1b199a9cd.ctex"]
+source_file="res://Art/objects/pentagrams-Sheet1.png"
+dest_files=["res://.godot/imported/pentagrams-Sheet1.png-a3a5100797079fd7b03daa02b8726610.ctex"]
 
 [params]
 
