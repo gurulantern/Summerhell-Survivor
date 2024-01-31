@@ -638,7 +638,6 @@ position = Vector2(217.033, 67.1701)
 [connection signal="body_entered" from="TilemapTreadmill/LeapFrogger/West" to="." method="_on_west_body_entered"]
 [connection signal="body_entered" from="TilemapTreadmill/LeapFrogger/South" to="." method="_on_south_body_entered"]
 [connection signal="player_death" from="Heesoo" to="." method="_on_heesoo_player_death"]
-[connection signal="quake" from="Heesoo" to="Effects" method="_on_heesoo_quake"]
 [connection signal="shake" from="Heesoo" to="Camera2D" method="_on_heesoo_shake"]
 
 [editable path="EnemySpawner"]

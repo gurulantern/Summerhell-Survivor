@@ -106,7 +106,6 @@ var game_over = false
 
 signal player_death
 signal shake(time, amount)
-signal quake(start, end, duration)
 
 func _ready():
 	upgrade_heesoo("earpick1")
@@ -203,7 +202,7 @@ func _on_menu_button_click_end():
 	SaverLoader.save_game()
 	get_tree().paused = false
 	SoundManager.stop_music()
-	SceneSwitcher.switch_scene("res://Scenes/SafeSpaces/goods_chapel.tscn")
+	SceneSwitcher.switch_scene("res://Scenes/TitleScreen/menu.tscn")
 
 #endregion
 
