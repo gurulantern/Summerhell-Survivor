@@ -36,11 +36,13 @@ func _physics_process(delta):
 			camera_position = player.global_position
 			
 		global_position = round(camera_position)
+		offset = Vector2(randf_range(-1, 1) * shake_amount, randf_range(-1, 1) * shake_amount)
 
 
 func _on_timer_timeout():
 	set_process(false)
-	tween.interpolate_value(self, "offset", 1, 1, tween.TRANS_LINEAR, tween.EASE_IN)
+	#tween.interpolate_value(self, "offset", 1, 1, tween.TRANS_LINEAR, tween.EASE_IN)
+	shake_amount = 0
 
 func _on_heesoo_shake(time, amount):
 	timer.wait_time = time

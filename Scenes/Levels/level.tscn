@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cl0bac4fs6sws"]
+[gd_scene load_steps=36 format=3 uid="uid://cl0bac4fs6sws"]
 
 [ext_resource type="Texture2D" uid="uid://cnt5vxujcatnp" path="res://Art/tilemaps/heesoo_tilemap-Sheet.png" id="1_hnbhh"]
 [ext_resource type="Script" path="res://Scenes/Levels/level.gd" id="1_r7ed5"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cfv3ak1k25pbq" path="res://Utility/Characters/enemy_spawner.tscn" id="5_nqa3i"]
 [ext_resource type="PackedScene" uid="uid://c51e0fk6gnlts" path="res://Enemies/enemy_imp_weak.tscn" id="6_3lv7o"]
 [ext_resource type="Script" path="res://Utility/spawn_info.gd" id="7_26lnw"]
+[ext_resource type="PackedScene" uid="uid://dkb6if7fhgmxv" path="res://Player/Objects/anime_boy.tscn" id="8_ouy10"]
 [ext_resource type="PackedScene" uid="uid://40mu0o4eesl2" path="res://Enemies/enemy_imp_strong.tscn" id="8_u8h67"]
 [ext_resource type="PackedScene" uid="uid://dh2vadd47lsx2" path="res://Enemies/enemy_kiwi_demon.tscn" id="9_15qcp"]
 [ext_resource type="PackedScene" uid="uid://ssqg76igj4u7" path="res://Enemies/enemy_golden_urn.tscn" id="10_ir7dm"]
@@ -571,6 +572,9 @@ texture_filter = 1
 position = Vector2(63.2877, 71.0101)
 collision_layer = 6
 collision_mask = 6
+
+[node name="AnimeBoy" parent="." instance=ExtResource("8_ouy10")]
+position = Vector2(61.472, 195.998)
 
 [node name="Camera2D" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_ufxva")]
 texture_filter = 1

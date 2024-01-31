@@ -549,7 +549,7 @@ func anime_bash():
 	var tween = anim.create_tween()
 	tween.tween_property(
 		anim, "offset:y", -10,.05).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN_OUT)
-	tween.play()
+	#tween.play()
 	await tween.finished
 	tween = create_tween()
 	tween.tween_property(
@@ -563,7 +563,6 @@ func anime_bash():
 	
 	SoundManager.play_sound(snd_anime_bash)
 	emit_signal("shake", 0.2, 3)
-	#emit_signal("quake", -0.035, 0.32, 0.2)
 	bash.attack()
 
 func _on_anime_timer_timeout():
