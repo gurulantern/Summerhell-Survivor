@@ -21,10 +21,11 @@ var knockback = Vector2.ZERO
 @onready var hurtbox = $EnemyBase/Hurtbox
 @onready var hurtbox_collision = $EnemyBase/Hurtbox/CollisionShape2D
 @onready var hitbox = $EnemyBase/Hitbox
+@onready var hitbox_collision = $EnemyBase/Hitbox/CollisionShape2D
 
-@export var chest_chance = .001
-@export var anime_chance = .03
-@export var food_chance = .05
+@export var chest_chance = .0001
+@export var anime_chance = .001
+@export var food_chance = .003
 @export var gold_chance = .1
 
 var exp_pentagram = preload("res://Player/Objects/experience_pentagram.tscn")
@@ -54,10 +55,13 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func death():
+	print(global_position)
+	print(anim.global_position)
 	emit_signal("remove_from_array", self)
 	Save.SAVE_DICT[enemy_name] += 1
 	collision.set_deferred("disabled", true)
 	hurtbox_collision.set_deferred("disabled", true)
+	hitbox_collision.set_deferred("disabled", true)
 	SoundManager.play_sound(snd_death)
 	var tween = create_tween()
 	tween.tween_property(self.material, "shader_parameter/progress", 1.0, 0.8).from(0.0).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN_OUT)

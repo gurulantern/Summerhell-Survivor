@@ -14,7 +14,7 @@ var default_offset : Vector2 = offset
 var pos_x : int
 var pos_y : int
 @onready var timer : Timer = $Timer
-@onready var tween : Tween = create_tween()
+
 
 var weight : float
 
@@ -41,7 +41,6 @@ func _physics_process(delta):
 
 func _on_timer_timeout():
 	set_process(false)
-	#tween.interpolate_value(self, "offset", 1, 1, tween.TRANS_LINEAR, tween.EASE_IN)
 	shake_amount = 0
 
 func _on_heesoo_shake(time, amount):

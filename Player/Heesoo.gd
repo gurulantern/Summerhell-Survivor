@@ -84,6 +84,7 @@ var enemy_close = []
 
 #region GUI Variables
 #GUI
+@onready var main_menu = preload("res://Scenes/TitleScreen/menu.tscn")
 @onready var exp_bar = get_node("%ExperienceBar")
 @onready var level_label = get_node("%LabelLevel")
 @onready var level_panel = get_node("%LevelUp")
@@ -201,7 +202,9 @@ func _on_menu_button_click_end():
 	print("Saving and leaving")
 	SaverLoader.save_game()
 	get_tree().paused = false
-	var _level = get_tree().change_scene_to_file("res://Scenes/Title Screen/menu.tscn")
+	SoundManager.stop_music()
+	SceneSwitcher.switch_scene("res://Scenes/SafeSpaces/goods_chapel.tscn")
+
 #endregion
 
 #region Ear Pick

@@ -1,31 +1,24 @@
-[gd_scene load_steps=36 format=3 uid="uid://cl0bac4fs6sws"]
+[gd_scene load_steps=41 format=3 uid="uid://cl0bac4fs6sws"]
 
-[ext_resource type="Texture2D" uid="uid://cnt5vxujcatnp" path="res://Art/tilemaps/heesoo_tilemap-Sheet.png" id="1_hnbhh"]
-[ext_resource type="Script" path="res://Scenes/Levels/level.gd" id="1_r7ed5"]
-[ext_resource type="Texture2D" uid="uid://bh48wl6kvpqy4" path="res://Art/tilemaps/littleTart.png" id="2_1sl3e"]
-[ext_resource type="AudioStream" uid="uid://185dr2eghdeb" path="res://Audio/Music/battleMusic1.wav" id="2_io2c4"]
-[ext_resource type="PackedScene" uid="uid://cobscoe13beka" path="res://Player/heesoo.tscn" id="3_i2xp0"]
-[ext_resource type="PackedScene" uid="uid://plge5ui2q5mw" path="res://Utility/Camera/camera_2d.tscn" id="4_ufxva"]
-[ext_resource type="PackedScene" uid="uid://cfv3ak1k25pbq" path="res://Utility/Characters/enemy_spawner.tscn" id="5_nqa3i"]
-[ext_resource type="PackedScene" uid="uid://c51e0fk6gnlts" path="res://Enemies/enemy_imp_weak.tscn" id="6_3lv7o"]
-[ext_resource type="Script" path="res://Utility/spawn_info.gd" id="7_26lnw"]
-[ext_resource type="PackedScene" uid="uid://dkb6if7fhgmxv" path="res://Player/Objects/anime_boy.tscn" id="8_ouy10"]
-[ext_resource type="PackedScene" uid="uid://40mu0o4eesl2" path="res://Enemies/enemy_imp_strong.tscn" id="8_u8h67"]
-[ext_resource type="PackedScene" uid="uid://dh2vadd47lsx2" path="res://Enemies/enemy_kiwi_demon.tscn" id="9_15qcp"]
-[ext_resource type="PackedScene" uid="uid://ssqg76igj4u7" path="res://Enemies/enemy_golden_urn.tscn" id="10_ir7dm"]
-[ext_resource type="PackedScene" uid="uid://d0yqnyrtbnadg" path="res://Enemies/enemy_azazel.tscn" id="11_44bqd"]
-[ext_resource type="Script" path="res://Utility/Saves/saver_loader.gd" id="14_dv705"]
-[ext_resource type="Script" path="res://Scenes/Effects.gd" id="16_8va5q"]
-[ext_resource type="Shader" path="res://Shader/shockwave.gdshader" id="16_mgp7j"]
+[ext_resource type="Script" path="res://Scenes/Levels/level.gd" id="1_5mo7t"]
+[ext_resource type="AudioStream" uid="uid://185dr2eghdeb" path="res://Audio/Music/battleMusic1.wav" id="2_y4jdh"]
+[ext_resource type="Script" path="res://Scenes/Effects.gd" id="3_li7h1"]
+[ext_resource type="Texture2D" uid="uid://cnt5vxujcatnp" path="res://Art/tilemaps/heesoo_tilemap-Sheet.png" id="5_7q8h5"]
+[ext_resource type="Texture2D" uid="uid://bh48wl6kvpqy4" path="res://Art/tilemaps/littleTart.png" id="6_31ff5"]
+[ext_resource type="PackedScene" uid="uid://cobscoe13beka" path="res://Player/heesoo.tscn" id="7_wj68g"]
+[ext_resource type="PackedScene" uid="uid://dkb6if7fhgmxv" path="res://Player/Objects/anime_boy.tscn" id="8_44ybs"]
+[ext_resource type="PackedScene" uid="uid://plge5ui2q5mw" path="res://Utility/Camera/camera_2d.tscn" id="9_bq5wr"]
+[ext_resource type="PackedScene" uid="uid://cfv3ak1k25pbq" path="res://Utility/Characters/enemy_spawner.tscn" id="10_b2wu1"]
+[ext_resource type="PackedScene" uid="uid://c51e0fk6gnlts" path="res://Enemies/enemy_imp_weak.tscn" id="11_pshy1"]
+[ext_resource type="Script" path="res://Utility/spawn_info.gd" id="12_5gh5k"]
+[ext_resource type="PackedScene" uid="uid://40mu0o4eesl2" path="res://Enemies/enemy_imp_strong.tscn" id="13_ylvnp"]
+[ext_resource type="PackedScene" uid="uid://dh2vadd47lsx2" path="res://Enemies/enemy_kiwi_demon.tscn" id="14_l6xjk"]
+[ext_resource type="PackedScene" uid="uid://ssqg76igj4u7" path="res://Enemies/enemy_golden_urn.tscn" id="15_nrdtt"]
+[ext_resource type="PackedScene" uid="uid://d0yqnyrtbnadg" path="res://Enemies/enemy_azazel.tscn" id="16_k5kci"]
+[ext_resource type="Script" path="res://Utility/Saves/saver_loader.gd" id="17_d814b"]
+[ext_resource type="Shader" path="res://Shader/explosion.gdshader" id="18_fge2q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jmban"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hyi0t"]
-shader = ExtResource("16_mgp7j")
-shader_parameter/center = Vector2(0.5, 0.5)
-shader_parameter/force = -0.07
-shader_parameter/size = -0.275
-shader_parameter/thickness = -0.05
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bm8fs"]
 size = Vector2(5520.58, 98.5557)
@@ -40,7 +33,7 @@ size = Vector2(96.7144, 4319.18)
 size = Vector2(5507.76, 125.978)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ryqtd"]
-texture = ExtResource("1_hnbhh")
+texture = ExtResource("5_7q8h5")
 1:0/0 = 0
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
@@ -330,7 +323,7 @@ texture = ExtResource("1_hnbhh")
 7:8/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_phyu1"]
-texture = ExtResource("2_1sl3e")
+texture = ExtResource("6_31ff5")
 5:7/size_in_atlas = Vector2i(23, 17)
 5:7/0 = 0
 5:7/0/y_sort_origin = -125
@@ -345,93 +338,132 @@ sources/0 = SubResource("TileSetAtlasSource_ryqtd")
 sources/4 = SubResource("TileSetAtlasSource_phyu1")
 
 [sub_resource type="Resource" id="Resource_jq5ax"]
-script = ExtResource("7_26lnw")
+script = ExtResource("12_5gh5k")
 time_start = 0
 time_end = 30
-enemy = ExtResource("6_3lv7o")
+enemy = ExtResource("11_pshy1")
 enemy_num = 1
 enemy_spawn_delay = 0
 
 [sub_resource type="Resource" id="Resource_psxim"]
-script = ExtResource("7_26lnw")
+script = ExtResource("12_5gh5k")
 time_start = 30
 time_end = 210
-enemy = ExtResource("6_3lv7o")
+enemy = ExtResource("11_pshy1")
 enemy_num = 2
 enemy_spawn_delay = 0
 
 [sub_resource type="Resource" id="Resource_0ntm0"]
-script = ExtResource("7_26lnw")
+script = ExtResource("12_5gh5k")
 time_start = 60
 time_end = 180
-enemy = ExtResource("8_u8h67")
+enemy = ExtResource("13_ylvnp")
 enemy_num = 1
 enemy_spawn_delay = 1
 
 [sub_resource type="Resource" id="Resource_ml2ma"]
-script = ExtResource("7_26lnw")
+script = ExtResource("12_5gh5k")
 time_start = 180
 time_end = 210
-enemy = ExtResource("9_15qcp")
+enemy = ExtResource("14_l6xjk")
 enemy_num = 1
 enemy_spawn_delay = 2
 
 [sub_resource type="Resource" id="Resource_7s318"]
-script = ExtResource("7_26lnw")
+script = ExtResource("12_5gh5k")
 time_start = 210
 time_end = 240
-enemy = ExtResource("8_u8h67")
+enemy = ExtResource("13_ylvnp")
 enemy_num = 2
 enemy_spawn_delay = 0
 
 [sub_resource type="Resource" id="Resource_r716h"]
-script = ExtResource("7_26lnw")
+script = ExtResource("12_5gh5k")
 time_start = 240
 time_end = 270
-enemy = ExtResource("9_15qcp")
+enemy = ExtResource("14_l6xjk")
 enemy_num = 1
 enemy_spawn_delay = 0
 
 [sub_resource type="Resource" id="Resource_ojcuw"]
-script = ExtResource("7_26lnw")
+script = ExtResource("12_5gh5k")
 time_start = 240
 time_end = 240
-enemy = ExtResource("10_ir7dm")
+enemy = ExtResource("15_nrdtt")
 enemy_num = 1
 enemy_spawn_delay = 0
 
 [sub_resource type="Resource" id="Resource_018em"]
-script = ExtResource("7_26lnw")
+script = ExtResource("12_5gh5k")
 time_start = 270
 time_end = 300
-enemy = ExtResource("8_u8h67")
+enemy = ExtResource("13_ylvnp")
 enemy_num = 4
 enemy_spawn_delay = 0
 
 [sub_resource type="Resource" id="Resource_oa1un"]
-script = ExtResource("7_26lnw")
+script = ExtResource("12_5gh5k")
 time_start = 300
 time_end = 300
-enemy = ExtResource("11_44bqd")
+enemy = ExtResource("16_k5kci")
 enemy_num = 1
 enemy_spawn_delay = 0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_h4mry"]
+noise_type = 0
+seed = 16
+frequency = 0.9675
+fractal_octaves = 9
+fractal_lacunarity = 100.0
+fractal_gain = 0.1
+fractal_weighted_strength = 0.7
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uplmk"]
+width = 32
+height = 32
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_h4mry")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_g4wvc"]
+noise_type = 0
+seed = 115
+frequency = 1.0
+fractal_octaves = 10
+fractal_lacunarity = 100.0
+fractal_gain = 10.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d3lc0"]
+width = 32
+height = 32
+generate_mipmaps = false
+as_normal_map = true
+bump_strength = 32.0
+noise = SubResource("FastNoiseLite_g4wvc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_63c6x"]
+resource_local_to_scene = true
+shader = ExtResource("18_fge2q")
+shader_parameter/progress = 0.0
+shader_parameter/strength = 10.0
+shader_parameter/noise_tex_normal = SubResource("NoiseTexture2D_d3lc0")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_uplmk")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_enajf"]
+resource_local_to_scene = true
+shader = ExtResource("18_fge2q")
+shader_parameter/progress = 0.0
+shader_parameter/strength = 10.0
+shader_parameter/noise_tex_normal = SubResource("NoiseTexture2D_d3lc0")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_uplmk")
 
 [node name="Level" type="Node2D"]
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_jmban")
-script = ExtResource("1_r7ed5")
-score = ExtResource("2_io2c4")
+script = ExtResource("1_5mo7t")
+score = ExtResource("2_y4jdh")
 
 [node name="Effects" type="CanvasLayer" parent="."]
-script = ExtResource("16_8va5q")
-
-[node name="Quake" type="ColorRect" parent="Effects"]
-material = SubResource("ShaderMaterial_hyi0t")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+script = ExtResource("3_li7h1")
 
 [node name="TilemapTreadmill" type="Node2D" parent="."]
 
@@ -567,32 +599,39 @@ layer_1/tile_data = PackedInt32Array(-786446, 131072, 7, -720910, 524288, 134224
 layer_2/name = "border"
 layer_2/tile_data = PackedInt32Array()
 
-[node name="Heesoo" parent="." instance=ExtResource("3_i2xp0")]
+[node name="Heesoo" parent="." instance=ExtResource("7_wj68g")]
 texture_filter = 1
 position = Vector2(63.2877, 71.0101)
 collision_layer = 6
 collision_mask = 6
 
-[node name="AnimeBoy" parent="." instance=ExtResource("8_ouy10")]
+[node name="AnimeBoy" parent="." instance=ExtResource("8_44ybs")]
 position = Vector2(61.472, 195.998)
 
-[node name="Camera2D" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_ufxva")]
+[node name="Camera2D" parent="." node_paths=PackedStringArray("player") instance=ExtResource("9_bq5wr")]
 texture_filter = 1
 position = Vector2(-218.643, -1914.15)
 player = NodePath("../Heesoo")
 
-[node name="EnemySpawner" parent="." instance=ExtResource("5_nqa3i")]
+[node name="EnemySpawner" parent="." instance=ExtResource("10_b2wu1")]
 y_sort_enabled = true
-spawns = Array[ExtResource("7_26lnw")]([SubResource("Resource_jq5ax"), SubResource("Resource_psxim"), SubResource("Resource_0ntm0"), SubResource("Resource_ml2ma"), SubResource("Resource_7s318"), SubResource("Resource_r716h"), SubResource("Resource_ojcuw"), SubResource("Resource_018em"), SubResource("Resource_oa1un")])
+spawns = Array[ExtResource("12_5gh5k")]([SubResource("Resource_jq5ax"), SubResource("Resource_psxim"), SubResource("Resource_0ntm0"), SubResource("Resource_ml2ma"), SubResource("Resource_7s318"), SubResource("Resource_r716h"), SubResource("Resource_ojcuw"), SubResource("Resource_018em"), SubResource("Resource_oa1un")])
 
 [node name="Loot" type="Node2D" parent="." groups=["loot"]]
 y_sort_enabled = true
-position = Vector2(-33.2978, -2.37842)
 
 [node name="Utilities" type="Node" parent="."]
 
 [node name="SaverLoader" type="Node" parent="Utilities"]
-script = ExtResource("14_dv705")
+script = ExtResource("17_d814b")
+
+[node name="enemy_imp_strong" parent="." instance=ExtResource("13_ylvnp")]
+material = SubResource("ShaderMaterial_63c6x")
+position = Vector2(180.92, 111.617)
+
+[node name="enemy_kiwi_demon" parent="." instance=ExtResource("14_l6xjk")]
+material = SubResource("ShaderMaterial_enajf")
+position = Vector2(217.033, 67.1701)
 
 [connection signal="body_entered" from="TilemapTreadmill/LeapFrogger/North" to="." method="_on_north_body_entered"]
 [connection signal="body_entered" from="TilemapTreadmill/LeapFrogger/East" to="." method="_on_east_body_entered"]

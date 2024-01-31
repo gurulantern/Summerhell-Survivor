@@ -455,11 +455,11 @@ radius = 40.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_sxmni"]
 radius = 5.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pxc17"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vf5ru"]
 texture = ExtResource("13_38gdb")
 
 [sub_resource type="Theme" id="Theme_7k2ac"]
-Panel/styles/panel = SubResource("StyleBoxTexture_pxc17")
+Panel/styles/panel = SubResource("StyleBoxTexture_vf5ru")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kut06"]
 texture = ExtResource("18_gm265")

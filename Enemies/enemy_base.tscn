@@ -21,7 +21,6 @@ collision_mask = 4
 HurtBoxType = 1
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2(-0.555555, 0)
 shape = SubResource("RectangleShape2D_4eccb")
 
 [node name="Hitbox" parent="." instance=ExtResource("3_knsxy")]
@@ -29,7 +28,6 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
-position = Vector2(-1, 0.25)
 shape = SubResource("RectangleShape2D_uerua")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

@@ -125,6 +125,7 @@ disabled = true
 
 [node name="EnemyBase" parent="." instance=ExtResource("4_30y18")]
 material = SubResource("ShaderMaterial_ux1pb")
+position = Vector2(7.49154, -7.11696)
 scale = Vector2(3, 3)
 
 [node name="CollisionShape2D" parent="EnemyBase/Hurtbox" index="0"]

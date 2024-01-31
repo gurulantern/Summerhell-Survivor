@@ -1,7 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://baou6yusmdocn"]
+[gd_scene load_steps=29 format=3 uid="uid://baou6yusmdocn"]
 
 [ext_resource type="Script" path="res://Player/Heesoo_64.gd" id="1_r4g5w"]
 [ext_resource type="Texture2D" uid="uid://835bsbiigfwr" path="res://Art/characters/HeeSoo/HeeSoo-64-anim-Sheet.png" id="2_0ncdq"]
+[ext_resource type="Texture2D" uid="uid://wygnwuwsnsmu" path="res://Player/GUI/pause.png" id="3_y0wcj"]
+[ext_resource type="Script" path="res://Player/pause_panel.gd" id="4_kliw0"]
+[ext_resource type="FontFile" uid="uid://bssw2l3ey0h80" path="res://Art/GUI/fonts/Pixel Coleco.otf" id="5_s3svx"]
+[ext_resource type="PackedScene" uid="uid://qqb8njgng0lu" path="res://Utility/UI/basic_button.tscn" id="6_26fn0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1drpo"]
 atlas = ExtResource("2_0ncdq")
@@ -152,6 +156,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6vb26"]
 size = Vector2(29, 26)
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b4t8q"]
+texture = ExtResource("3_y0wcj")
+
 [node name="heesoo64" type="CharacterBody2D" groups=["player"]]
 y_sort_enabled = true
 script = ExtResource("1_r4g5w")
@@ -168,3 +175,45 @@ offset = Vector2(0, -20)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_6vb26")
+
+[node name="GUILayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" type="Control" parent="GUILayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="PausePanel" type="Panel" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+process_mode = 3
+layout_mode = 0
+offset_left = -450.0
+offset_top = 60.0
+offset_right = -50.0
+offset_bottom = 310.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_b4t8q")
+script = ExtResource("4_kliw0")
+
+[node name="Label" type="Label" parent="GUILayer/GUI/PausePanel"]
+layout_mode = 0
+offset_left = 175.0
+offset_top = 15.0
+offset_right = 222.0
+offset_bottom = 38.0
+theme_override_fonts/font = ExtResource("5_s3svx")
+text = "Pause"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuButton2" parent="GUILayer/GUI/PausePanel" instance=ExtResource("6_26fn0")]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 196.545
+offset_right = 250.0
+offset_bottom = 226.545
+text = "Menu"
+
+[connection signal="pause_game" from="GUILayer/GUI/PausePanel" to="." method="_on_pause_panel_pause_game"]
+[connection signal="unpause_game" from="GUILayer/GUI/PausePanel" to="." method="_on_pause_panel_unpause_game"]
+[connection signal="click_end" from="GUILayer/GUI/PausePanel/MenuButton2" to="." method="_on_menu_button_click_end"]
