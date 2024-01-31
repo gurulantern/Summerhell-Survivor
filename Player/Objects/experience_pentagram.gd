@@ -12,13 +12,13 @@ var speed = -1
 func _ready():
 	if exp < 5:
 		return
-	elif exp < 25:
+	elif exp < 15:
 		sprite.play("blue")
-	elif exp < 50:
+	elif exp < 30:
 		sprite.play("red")
-	elif exp < 75:
+	elif exp < 60:
 		sprite.play("green")
-	elif exp < 100:
+	elif exp < 120:
 		sprite.play("gold")
 	elif exp < 200:
 		sprite.play("black")
