@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://cl0bac4fs6sws"]
+[gd_scene load_steps=49 format=3 uid="uid://cl0bac4fs6sws"]
 
 [ext_resource type="Script" path="res://Scenes/Levels/level.gd" id="1_5mo7t"]
 [ext_resource type="AudioStream" uid="uid://185dr2eghdeb" path="res://Audio/Music/battleMusic1.wav" id="2_y4jdh"]
@@ -9,14 +9,15 @@
 [ext_resource type="PackedScene" uid="uid://dkb6if7fhgmxv" path="res://Player/Objects/anime_boy.tscn" id="8_44ybs"]
 [ext_resource type="PackedScene" uid="uid://plge5ui2q5mw" path="res://Utility/Camera/camera_2d.tscn" id="9_bq5wr"]
 [ext_resource type="PackedScene" uid="uid://cfv3ak1k25pbq" path="res://Utility/Characters/enemy_spawner.tscn" id="10_b2wu1"]
-[ext_resource type="PackedScene" uid="uid://c51e0fk6gnlts" path="res://Enemies/enemy_imp_weak.tscn" id="11_pshy1"]
+[ext_resource type="PackedScene" uid="uid://idds77ssk3pj" path="res://Enemies/enemy_imp_weak.tscn" id="11_pshy1"]
 [ext_resource type="Script" path="res://Utility/spawn_info.gd" id="12_5gh5k"]
 [ext_resource type="PackedScene" uid="uid://40mu0o4eesl2" path="res://Enemies/enemy_imp_strong.tscn" id="13_ylvnp"]
-[ext_resource type="PackedScene" uid="uid://dh2vadd47lsx2" path="res://Enemies/enemy_kiwi_demon.tscn" id="14_l6xjk"]
-[ext_resource type="PackedScene" uid="uid://ssqg76igj4u7" path="res://Enemies/enemy_golden_urn.tscn" id="15_nrdtt"]
-[ext_resource type="PackedScene" uid="uid://d0yqnyrtbnadg" path="res://Enemies/enemy_azazel.tscn" id="16_k5kci"]
+[ext_resource type="PackedScene" uid="uid://l4k12pl3cxf0" path="res://Enemies/enemy_kiwi_demon.tscn" id="14_l6xjk"]
+[ext_resource type="PackedScene" uid="uid://d114rhy1xw3ko" path="res://Enemies/enemy_golden_urn.tscn" id="15_nrdtt"]
+[ext_resource type="PackedScene" uid="uid://cylgvxlbgbbup" path="res://Enemies/enemy_azazel.tscn" id="16_k5kci"]
 [ext_resource type="Script" path="res://Utility/Saves/saver_loader.gd" id="17_d814b"]
 [ext_resource type="Shader" path="res://Shader/explosion.gdshader" id="18_fge2q"]
+[ext_resource type="PackedScene" uid="uid://bdn40q81q1f5o" path="res://Enemies/enemy_black_urn.tscn" id="18_u4ucv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jmban"]
 
@@ -456,6 +457,61 @@ shader_parameter/strength = 10.0
 shader_parameter/noise_tex_normal = SubResource("NoiseTexture2D_d3lc0")
 shader_parameter/noise_tex = SubResource("NoiseTexture2D_uplmk")
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_legun"]
+noise_type = 0
+seed = 16
+frequency = 0.9675
+fractal_octaves = 9
+fractal_lacunarity = 100.0
+fractal_gain = 0.1
+fractal_weighted_strength = 0.7
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wiljl"]
+width = 32
+height = 32
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_legun")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wiuch"]
+noise_type = 0
+seed = 115
+frequency = 1.0
+fractal_octaves = 10
+fractal_lacunarity = 100.0
+fractal_gain = 10.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_m1wm6"]
+width = 32
+height = 32
+generate_mipmaps = false
+as_normal_map = true
+bump_strength = 32.0
+noise = SubResource("FastNoiseLite_wiuch")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_75kcp"]
+resource_local_to_scene = true
+shader = ExtResource("18_fge2q")
+shader_parameter/progress = 0.0
+shader_parameter/strength = 10.0
+shader_parameter/noise_tex_normal = SubResource("NoiseTexture2D_m1wm6")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_wiljl")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_727fp"]
+resource_local_to_scene = true
+shader = ExtResource("18_fge2q")
+shader_parameter/progress = 0.0
+shader_parameter/strength = 10.0
+shader_parameter/noise_tex_normal = SubResource("NoiseTexture2D_m1wm6")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_wiljl")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cp60s"]
+resource_local_to_scene = true
+shader = ExtResource("18_fge2q")
+shader_parameter/progress = 0.0
+shader_parameter/strength = 10.0
+shader_parameter/noise_tex_normal = SubResource("NoiseTexture2D_m1wm6")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_wiljl")
+
 [node name="Level" type="Node2D"]
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_jmban")
@@ -632,6 +688,18 @@ position = Vector2(180.92, 111.617)
 [node name="enemy_kiwi_demon" parent="." instance=ExtResource("14_l6xjk")]
 material = SubResource("ShaderMaterial_enajf")
 position = Vector2(217.033, 67.1701)
+
+[node name="enemy_golden_urn" parent="." instance=ExtResource("15_nrdtt")]
+material = SubResource("ShaderMaterial_75kcp")
+position = Vector2(307, 42)
+
+[node name="enemy_golden_urn2" parent="." instance=ExtResource("15_nrdtt")]
+material = SubResource("ShaderMaterial_727fp")
+position = Vector2(367, -45)
+
+[node name="enemy_black_urn" parent="." instance=ExtResource("18_u4ucv")]
+material = SubResource("ShaderMaterial_cp60s")
+position = Vector2(485, 83)
 
 [connection signal="body_entered" from="TilemapTreadmill/LeapFrogger/North" to="." method="_on_north_body_entered"]
 [connection signal="body_entered" from="TilemapTreadmill/LeapFrogger/East" to="." method="_on_east_body_entered"]

@@ -1,0 +1,70 @@
+[gd_scene load_steps=12 format=3 uid="uid://cb0rgqqd47goh"]
+
+[ext_resource type="Material" uid="uid://d3okkoi7wgit0" path="res://Shader/explosion.tres" id="1_ej3vx"]
+[ext_resource type="Script" path="res://Enemies/enemy.gd" id="2_tktuu"]
+[ext_resource type="AudioStream" uid="uid://cdvp26dpcigcc" path="res://Audio/SFX/WAV/imp_hit.wav" id="3_gmaws"]
+[ext_resource type="AudioStream" uid="uid://vj4w1ag6srxk" path="res://Audio/SFX/WAV/imp_death.wav" id="4_xp1yp"]
+[ext_resource type="PackedScene" uid="uid://d1l4mybv3esa7" path="res://Enemies/enemy_base.tscn" id="5_nkdhp"]
+[ext_resource type="Shader" path="res://Shader/explosion.gdshader" id="6_jqacy"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xo8ta"]
+noise_type = 0
+seed = 16
+frequency = 0.9675
+fractal_octaves = 9
+fractal_lacunarity = 100.0
+fractal_gain = 0.1
+fractal_weighted_strength = 0.7
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_a03p6"]
+width = 32
+height = 32
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_xo8ta")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_crvue"]
+noise_type = 0
+seed = 115
+frequency = 1.0
+fractal_octaves = 10
+fractal_lacunarity = 100.0
+fractal_gain = 10.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_smux4"]
+width = 32
+height = 32
+generate_mipmaps = false
+as_normal_map = true
+bump_strength = 32.0
+noise = SubResource("FastNoiseLite_crvue")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iowhu"]
+resource_local_to_scene = true
+shader = ExtResource("6_jqacy")
+shader_parameter/progress = 0.0
+shader_parameter/strength = 10.0
+shader_parameter/noise_tex_normal = SubResource("NoiseTexture2D_smux4")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_a03p6")
+
+[node name="enemy" type="CharacterBody2D"]
+y_sort_enabled = true
+material = ExtResource("1_ej3vx")
+scale = Vector2(0.9, 0.9)
+collision_layer = 5
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("2_tktuu")
+enemy_name = "imp_weak"
+hp = 8
+exp = 1
+snd_hit = ExtResource("3_gmaws")
+snd_death = ExtResource("4_xp1yp")
+
+[node name="EnemyBase" parent="." instance=ExtResource("5_nkdhp")]
+material = SubResource("ShaderMaterial_iowhu")
+
+[connection signal="hurt" from="EnemyBase/Hurtbox" to="." method="_on_hurtbox_hurt"]
+
+[editable path="EnemyBase"]
+[editable path="EnemyBase/Hurtbox"]
+[editable path="EnemyBase/Hitbox"]

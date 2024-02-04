@@ -1,29 +1,29 @@
-[gd_scene load_steps=19 format=3 uid="uid://d114rhy1xw3ko"]
+[gd_scene load_steps=19 format=3 uid="uid://bdn40q81q1f5o"]
 
-[ext_resource type="Material" uid="uid://d3okkoi7wgit0" path="res://Shader/explosion.tres" id="1_ppm0m"]
-[ext_resource type="Script" path="res://Enemies/enemy.gd" id="2_i5q4m"]
-[ext_resource type="AudioStream" uid="uid://cdvp26dpcigcc" path="res://Audio/SFX/WAV/imp_hit.wav" id="3_h0o0t"]
-[ext_resource type="Texture2D" uid="uid://crgw7wakejtrx" path="res://Art/characters/enemy/urn/golden-urn-demon128-Sheet.png" id="3_xtu5m"]
-[ext_resource type="AudioStream" uid="uid://vj4w1ag6srxk" path="res://Audio/SFX/WAV/imp_death.wav" id="4_0gabb"]
-[ext_resource type="PackedScene" uid="uid://d1l4mybv3esa7" path="res://Enemies/enemy_base.tscn" id="4_ob16c"]
-[ext_resource type="Shader" path="res://Shader/explosion.gdshader" id="5_2tib2"]
+[ext_resource type="Material" uid="uid://d3okkoi7wgit0" path="res://Shader/explosion.tres" id="1_22w87"]
+[ext_resource type="Script" path="res://Enemies/enemy.gd" id="2_4rgel"]
+[ext_resource type="Shader" path="res://Shader/explosion.gdshader" id="2_84lqs"]
+[ext_resource type="Texture2D" uid="uid://blb4sl1m1f0t1" path="res://Art/characters/enemy/urn/black-urn-demon128-Sheet.png" id="3_1t3n1"]
+[ext_resource type="AudioStream" uid="uid://cdvp26dpcigcc" path="res://Audio/SFX/WAV/imp_hit.wav" id="3_wdwg5"]
+[ext_resource type="AudioStream" uid="uid://vj4w1ag6srxk" path="res://Audio/SFX/WAV/imp_death.wav" id="4_x11gj"]
+[ext_resource type="PackedScene" uid="uid://d1l4mybv3esa7" path="res://Enemies/enemy_base.tscn" id="6_mij0h"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rn3qe"]
-atlas = ExtResource("3_xtu5m")
+[sub_resource type="AtlasTexture" id="AtlasTexture_tnkvu"]
+atlas = ExtResource("3_1t3n1")
 region = Rect2(0, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mmsy2"]
-atlas = ExtResource("3_xtu5m")
+[sub_resource type="AtlasTexture" id="AtlasTexture_m4sk2"]
+atlas = ExtResource("3_1t3n1")
 region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1h265"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rn3qe")
+"texture": SubResource("AtlasTexture_tnkvu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mmsy2")
+"texture": SubResource("AtlasTexture_m4sk2")
 }],
 "loop": true,
 "name": &"move",
@@ -66,7 +66,7 @@ noise = SubResource("FastNoiseLite_g4wvc")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sg84c"]
 resource_local_to_scene = true
-shader = ExtResource("5_2tib2")
+shader = ExtResource("2_84lqs")
 shader_parameter/progress = 0.0
 shader_parameter/strength = 10.0
 shader_parameter/noise_tex_normal = SubResource("NoiseTexture2D_d3lc0")
@@ -78,28 +78,28 @@ radius = 37.0667
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8nxm"]
 radius = 39.138
 
-[node name="enemy_golden_urn" type="CharacterBody2D"]
+[node name="enemy_black_urn" type="CharacterBody2D"]
 y_sort_enabled = true
-material = ExtResource("1_ppm0m")
-scale = Vector2(1.4, 1.4)
+material = ExtResource("1_22w87")
+scale = Vector2(1.8, 1.8)
 collision_layer = 5
 collision_mask = 5
 motion_mode = 1
-script = ExtResource("2_i5q4m")
-enemy_name = "golden_urn"
+script = ExtResource("2_4rgel")
+enemy_name = "black_urn"
 movement_speed = 10.0
 hp = 300
 knockback_recovery = 2.0
 exp = 35
 enemy_damage = 8
-snd_hit = ExtResource("3_h0o0t")
-snd_death = ExtResource("4_0gabb")
+snd_hit = ExtResource("3_wdwg5")
+snd_death = ExtResource("4_x11gj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 16
 visibility_layer = 16
 y_sort_enabled = true
-material = ExtResource("1_ppm0m")
+material = ExtResource("1_22w87")
 sprite_frames = SubResource("SpriteFrames_1h265")
 animation = &"move"
 frame_progress = 0.406844
@@ -109,7 +109,7 @@ offset = Vector2(0, -15)
 position = Vector2(0.666667, -9.66667)
 shape = SubResource("CircleShape2D_5xftf")
 
-[node name="EnemyBase" parent="." instance=ExtResource("4_ob16c")]
+[node name="EnemyBase" parent="." instance=ExtResource("6_mij0h")]
 material = SubResource("ShaderMaterial_sg84c")
 position = Vector2(0, 1.81818)
 
@@ -124,7 +124,7 @@ shape = SubResource("CircleShape2D_i8nxm")
 [node name="VisibleOnScreenNotifier2D" parent="EnemyBase" index="2"]
 position = Vector2(-1.66667, 0.202023)
 scale = Vector2(2.31481, 2)
-rect = Rect2(-22, -27, 45, 42)
+rect = Rect2(-22, -34, 45, 48)
 
 [connection signal="hurt" from="EnemyBase/Hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="screen_entered" from="EnemyBase/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]

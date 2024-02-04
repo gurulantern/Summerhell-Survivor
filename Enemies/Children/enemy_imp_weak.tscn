@@ -1,0 +1,127 @@
+[gd_scene load_steps=18 format=3 uid="uid://cv0hk8uwpqu4f"]
+
+[ext_resource type="PackedScene" uid="uid://cb0rgqqd47goh" path="res://Enemies/enemy.tscn" id="1_6v3h4"]
+[ext_resource type="Texture2D" uid="uid://cq2kqtir3xgpy" path="res://Art/characters/enemy/imp/Imp-Sheet-64.png" id="3_j73i3"]
+[ext_resource type="Shader" path="res://Shader/explosion.gdshader" id="5_8kcx2"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_h4mry"]
+noise_type = 0
+seed = 16
+frequency = 0.9675
+fractal_octaves = 9
+fractal_lacunarity = 100.0
+fractal_gain = 0.1
+fractal_weighted_strength = 0.7
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uplmk"]
+width = 32
+height = 32
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_h4mry")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_g4wvc"]
+noise_type = 0
+seed = 115
+frequency = 1.0
+fractal_octaves = 10
+fractal_lacunarity = 100.0
+fractal_gain = 10.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d3lc0"]
+width = 32
+height = 32
+generate_mipmaps = false
+as_normal_map = true
+bump_strength = 32.0
+noise = SubResource("FastNoiseLite_g4wvc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7n287"]
+resource_local_to_scene = true
+shader = ExtResource("5_8kcx2")
+shader_parameter/progress = 0.0
+shader_parameter/strength = 10.0
+shader_parameter/noise_tex_normal = SubResource("NoiseTexture2D_d3lc0")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_uplmk")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tm2ji"]
+atlas = ExtResource("3_j73i3")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cecx7"]
+atlas = ExtResource("3_j73i3")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_elhj5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tm2ji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cecx7")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6bj6k"]
+radius = 12.2222
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xo8ta"]
+noise_type = 0
+seed = 16
+frequency = 0.9675
+fractal_octaves = 9
+fractal_lacunarity = 100.0
+fractal_gain = 0.1
+fractal_weighted_strength = 0.7
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_a03p6"]
+width = 32
+height = 32
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_xo8ta")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_crvue"]
+noise_type = 0
+seed = 115
+frequency = 1.0
+fractal_octaves = 10
+fractal_lacunarity = 100.0
+fractal_gain = 10.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_smux4"]
+width = 32
+height = 32
+generate_mipmaps = false
+as_normal_map = true
+bump_strength = 32.0
+noise = SubResource("FastNoiseLite_crvue")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x0dp5"]
+resource_local_to_scene = true
+shader = ExtResource("5_8kcx2")
+shader_parameter/progress = 0.0
+shader_parameter/strength = 10.0
+shader_parameter/noise_tex_normal = SubResource("NoiseTexture2D_smux4")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_a03p6")
+
+[node name="enemy_imp_weak" instance=ExtResource("1_6v3h4")]
+material = SubResource("ShaderMaterial_7n287")
+enemy_damage = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_elhj5")
+animation = &"move"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+position = Vector2(-1.11111, 1.11111)
+shape = SubResource("CircleShape2D_6bj6k")
+
+[node name="EnemyBase" parent="." index="2"]
+material = SubResource("ShaderMaterial_x0dp5")
+
+[editable path="EnemyBase"]
+[editable path="EnemyBase/Hurtbox"]
+[editable path="EnemyBase/Hitbox"]
