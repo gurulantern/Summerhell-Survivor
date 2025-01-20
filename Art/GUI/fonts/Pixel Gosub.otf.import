@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/Pixel Gosub.otf-311c6222bb6f31e78d22a6eed8105
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

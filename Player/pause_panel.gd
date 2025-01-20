@@ -14,4 +14,3 @@ func _input(event):
 		else:
 			is_paused = true
 			emit_signal("pause_game")
-
